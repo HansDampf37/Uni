@@ -76,7 +76,3 @@ object PowerRules {
         Rule(Pow(a, L(a, b)), a, b) { b }
     )
 }
-
-fun main() {
-    println(Rule(L(a, Pow(b, c)), a, b, c) { P(c, L(a, b)) }.applyIfPossible(Log(Sum(x, one), Power(Sum(one, x), y))))
-}
