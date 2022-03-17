@@ -5,7 +5,7 @@ import analysis.terms.simplifying.VariableSimplifier
 import propa.Placeholder
 import propa.UnifyingTree
 
-class Variable(val str: String) : Primitive, TermContainer() {
+class Variable(val str: String) : Primitive, TermContainer {
     override var value: Term?
         get() = VariableBindings.getBinding(this)
         set(v) {
@@ -23,6 +23,8 @@ class Variable(val str: String) : Primitive, TermContainer() {
     override fun componentOrderMatters(): Boolean = value?.componentOrderMatters() ?: throw Placeholder.NoComponents(this)
     override fun isComponent(): Boolean = value?.isComponent() ?: throw Placeholder.NoComponents(this)
     override fun simplifier(): Simplifier<Variable> = VariableSimplifier()
+    override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
+    override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
 
     override fun toInt(): Int = value?.toInt() ?: throw NotANumberException(this)
     override fun toDouble(): Double = value?.toDouble() ?: throw NotANumberException(this)

@@ -1,5 +1,5 @@
 package analysis.terms
 
-abstract class TermContainer{
-    abstract var value: Term?
+interface TermContainer {
+    var value: Term?
 }

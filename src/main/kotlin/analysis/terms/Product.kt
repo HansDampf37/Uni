@@ -5,16 +5,10 @@ import analysis.terms.simplifying.Simplifier
 import propa.UnifyingTree
 
 class Product(terms: List<Term>) : ArrayList<Term>(), Term {
-
     constructor(vararg terms: Term) : this(terms.toList())
 
     init {
         for (t in terms) {
-            /*if (t is Product) {
-                addAll(t)
-            } else {
-                add(t)
-            }*/
             add(t)
         }
     }
@@ -34,10 +28,21 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
         else throw java.lang.IllegalStateException("Case should have been checked in the first line of this method")
     }
 
-    override fun getComponents(): List<UnifyingTree> = clone()
+    private val comps: MutableList<UnifyingTree> = ArrayList()
+    override fun getComponents(): List<UnifyingTree> {
+        val cp = comps.toMutableList()
+        cp.addAll(this)
+        return cp
+    }
     override fun componentOrderMatters(): Boolean = false
     override fun isComponent(): Boolean = false
     override fun simplifier(): Simplifier<Product> = ProductSimplifier()
+    override fun addComponent(c: UnifyingTree) {
+        comps.add(c)
+    }
+    override fun removeComponent(c: UnifyingTree) {
+        comps.remove(c)
+    }
 
     override fun toDouble(): Double = this.fold(1.0) { acc, new -> acc * new.toDouble() }
     override fun toInt(): Int = this.fold(1) { acc, new -> acc * new.toInt() }

@@ -4,6 +4,7 @@ import analysis.inverseMult
 import analysis.terms.simplifying.LogSimplifier
 import analysis.terms.simplifying.Simplifier
 import analysis.unaryMinus
+import propa.Placeholder
 import propa.UnifyingTree
 import kotlin.math.log
 
@@ -32,8 +33,9 @@ open class Log(var base: Term, var arg: Term) : Term {
     }
     override fun componentOrderMatters(): Boolean = true
     override fun isComponent(): Boolean = false
-
     override fun simplifier(): Simplifier<*> = LogSimplifier()
+    override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
+    override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
 
     override fun toDouble(): Double = log(arg.toDouble(), base.toDouble())
     override fun toInt(): Int = toDouble().toInt()

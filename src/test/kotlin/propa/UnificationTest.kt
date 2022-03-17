@@ -7,12 +7,13 @@ import org.junit.jupiter.api.Test
 
 internal class UnificationTest {
     private val two = Num(2)
+    private val one = Num(1)
     private val a = Variable("a")
     private val b = Variable("b")
     private val c = Variable("c")
 
     @Test
-    fun testUnification1() {
+    fun testUnification0() {
         val x = UnificationVariable("x")
         val y = UnificationVariable("y")
         val t = Power(two, Sum(a, Num(3)))
@@ -23,7 +24,7 @@ internal class UnificationTest {
     }
 
     @Test
-    fun testUnification4() {
+    fun testUnification1() {
         val x = UnificationVariable("x")
         val y = UnificationVariable("y")
         val z = UnificationVariable("z")
@@ -61,6 +62,23 @@ internal class UnificationTest {
         Assertions.assertEquals(listOf(
             mapOf(Pair(z, b), Pair(y, a), Pair(x, Num(2))),
             mapOf(Pair(z, a), Pair(y, b), Pair(x, Num(2)))
+        ), result)
+    }
+
+    @Test
+    fun testUnification4() {
+        val x = UnificationVariable("x")
+        val y = UnificationVariable("y")
+        val z = UnificationVariable("z")
+        val q = UnificationVariable("q")
+        val t = Product(one, a, b)
+        val u = Product(x, one)
+        val result = t.unify(u)
+        println("Unification of terms\n$t and \n$u is \n$result")
+        val newPlaceholder = result[0].keys.first { it != x }
+        Assertions.assertEquals(listOf(
+            mapOf(Pair(x, b), Pair(newPlaceholder, a)),
+            mapOf(Pair(x, a), Pair(newPlaceholder, b))
         ), result)
     }
 }

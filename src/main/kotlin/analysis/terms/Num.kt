@@ -28,6 +28,8 @@ class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Field<Ter
     override fun getComponents(): List<UnifyingTree> = throw Placeholder.NoComponents(this)
     override fun componentOrderMatters(): Boolean = throw Placeholder.NoComponents(this)
     override fun isComponent() = true
+    override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
+    override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun simplifier(): Simplifier<Num> =  SimplifierTrivial()
 
     override fun zero() = Num(0)

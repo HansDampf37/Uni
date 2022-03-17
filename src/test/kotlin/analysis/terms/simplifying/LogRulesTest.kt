@@ -22,7 +22,7 @@ internal class LogRulesTest {
         val t = Sum(Log(x, y), Log(x, four))
         Assertions.assertEquals(
             Log(x, Product(y, four)),
-            LogRules.rules.filter { it.preconditionFulfilled(t).first }.map { it.applyIfPossible(t) }[0]
+            SumRules.rules.filter { it.preconditionFulfilled(t).first }.map { it.applyIfPossible(t) }[0]
         )
     }
 

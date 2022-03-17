@@ -1,9 +1,11 @@
 package propa
 
-interface UnifyingTree {
+interface UnifyingTree : Cloneable {
     fun getComponents(): List<UnifyingTree>
     fun componentOrderMatters(): Boolean
     fun isComponent(): Boolean
+    fun addComponent(c: UnifyingTree)
+    fun removeComponent(c: UnifyingTree)
     override fun equals(other: Any?): Boolean
 
     fun unify(unification: UnifyingTree): List<MutableMap<Placeholder, UnifyingTree>> {
@@ -17,7 +19,24 @@ interface UnifyingTree {
         if (this.javaClass != unification.javaClass) return listOf()
         val ownComponents = getComponents()
         val unificationComponents = unification.getComponents()
-        if (ownComponents.size != unificationComponents.size) return listOf()
+        if (ownComponents.size != unificationComponents.size) {
+            // might still unify multiple components into one Placeholder but only if order doesn't matter
+            if (componentOrderMatters()) return listOf()
+            if (ownComponents.size < unificationComponents.size) {
+                val temporary = ownComponents.filter { it is Placeholder && it.temporary }
+                return if (ownComponents.size - temporary.size == unificationComponents.size) {
+                    for (temp in temporary) unification.removeComponent(temp)
+                    unify(unification)
+                } else {
+                    listOf()
+                }
+            }
+            // introduce new placeholders
+            repeat(ownComponents.size - unificationComponents.size) { i ->
+                unification.addComponent(Placeholder("Temp$i", null, true))
+            }
+            return unify(unification)
+        }
         return if (componentOrderMatters()) unifyComponents(ownComponents, unificationComponents)
         else {
             val permutations = Permutations(ownComponents)
@@ -33,7 +52,7 @@ interface UnifyingTree {
         unificationComponents: List<UnifyingTree>
     ): List<HashMap<Placeholder, UnifyingTree>> {
         val finalSolution = ArrayList<HashMap<Placeholder, UnifyingTree>>()
-        val subResults = List(ownComponents.size) { i -> ownComponents[i].unify(unificationComponents[i])}
+        val subResults = List(ownComponents.size) { i -> ownComponents[i].unify(unificationComponents[i]) }
         // resultSorted[i] contains all solutions of component i as List<HashMap<Placeholder, UnifyingTree>>
         val resultSorted = subResults.sortedBy { it.size }
         if (subResults[0].size == 2) {
@@ -43,7 +62,7 @@ interface UnifyingTree {
         if (resultSorted[0].isEmpty()) return listOf()
 
         val notTriedMask: MutableList<Long> = MutableList(resultSorted.size) { -1L }
-        val availableMask = MutableList(resultSorted.size) {-1L }
+        val availableMask = MutableList(resultSorted.size) { -1L }
 
         var level = 0
         //contents are going to be overwritten
@@ -74,22 +93,6 @@ interface UnifyingTree {
                 level++
             }
         }
-        /*for (i in ownComponents.indices) {
-            val result = ownComponents[i].unify(unificationComponents[i])
-            if (!result.first) return Pair(false, HashMap())
-            // could unify subterms
-            for (unification in result.second) {
-                if (solution[unification.key] == null) {
-                    // placeholder is not yet unified
-                    solution[unification.key] = unification.value
-                } else {
-                    // placeholder already got unified
-                    if (solution[unification.key] != unification.value) return Pair(false, HashMap())
-                    // placeholder remains consistent
-                }
-            }
-        }
-        return Pair(true, solution)*/
         return finalSolution
     }
 
@@ -98,7 +101,7 @@ interface UnifyingTree {
         mutableMap: MutableMap<Placeholder, UnifyingTree>,
         level: Int
     ): Boolean {
-        for (e in mutableMap){
+        for (e in mutableMap) {
             for (i in 0 until level) {
                 if (solution[i][e.key] != null && solution[i][e.key] != e.value) {
                     return false
@@ -117,5 +120,7 @@ interface UnifyingTree {
         }
         return res
     }
+
+    override fun clone(): UnifyingTree
 }
 

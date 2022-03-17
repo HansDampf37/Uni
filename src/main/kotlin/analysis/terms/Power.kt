@@ -28,6 +28,8 @@ class Power(var base: Term, var exponent: Term) : Term {
     override fun componentOrderMatters(): Boolean = true
     override fun isComponent(): Boolean = false
     override fun simplifier(): Simplifier<Power> = PowerSimplifier()
+    override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
+    override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
 
     override fun toDouble(): Double {
         return base.simplify().toDouble().pow(exponent.simplify().toDouble())

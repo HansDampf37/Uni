@@ -12,7 +12,7 @@ class SimplificationRule(private val precondition: Term, vararg variables: Unifi
     fun applyIfPossible(term: Term): Term {
         val uniResult = preconditionFulfilled(term)
         if (uniResult.first) {
-            uniResult.second.forEach { it.key.setT(it.value) }
+            uniResult.second.forEach { it.key.t = it.value }
             val simplify = transform().pullUp()
             println("$term -> $simplify since: $this")
             return simplify
