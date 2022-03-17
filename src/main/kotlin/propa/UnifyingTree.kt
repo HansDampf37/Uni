@@ -6,28 +6,70 @@ interface UnifyingTree {
     fun isComponent(): Boolean
     override fun equals(other: Any?): Boolean
 
-    fun unify(unification: UnifyingTree): Pair<Boolean, MutableMap<Placeholder, UnifyingTree>> {
-        if (unification.isComponent()) return Pair(true, mutableMapOf(Pair(unification as Placeholder, this)))
-        if (this.javaClass != unification.javaClass) return Pair(false, HashMap())
+    fun unify(unification: UnifyingTree): List<MutableMap<Placeholder, UnifyingTree>> {
+        if (unification.isComponent()) {
+            return when (unification) {
+                is Placeholder -> listOf(mutableMapOf(Pair(unification, this)))
+                this -> listOf(mutableMapOf())
+                else -> listOf()
+            }
+        }
+        if (this.javaClass != unification.javaClass) return listOf()
         val ownComponents = getComponents()
         val unificationComponents = unification.getComponents()
-        if (ownComponents.size != unificationComponents.size) return Pair(false, HashMap())
-        if (componentOrderMatters()) return unifyComponents(ownComponents, unificationComponents)
+        if (ownComponents.size != unificationComponents.size) return listOf()
+        return if (componentOrderMatters()) unifyComponents(ownComponents, unificationComponents)
         else {
-            for (ownComponentPermutation in Permutations(ownComponents)) {
-                val result = unifyComponents(ownComponentPermutation, unificationComponents)
-                if (result.first) return result
-            }
-            return Pair(false, HashMap())
+            val permutations = Permutations(ownComponents)
+            permutations.map {
+                //unify each permutation and merge all solutions
+                unifyComponents(it, unificationComponents)
+            }.flatten()
         }
     }
 
     private fun unifyComponents(
         ownComponents: List<UnifyingTree>,
         unificationComponents: List<UnifyingTree>
-    ): Pair<Boolean, HashMap<Placeholder, UnifyingTree>> {
-        val solution = HashMap<Placeholder, UnifyingTree>()
-        for (i in ownComponents.indices) {
+    ): List<HashMap<Placeholder, UnifyingTree>> {
+        val finalSolution = ArrayList<HashMap<Placeholder, UnifyingTree>>()
+        val subResults = List(ownComponents.size) { i -> ownComponents[i].unify(unificationComponents[i])}
+        // resultSorted[i] contains all solutions of component i as List<HashMap<Placeholder, UnifyingTree>>
+        val resultSorted = subResults.sortedBy { it.size }
+
+        if (resultSorted[0].isEmpty()) return listOf()
+
+        val notTriedMask: MutableList<Long> = MutableList(resultSorted.size) { -1L }
+        var availableMask = MutableList(resultSorted.size) {-1L }
+
+        var level = 0
+        //contents are going to be overwritten
+        val solution = MutableList(resultSorted.size) { i -> resultSorted[i][0] }
+        val indices = MutableList(resultSorted.size) { -1 }
+
+        while (level >= 0) {
+            if (level == resultSorted.size) {
+                // solution
+                finalSolution.add(merge(solution))
+                availableMask[level - 1] = availableMask[level - 1] xor (1L shl indices[level - 1])
+                level--
+                continue
+            }
+            val nextIndex = (notTriedMask[level] and availableMask[level]).countTrailingZeroBits()
+            if (nextIndex == resultSorted[level].size) {
+                // no further solution
+                if (level == 0) break
+                availableMask[level] = availableMask[level] xor (1L shl indices[level - 1])
+                notTriedMask[level--] = -1L
+                continue
+            }
+            notTriedMask[level] = notTriedMask[level] xor (1L shl nextIndex)
+            availableMask[level] = availableMask[level] xor (1L shl nextIndex)
+            solution[level] = resultSorted[level][nextIndex]
+            indices[level] = nextIndex
+            level++
+        }
+        /*for (i in ownComponents.indices) {
             val result = ownComponents[i].unify(unificationComponents[i])
             if (!result.first) return Pair(false, HashMap())
             // could unify subterms
@@ -42,7 +84,18 @@ interface UnifyingTree {
                 }
             }
         }
-        return Pair(true, solution)
+        return Pair(true, solution)*/
+        return finalSolution
+    }
+
+    fun merge(solution: MutableList<MutableMap<Placeholder, UnifyingTree>>): java.util.HashMap<Placeholder, UnifyingTree> {
+        val res = HashMap<Placeholder, UnifyingTree>()
+        for (s in solution) {
+            for (e in s) {
+                res[e.key] = e.value
+            }
+        }
+        return res
     }
 }
 

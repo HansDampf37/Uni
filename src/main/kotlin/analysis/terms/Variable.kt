@@ -5,8 +5,8 @@ import analysis.terms.simplifying.VariableSimplifier
 import propa.Placeholder
 import propa.UnifyingTree
 
-class Variable(val str: String) : Primitive {
-    var value: Term?
+class Variable(val str: String) : Primitive, TermContainer() {
+    override var value: Term?
         get() = VariableBindings.getBinding(this)
         set(v) {
             if (v == null) VariableBindings.unbind(this)

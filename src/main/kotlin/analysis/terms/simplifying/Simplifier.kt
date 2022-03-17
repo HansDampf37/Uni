@@ -28,12 +28,20 @@ interface Simplifier<T : Term> {
      * @return
      */
     fun eval(t: T): Term
+
+    /**
+     * Flattens all layers in this term not just one
+     *
+     * @param t
+     */
+    fun pullUp(t: T): Term
 }
 
 class SimplifierTrivial<T: Term>: Simplifier<T> {
     override fun simplify(t: T) = t
     override fun flatten(t: T) = t
     override fun eval(t: T) = t
+    override fun pullUp(t: T) = t
 }
 
 class SumSimplifier: Simplifier<Sum> {
@@ -91,14 +99,23 @@ class SumSimplifier: Simplifier<Sum> {
         return res
     }
 
-    fun pullUp(sum: Sum) {
-        for (i in sum.indices.reversed()) {
-            if (sum[i] is Sum) {
-                pullUp(sum[i] as Sum)
-                val removed = sum.removeAt(i)
-                sum.addAll(removed as Sum)
+    override fun pullUp(t: Sum): Term {
+        if (t.size == 1) t[0].pullUp()
+        for (i in t.indices.reversed()) {
+            val el = t[i]
+            el.pullUp()
+            if (el is Sum) {
+                t.removeAt(i)
+                t.addAll(el)
+            } else if (el is TermContainer) {
+                val v = el.value
+                if (v != null) {
+                    t.removeAt(i)
+                    t.add(v)
+                }
             }
         }
+        return t
     }
 
     /**
@@ -177,14 +194,23 @@ class ProductSimplifier : Simplifier<Product> {
         return res.flatten()
     }
 
-    fun pullUp(pr: Product) {
-        for (i in pr.indices.reversed()) {
-            if (pr[i] is Product) {
-                pullUp(pr[i] as Product)
-                val removed = pr.removeAt(i)
-                pr.addAll(removed as Product)
+    override fun pullUp(t: Product): Term {
+        if (t.size == 1) t[0].pullUp()
+        for (i in t.indices.reversed()) {
+            val el = t[i]
+            el.pullUp()
+            if (el is Product) {
+                t.removeAt(i)
+                t.addAll(el)
+            } else if (el is TermContainer) {
+                val v = el.value
+                if (v != null) {
+                    t.removeAt(i)
+                    t.add(v)
+                }
             }
         }
+        return t
     }
 
     override fun flatten(t: Product): Term {
@@ -258,6 +284,12 @@ class PowerSimplifier: Simplifier<Power> {
         return res.flatten()
     }
 
+    override fun pullUp(t: Power): Term{
+        t.base = t.base.pullUp()
+        t.exponent = t.exponent.pullUp()
+        return t
+    }
+
     override fun flatten(t: Power): Term {
         t.exponent = t.exponent.flatten()
         t.base = t.base.flatten()
@@ -283,6 +315,8 @@ class PowerSimplifier: Simplifier<Power> {
 
 class LogSimplifier: Simplifier<Log> {
     override fun simplify(t: Log): Term {
+        t.base = t.base.simplify()
+        t.arg = t.arg.simplify()
         if (t.base == t.arg) return Num(1)
         if (t.arg == Num(0)) return Num(1)
         if (t.arg is Power) {
@@ -307,6 +341,12 @@ class LogSimplifier: Simplifier<Log> {
             t
         }
     }
+
+    override fun pullUp(t: Log): Term {
+        t.base = t.base.pullUp()
+        t.arg = t.arg.pullUp()
+        return t
+    }
 }
 
 class VariableSimplifier: Simplifier<Variable> {
@@ -314,4 +354,5 @@ class VariableSimplifier: Simplifier<Variable> {
     override fun simplify(t: Variable): Term = t.value ?: t
     override fun flatten(t: Variable): Term = t
     override fun eval(t: Variable): Term = t.value ?: t
+    override fun pullUp(t: Variable): Term = t.value?.pullUp() ?: t
 }

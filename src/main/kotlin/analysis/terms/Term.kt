@@ -124,3 +124,6 @@ fun <T : Term> T.flatten() = (this.simplifier() as Simplifier<T>).flatten(this)
 
 @Suppress("UNCHECKED_CAST")
 fun <T : Term> T.eval() = (this.simplifier() as Simplifier<T>).eval(this)
+
+@Suppress("UNCHECKED_CAST")
+fun <T : Term> T.pullUp() = (this.simplifier() as Simplifier<T>).pullUp(this)

@@ -2,6 +2,7 @@ package analysis.terms
 
 import analysis.terms.simplifying.PowerSimplifier
 import analysis.terms.simplifying.Simplifier
+import propa.Placeholder
 import propa.UnifyingTree
 import kotlin.math.pow
 
