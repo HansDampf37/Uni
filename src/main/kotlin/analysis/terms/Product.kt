@@ -1,5 +1,9 @@
 package analysis.terms
 
+import analysis.terms.simplifying.ProductSimplifier
+import analysis.terms.simplifying.Simplifier
+import propa.UnifyingTree
+
 class Product(terms: List<Term>) : ArrayList<Term>(), Term {
 
     constructor(vararg terms: Term) : this(terms.toList())
@@ -30,6 +34,9 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
         else throw java.lang.IllegalStateException("Case should have been checked in the first line of this method")
     }
 
+    override fun getComponents(): List<UnifyingTree> = clone()
+    override fun componentOrderMatters(): Boolean = false
+    override fun isComponent(): Boolean = false
     override fun simplifier(): Simplifier<Product> = ProductSimplifier()
 
     override fun toDouble(): Double = this.fold(1.0) { acc, new -> acc * new.toDouble() }

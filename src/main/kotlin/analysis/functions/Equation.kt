@@ -1,6 +1,7 @@
 package analysis.functions
 
 import analysis.terms.*
+import analysis.terms.simplifying.SumSimplifier
 
 class Equation(private var left: Term, private var right: Term) {
 

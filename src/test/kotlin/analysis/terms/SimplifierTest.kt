@@ -3,6 +3,7 @@ package analysis.terms
 import analysis.inverseMult
 import analysis.unaryMinus
 import junit.framework.TestCase
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 internal class SimplifierTest: TestCase() {
@@ -16,7 +17,7 @@ internal class SimplifierTest: TestCase() {
         val product = Product(x, Power(x, Num(-1)))
         val simp = product.simplify()
         println("$product -> $simp")
-        assertEquals(one, simp)
+        Assertions.assertEquals(one, simp)
     }
 
     @Test
@@ -24,7 +25,7 @@ internal class SimplifierTest: TestCase() {
         val product = Product(x, Product(-one, Power(x, Num(-1))))
         val simp = product.simplify()
         println("$product -> $simp")
-        assertEquals(-one, simp)
+        Assertions.assertEquals(-one, simp)
     }
 
     @Test
@@ -33,7 +34,7 @@ internal class SimplifierTest: TestCase() {
             Product(four, x, Power(two, -one), x, Power(x, Num(-2)))
         val simp = product.simplify()
         println("$product -> $simp")
-        assertEquals(two, simp)
+        Assertions.assertEquals(two, simp)
     }
 
     @Test
@@ -42,21 +43,21 @@ internal class SimplifierTest: TestCase() {
         val res = product / product.clone()
         val simp = res.simplify()
         println("$res -> $simp")
-        assertEquals(one, simp)
+        Assertions.assertEquals(one, simp)
     }
 
     @Test
     fun testSimplifyTimes5() {
         val product = x * x
         println("${Product(x, x)} -> $product")
-        assertEquals(x.pow(2), product)
+        Assertions.assertEquals(x.pow(2), product)
     }
 
     @Test
     fun testSimplifyTimes6() {
         val product = x *  Num(3) * x
         println("${Product(x, Num(3), x)} -> $product")
-        assertEquals(Num(3) * x.pow(2), product)
+        Assertions.assertEquals(Num(3) * x.pow(2), product)
     }
 
     @Test
@@ -64,7 +65,7 @@ internal class SimplifierTest: TestCase() {
         val sum = Sum(x, Product(x, Num(-1)))
         val simp = sum.simplify()
         println("$sum -> $simp")
-        assertEquals(Num(0), simp)
+        Assertions.assertEquals(Num(0), simp)
     }
 
     @Test
@@ -72,7 +73,7 @@ internal class SimplifierTest: TestCase() {
         val sum = Sum(x, Variable("y"), Product(x, Num(-4)))
         val simp = sum.simplify()
         println("$sum -> $simp")
-        assertEquals(Sum(Product(x, Num(-3)), Variable("y")), simp)
+        Assertions.assertEquals(Sum(Product(x, Num(-3)), Variable("y")), simp)
     }
 
     @Test
@@ -80,7 +81,7 @@ internal class SimplifierTest: TestCase() {
         val sum = Sum(Sum(Sum(x) as Term) as Term)
         val simp = sum.simplify()
         println("$sum -> $simp")
-        assertEquals(x, simp)
+        Assertions.assertEquals(x, simp)
     }
 
     @Test
@@ -88,7 +89,7 @@ internal class SimplifierTest: TestCase() {
         val sum = Sum(Sum(x, Variable("y")) as Term, Sum(Product(Num(-1), x), Product(Num(-1), Variable("y"))))
         val simp = sum.simplify()
         println("$sum -> $simp")
-        assertEquals(Num(0), simp)
+        Assertions.assertEquals(Num(0), simp)
     }
 
     @Test
@@ -96,7 +97,7 @@ internal class SimplifierTest: TestCase() {
         val sum = Sum(Power(x, two), Product(Power(x, two), two))
         val simp = sum.simplify()
         println("$sum -> $simp")
-        assertEquals(Product(Num(3), Power(x, two)), simp)
+        Assertions.assertEquals(Product(Num(3), Power(x, two)), simp)
     }
 
     @Test
@@ -104,7 +105,7 @@ internal class SimplifierTest: TestCase() {
         val sum = Sum(Product(Power(x, two), two), Product(Power(x, two), two))
         val simp = sum.simplify()
         println("$sum -> $simp")
-        assertEquals(Product(Power(x, two), four), simp)
+        Assertions.assertEquals(Product(Power(x, two), four), simp)
     }
 
     @Test
@@ -113,17 +114,17 @@ internal class SimplifierTest: TestCase() {
         val product = Product(Num(-1), x)
         val result = product.clone()
         result.add(Power(x, Num(-1)))
-        assertEquals(result, product.apply{ add(x.inverseMult()) })
-        assertEquals(Product(Num(-1), x, Power(x, Num(-1))).simplify(), Num(-1))
+        Assertions.assertEquals(result, product.apply{ add(x.inverseMult()) })
+        Assertions.assertEquals(Product(Num(-1), x, Power(x, Num(-1))).simplify(), Num(-1))
     }
 
     @Test
     fun testPower() {
         val p1 = Power(Num(5), two)
         val simp1 = Num(25)
-        assertEquals(simp1, p1.simplify())
+        Assertions.assertEquals(simp1, p1.simplify())
         val p2 = Power(Num(5), Num(1, 2))
-        assertEquals(p2, p2.simplify())
+        Assertions.assertEquals(p2, p2.simplify())
     }
 
     @Test
@@ -133,8 +134,23 @@ internal class SimplifierTest: TestCase() {
         val p3 = p1.clone()
         val p4 = p1.clone()
         val p5 = p1.clone()
-        assertEquals(Power(Num(5), Num(3, 2)), (p1 + p2 + p3 + p4 + p5).simplify())
+        Assertions.assertEquals(Power(Num(5), Num(3, 2)), (p1 + p2 + p3 + p4 + p5).simplify())
         println((p1 + p2 + p3 + p4 + p5).toDouble())
     }
 
+    @Test
+    fun testLog() {
+        val term = Sum(Ln(x), Ln(x))
+        val simp = term.simplify()
+        println("$term -> $simp")
+        Assertions.assertEquals(two * Ln(x), simp)
+    }
+
+    @Test
+    fun testLog1() {
+        val term = Sum(Ln(x), Ln(two * x))
+        val simp = term.simplify()
+        println("$term -> $simp")
+        println(Ln(x) + Ln(two * x))
+    }
 }

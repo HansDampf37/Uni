@@ -1,5 +1,10 @@
 package analysis.terms
 
+import analysis.terms.simplifying.Simplifier
+import analysis.terms.simplifying.VariableSimplifier
+import propa.Placeholder
+import propa.UnifyingTree
+
 class Variable(val str: String) : Primitive {
     var value: Term?
         get() = VariableBindings.getBinding(this)
@@ -14,6 +19,9 @@ class Variable(val str: String) : Primitive {
     override fun contains(x: Variable): Boolean = this == x || this.value?.contains(x) ?: false
     override fun derive(x: Variable): Term = if (this == x) Num(1) else Num(0)
 
+    override fun getComponents(): List<UnifyingTree> = value?.getComponents() ?: throw Placeholder.NoComponents(this)
+    override fun componentOrderMatters(): Boolean = value?.componentOrderMatters() ?: throw Placeholder.NoComponents(this)
+    override fun isComponent(): Boolean = value?.isComponent() ?: throw Placeholder.NoComponents(this)
     override fun simplifier(): Simplifier<Variable> = VariableSimplifier()
 
     override fun toInt(): Int = value?.toInt() ?: throw NotANumberException(this)

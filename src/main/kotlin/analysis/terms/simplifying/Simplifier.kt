@@ -1,5 +1,7 @@
-package analysis.terms
+package analysis.terms.simplifying
 
+import analysis.terms.*
+import kotlin.math.log
 import kotlin.math.pow
 
 interface Simplifier<T : Term> {
@@ -270,6 +272,34 @@ class PowerSimplifier: Simplifier<Power> {
             val lengths = Pair(numerator.toString().split(".")[1].length, denominator.toString().split(".")[1].length)
             if (lengths.first < 5 && lengths.second < 5) {
                 Num(numerator, denominator)
+            } else {
+                t
+            }
+        } else {
+            t
+        }
+    }
+}
+
+class LogSimplifier: Simplifier<Log> {
+    override fun simplify(t: Log): Term {
+        if (t.base == t.arg) return Num(1)
+        if (t.arg == Num(0)) return Num(1)
+        if (t.arg is Power) {
+            return (t.arg as Power).exponent * Log(t.base, (t.arg as Power).base)
+        }
+        return t
+    }
+
+    override fun flatten(t: Log): Term = t
+
+    override fun eval(t: Log): Term {
+        return if (t.base is Num && t.arg is Num) {
+            val x = log((t.arg as Num).num, (t.base as Num).toDouble())
+            val y = log((t.arg as Num).denominator, (t.base as Num).toDouble())
+            val length = (x - y).toString().split(".")[1].length
+            if (length < 5) {
+                Num(x - y)
             } else {
                 t
             }

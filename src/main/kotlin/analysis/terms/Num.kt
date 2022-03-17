@@ -1,6 +1,10 @@
 package analysis.terms
 
-import analysis.*
+import analysis.Field
+import analysis.terms.simplifying.Simplifier
+import analysis.terms.simplifying.SimplifierTrivial
+import propa.Placeholder
+import propa.UnifyingTree
 import kotlin.math.pow
 import kotlin.math.sign
 import kotlin.math.withSign
@@ -21,6 +25,9 @@ class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Field<Ter
         shorten()
     }
 
+    override fun getComponents(): List<UnifyingTree> = throw Placeholder.NoComponents(this)
+    override fun componentOrderMatters(): Boolean = throw Placeholder.NoComponents(this)
+    override fun isComponent() = true
     override fun simplifier(): Simplifier<Num> =  SimplifierTrivial()
 
     override fun zero() = Num(0)

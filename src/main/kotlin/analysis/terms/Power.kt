@@ -1,5 +1,8 @@
 package analysis.terms
 
+import analysis.terms.simplifying.PowerSimplifier
+import analysis.terms.simplifying.Simplifier
+import propa.UnifyingTree
 import kotlin.math.pow
 
 class Power(var base: Term, var exponent: Term) : Term {
@@ -20,6 +23,9 @@ class Power(var base: Term, var exponent: Term) : Term {
         }
     }
 
+    override fun getComponents(): List<UnifyingTree> = listOf(base, exponent)
+    override fun componentOrderMatters(): Boolean = true
+    override fun isComponent(): Boolean = false
     override fun simplifier(): Simplifier<Power> = PowerSimplifier()
 
     override fun toDouble(): Double {

@@ -1,31 +1,37 @@
 package analysis.terms
 
 import analysis.*
+import analysis.terms.simplifying.Simplifier
+import propa.UnifyingTree
 
-interface Term : Cloneable, Field<Term>, Comparable<Term> {
+interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree {
 
     operator fun times(sum: Sum): Term = Product(this, sum).simplify()
     operator fun times(prod: Product): Term = Product(this).apply { addAll(prod) }.simplify()
     operator fun times(pow: Power): Term = Product(this, pow).simplify()
     operator fun times(v: Variable): Term = Product(this, v).simplify()
+    operator fun times(l: Log): Term = Product(this, l).simplify()
     operator fun times(other: Num): Term = Product(this, other).simplify()
 
     operator fun plus(sum: Sum): Term = Sum(this).apply { addAll(sum) }.simplify()
     operator fun plus(prod: Product): Term = Sum(this, prod).simplify()
     operator fun plus(pow: Power): Term = Sum(this, pow).simplify()
     operator fun plus(v: Variable): Term = Sum(this, v).simplify()
+    operator fun plus(l: Log): Term = Sum(this, l).simplify()
     operator fun plus(other: Num): Term = Sum(this, other).simplify()
 
     operator fun div(sum: Sum): Term = this * sum.flatten().inverseMult().simplify()
     operator fun div(prod: Product): Term = this * prod.flatten().inverseMult().simplify()
     operator fun div(pow: Power): Term = this * pow.flatten().inverseMult().simplify()
     operator fun div(v: Variable): Term = this * v.inverseMult().simplify()
+    operator fun div(l: Log): Term = this * l.inverseMult().simplify()
     operator fun div(other: Num): Term = this * other.inverseMult().simplify()
 
     operator fun minus(sum: Sum): Term = this + sum.flatten().inverseAdd().simplify()
     operator fun minus(prod: Product): Term = this + prod.flatten().inverseAdd().simplify()
     operator fun minus(pow: Power): Term = this + pow.flatten().inverseAdd().simplify()
     operator fun minus(v: Variable): Term = this + v.inverseAdd().simplify()
+    operator fun minus(l: Log): Term = this + l.inverseAdd().simplify()
     operator fun minus(other: Num): Term = this + other.inverseAdd().simplify()
 
     override fun inverseMult(e: Term): Term {

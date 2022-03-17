@@ -50,9 +50,9 @@ internal class FTest : TestCase() {
 
     @Test
     fun testCut3() {
-        val x = Variable("x")
-        val f = F(x) { (x - Num(2)) * (x - Num(3)) }
-        val g = F(x) { Num(0) }
+        // val x = Variable("x")
+        //val f = F(x) { (x - Num(2)) * (x - Num(3)) }
+        //val g = F(x) { Num(0) }
         // TODO
         //val cuts = f.cuts(g)
         //println("$f cuts $g for $cuts")
