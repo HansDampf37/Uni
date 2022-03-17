@@ -14,7 +14,11 @@ interface UnifyingTree {
         if (ownComponents.size != unificationComponents.size) return Pair(false, HashMap())
         if (componentOrderMatters()) return unifyComponents(ownComponents, unificationComponents)
         else {
-            return unifyComponents(ownComponents, unificationComponents)
+            for (ownComponentPermutation in Permutations(ownComponents)) {
+                val result = unifyComponents(ownComponentPermutation, unificationComponents)
+                if (result.first) return result
+            }
+            return Pair(false, HashMap())
         }
     }
 
@@ -41,3 +45,4 @@ interface UnifyingTree {
         return Pair(true, solution)
     }
 }
+

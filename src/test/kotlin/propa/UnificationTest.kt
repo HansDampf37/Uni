@@ -44,6 +44,7 @@ internal class UnificationTest {
         val t = Sum(Product(two, a), Product(two, b))
         val u = Sum(Product(y, x), Product(z, x))
         val result = t.unify(u)
+        Assertions.assertEquals(two, result.second[x])
         println("Unification of terms\n$t and \n$u is \n$result")
     }
 }
