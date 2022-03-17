@@ -19,8 +19,7 @@ internal class UnificationTest {
         val u = Power(x, y)
         val result = t.unify(u)
         println("Unification of terms\n$t and \n$u is \n$result")
-        //Assertions.assertEquals(two, result.second[x])
-        //Assertions.assertEquals(Sum(a, Num(3)), result.second[y])
+        Assertions.assertEquals(listOf(mapOf(Pair(y, Sum(a, Num(3))), Pair(x, Num(2)))), result)
     }
 
     @Test
@@ -32,8 +31,7 @@ internal class UnificationTest {
         val u = Sum(x, y, z)
         val result = t.unify(u)
         println("Unification of terms\n$t and \n$u is \n$result")
-        //Assertions.assertEquals(two, result.second[x])
-        //Assertions.assertEquals(Sum(a, Num(3)), result.second[y])
+        Assertions.assertEquals(6, result.size)
     }
 
     @Test
@@ -45,9 +43,10 @@ internal class UnificationTest {
         val u = Sum(Product(x, y), Product(x, z))
         val result = t.unify(u)
         println("Unification of terms\n$t and \n$u is \n$result")
-        //Assertions.assertEquals(two, result.second[x])
-        //Assertions.assertEquals(a, result.second[y])
-        //Assertions.assertEquals(b, result.second[z])
+        Assertions.assertEquals(listOf(
+            mapOf(Pair(z, b), Pair(y, a), Pair(x, Num(2))),
+            mapOf(Pair(z, a), Pair(y, b), Pair(x, Num(2)))
+        ), result)
     }
 
     @Test
@@ -58,7 +57,10 @@ internal class UnificationTest {
         val t = Sum(Product(two, a), Product(two, b))
         val u = Sum(Product(y, x), Product(z, x))
         val result = t.unify(u)
-        //Assertions.assertEquals(two, result.second[x])
         println("Unification of terms\n$t and \n$u is \n$result")
+        Assertions.assertEquals(listOf(
+            mapOf(Pair(z, b), Pair(y, a), Pair(x, Num(2))),
+            mapOf(Pair(z, a), Pair(y, b), Pair(x, Num(2)))
+        ), result)
     }
 }
