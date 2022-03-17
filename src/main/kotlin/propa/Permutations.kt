@@ -1,13 +1,13 @@
 package propa
 
-class Permutations<T>(val l: List<T>) : Iterable<List<T>> {
+class Permutations<T>(val l: List<T>) : Iterable<List<T>>, Cloneable {
     init {
         if (l.size >= 64) throw IllegalArgumentException("List to big")
     }
 
     override fun iterator(): Iterator<List<T>> {
         return object : Iterator<List<T>> {
-            val permutations: MutableList<List<T>> = ArrayList()
+            val permutations: ArrayList<List<T>> = ArrayList()
             var i = 0
 
             init {
@@ -19,7 +19,7 @@ class Permutations<T>(val l: List<T>) : Iterable<List<T>> {
                 while (level >= 0) {
                     if (level == l.size) {
                         // solution
-                        permutations.add(permutation)
+                        permutations.add(permutation.toList())
                         availableMask = availableMask xor (1L shl indices[level - 1])
                         level--
                         continue
