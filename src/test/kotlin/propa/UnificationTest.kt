@@ -67,18 +67,14 @@ internal class UnificationTest {
 
     @Test
     fun testUnification4() {
-        val x = UnificationVariable("x")
-        val y = UnificationVariable("y")
-        val z = UnificationVariable("z")
-        val q = UnificationVariable("q")
+        val f = UnificationVariable("f", filler = true)
         val t = Product(one, a, b)
-        val u = Product(x, one)
+        val u = Product(f, one)
         val result = t.unify(u)
         println("Unification of terms\n$t and \n$u is \n$result")
-        val newPlaceholder = result[0].keys.first { it != x }
         Assertions.assertEquals(listOf(
-            mapOf(Pair(x, b), Pair(newPlaceholder, a)),
-            mapOf(Pair(x, a), Pair(newPlaceholder, b))
+            mapOf(Pair(f, a * b)),
+            mapOf(Pair(f, b * a)),
         ), result)
     }
 }

@@ -14,9 +14,10 @@ private val a = UnificationVariable("a")
 private val b = UnificationVariable("b")
 private val c = UnificationVariable("c")
 private val d = UnificationVariable("d")
-private val n1 = UnificationVariable("n1", { it is Num }, null)
-private val n2 = UnificationVariable("n2", { it is Num }, null)
-private val n3 = UnificationVariable("n3", { it is Num }, null)
+private val n1 = UnificationVariable("n1", constraint = { it is Num })
+private val n2 = UnificationVariable("n2", constraint = { it is Num })
+private val n3 = UnificationVariable("n3", constraint = { it is Num })
+private val f = UnificationVariable("f", filler = true)
 val zero = Num(0)
 val one = Num(1)
 val two = Num(2)
@@ -41,32 +42,33 @@ object LogRules {
 object SumRules {
     val rules = listOf(
         Rule(S(n1, n2), n1, n2) { (n1.t as Num) + (n2.t as Num) },
-        Rule(S(n1, n2, a), n1, n2, a) { S((n1.t as Num) + (n2.t as Num), a) },
-        Rule(S(a, zero), a) { a },
+        Rule(S(n1, n2, f), n1, n2, f) { S((n1.t as Num) + (n2.t as Num), f) },
+        Rule(S(f, zero), f) { f },
         Rule(S(a, P(-one, a)), a) { zero },
+        Rule(S(a, P(-one, a), f), f) { f },
         Rule(S(P(a, b), P(a, c)), a, b, c) { P(a, S(b, c)) },
-        Rule(S(P(a, b), P(a, c), d), a, b, c, d) { Sum(P(a, S(b, c)), d) },
+        Rule(S(P(a, b), P(a, c), f), a, b, c, f) { Sum(P(a, S(b, c)), f) },
         Rule(S(L(c, a), L(c, b)), a, b, c) { L(c, P(a, b)) },
-        Rule(S(L(c, a), L(c, b), d), a, b, c, d) { S(L(c, P(a, b)), d) },
+        Rule(S(L(c, a), L(c, b), f), a, b, c, f) { S(L(c, P(a, b)), f) },
         Rule(S(L(c, a), P(-one, L(c, b))), a, b, c) { L(c, P(a, b.inverseMult())) },
-        Rule(S(L(c, a), P(-one, L(c, b)), d), a, b, c, d) { S(L(c, P(a, b.inverseMult())), d) }
+        Rule(S(L(c, a), P(-one, L(c, b)), f), a, b, c, f) { S(L(c, P(a, b.inverseMult())), f) }
     )
 }
 
 object ProductRules {
     val rules = listOf(
         Rule(P(n1, n2), n1, n2) { (n1.t as Num) * (n2.t as Num) },
-        Rule(P(n1, n2, a), n1, n2, a) { P((n1.t as Num) * (n2.t as Num), a) },
-        Rule(P(a, one), a) { a },
-        Rule(P(a, zero), a) { zero },
+        Rule(P(n1, n2, f), n1, n2, f) { P((n1.t as Num) * (n2.t as Num), f) },
+        Rule(P(f, one), f) { f },
+        Rule(P(f, zero), f) { zero },
         Rule(P(a, Pow(a, -one)), a) { one },
-        Rule(P(a, Pow(a, -one), b), a, b) { b },
+        Rule(P(a, Pow(a, -one), f), a, f) { f },
         Rule(P(a, Pow(a, b)), a, b) { Pow(a, b + one) },
-        Rule(P(a, Pow(a, b), c), a, b, c) { P(Pow(a, b + one), c) },
+        Rule(P(a, Pow(a, b), f), a, b, f) { P(Pow(a, b + one), f) },
         Rule(P(Pow(a, b), Pow(a, c)), a, b, c) { Pow(a, S(b + c)) },
-        Rule(P(Pow(a, b), Pow(a, c), d), a, b, c, d) { P(Pow(a, S(b + c)), d) },
+        Rule(P(Pow(a, b), Pow(a, c), f), a, b, c, f) { P(Pow(a, S(b + c)), f) },
         Rule(P(Pow(a, b), Pow(c, b)), a, b, c) { Pow(S(a, c), b) },
-        Rule(P(Pow(a, b), Pow(c, b), d), a, b, c, d) { P(Pow(S(a, c), b), d) },
+        Rule(P(Pow(a, b), Pow(c, b), f), a, b, c, f) { P(Pow(S(a, c), b), f) },
     )
 }
 

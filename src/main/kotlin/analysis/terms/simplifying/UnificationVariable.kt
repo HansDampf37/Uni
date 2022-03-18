@@ -4,8 +4,8 @@ import analysis.terms.*
 import propa.Placeholder
 import propa.UnifyingTree
 
-class UnificationVariable(name: String, constraint: (UnifyingTree) -> Boolean = { true }, t: Term? = null) :
-    Placeholder(name, constraint, t, false), Term, TermContainer {
+class UnificationVariable(name: String, constraint: (UnifyingTree) -> Boolean = { true }, t: Term? = null, filler: Boolean = false) :
+    Placeholder(name, constraint, t, false, filler), Term, TermContainer {
     override var value: Term?
         get() = t as Term?
         set(value) {
@@ -14,7 +14,7 @@ class UnificationVariable(name: String, constraint: (UnifyingTree) -> Boolean = 
 
     override fun plus(other: Term): Term = Sum(this, other)
     override fun times(other: Term): Term = Product(this, other)
-    override fun clone(): Term = UnificationVariable(name, constraint, value)
+    override fun clone(): Term = UnificationVariable(name, constraint, value, filler)
     override fun toString(): String = name
     override fun toDouble(): Double = throw OnlyPlaceholderException()
     override fun toInt(): Int = throw OnlyPlaceholderException()

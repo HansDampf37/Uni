@@ -20,21 +20,17 @@ class Sum(terms: List<Term>) : ArrayList<Term>(), Term {
     override fun contains(x: Variable): Boolean = any { it.contains(x) }
     override fun derive(x: Variable): Term = Sum(map{ it.derive(x) }).simplify()
 
-    private val comps: MutableList<UnifyingTree> = ArrayList()
-    override fun getComponents(): List<UnifyingTree> {
-        val cp = comps.toMutableList()
-        cp.addAll(this)
-        return cp
-    }
-    override fun componentOrderMatters(): Boolean = false
+    override fun getComponents(): List<UnifyingTree> = this.toList()
+    override fun nonCommutativeComponents(): Boolean = false
     override fun isComponent(): Boolean = false
     override fun simplifier(): Simplifier<Sum> = SumSimplifier()
     override fun addComponent(c: UnifyingTree) {
-        comps.add(c)
+        this.add(c as Term)
     }
     override fun removeComponent(c: UnifyingTree) {
-        comps.remove(c)
+        this.remove(c as Term)
     }
+    override fun init(): UnifyingTree = Sum()
 
     override fun toInt(): Int = sumOf { it.toInt() }
     override fun toDouble(): Double = sumOf { it.toDouble() }

@@ -28,21 +28,17 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
         else throw java.lang.IllegalStateException("Case should have been checked in the first line of this method")
     }
 
-    private val comps: MutableList<UnifyingTree> = ArrayList()
-    override fun getComponents(): List<UnifyingTree> {
-        val cp = comps.toMutableList()
-        cp.addAll(this)
-        return cp
-    }
-    override fun componentOrderMatters(): Boolean = false
+    override fun getComponents(): List<UnifyingTree> = this.toList()
+    override fun nonCommutativeComponents(): Boolean = false
     override fun isComponent(): Boolean = false
     override fun simplifier(): Simplifier<Product> = ProductSimplifier()
     override fun addComponent(c: UnifyingTree) {
-        comps.add(c)
+        this.add(c as Term)
     }
     override fun removeComponent(c: UnifyingTree) {
-        comps.remove(c)
+        this.remove(c as Term)
     }
+    override fun init(): UnifyingTree = Product()
 
     override fun toDouble(): Double = this.fold(1.0) { acc, new -> acc * new.toDouble() }
     override fun toInt(): Int = this.fold(1) { acc, new -> acc * new.toInt() }

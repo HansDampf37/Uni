@@ -25,11 +25,12 @@ class Power(var base: Term, var exponent: Term) : Term {
     }
 
     override fun getComponents(): List<UnifyingTree> = listOf(base, exponent)
-    override fun componentOrderMatters(): Boolean = true
+    override fun nonCommutativeComponents(): Boolean = true
     override fun isComponent(): Boolean = false
     override fun simplifier(): Simplifier<Power> = PowerSimplifier()
     override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
+    override fun init(): UnifyingTree = throw IllegalCallerException()
 
     override fun toDouble(): Double {
         return base.simplify().toDouble().pow(exponent.simplify().toDouble())

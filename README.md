@@ -22,3 +22,15 @@ the güte describes how "good" a term is. Be t the term-tree with
 one could define the güte as:
 
 `-(a * t.depth + b * t.width + (1 - a - b) * t.size)`
+
+### Commutative Unification with fillers
+If a Placeholder contains true in his fill field that means that it can unify to more than on component.
+For example take `term = x + y + 3 + 4` and `unificator = x + y + z` (where x should be unified to x and y to y)
+Normally such unification can't work because `z` can't unify to (3 + 4). However, we want the unification to work.
+
+1. If z is a filler (z.filler == true) the unifying algorithm won't stop upon unequal sizes of term and unificator.
+2. It makes sure that `z` is on the end of the unificator's list
+3. It cuts the additional elements and builds a new Tree containing only them (3 + 4)
+4. it adds this tree to term instead of the cut elements (x + y + (3 + 4))
+5. it unifies the new term with the new unificator
+

@@ -2,7 +2,7 @@ package propa
 
 interface UnifyingTree : Cloneable {
     fun getComponents(): List<UnifyingTree>
-    fun componentOrderMatters(): Boolean
+    fun nonCommutativeComponents(): Boolean
     fun isComponent(): Boolean
     fun addComponent(c: UnifyingTree)
     fun removeComponent(c: UnifyingTree)
@@ -14,11 +14,13 @@ interface UnifyingTree : Cloneable {
         val ownComponents = getComponents()
         val unificationComponents = unification.getComponents()
         if (ownComponents.size != unificationComponents.size) {
-            return listOf()
             // might still unify multiple components into one Placeholder but only if order doesn't matter
-            // return unifyDifferentSize(ownComponents, unificationComponents, unification)
+            if (nonCommutativeComponents()) return listOf()
+            if (ownComponents.size < unificationComponents.size) return listOf()
+            if (unificationComponents.none { it is Placeholder && it.filler }) return listOf()
+            return unifyAllPermutations(ownComponents, unificationComponents)
         }
-        return if (componentOrderMatters()) unifyComponents(ownComponents, unificationComponents)
+        return if (nonCommutativeComponents()) unifyComponents(ownComponents, unificationComponents)
         else unifyAllPermutations(ownComponents, unificationComponents)
     }
 
@@ -33,27 +35,57 @@ interface UnifyingTree : Cloneable {
         }.flatten()
     }
 
+    /**
+     * If [ownComponents] is longer than [unificationComponents] merges additional components of [ownComponents] into
+     * a new [UnifyingTree] and replaces additional components.
+     * The returned lists have equal length.
+     *
+     * Unificator x, f, y (where f is filler)
+     * tree a, b, c, d, e
+     * -> x, y, f
+     * -> a, b, (c, d, e)
+     * additionalElements = uni.size - 1 until tree.size
+     * ownNew = 0 until tree.size - uni.size
+     *
+     * Caller must assure that
+     * - [nonCommutativeComponents] == false
+     * - [ownComponents].size > [unificationComponents].size
+     * - [unificationComponents] contains at least one Placeholder p with [p.filler][Placeholder.filler] == true
+     *
+     * @param ownComponents
+     * @param unificationComponents
+     * @return Pair(ownComponents', unificationComponents)
+     * @throws IllegalCallerException if one of the three conditions is violated
+     */
     fun unifyDifferentSize(
         ownComponents: List<UnifyingTree>,
-        unificationComponents: List<UnifyingTree>,
-        unification: UnifyingTree
-    ): List<MutableMap<Placeholder, UnifyingTree>> {
-        if (componentOrderMatters()) return listOf()
-        if (ownComponents.size < unificationComponents.size) {
-            val temporary = ownComponents.filter { it is Placeholder && it.temporary }
-            return if (ownComponents.size - temporary.size == unificationComponents.size) {
-                for (temp in temporary) unification.removeComponent(temp)
-                unify(unification)
-            } else {
-                listOf()
-            }
-        }
-        // introduce new placeholders
-        repeat(ownComponents.size - unificationComponents.size) { i ->
-            unification.addComponent(Placeholder("Temp$i", { true }, null, true))
-        }
-        return unify(unification)
+        unificationComponents: List<UnifyingTree>
+    ): Pair<List<UnifyingTree>, List<UnifyingTree>> {
+        if (nonCommutativeComponents()) throw IllegalCallerException()
+        if (ownComponents.size < unificationComponents.size) throw IllegalCallerException()
+        if (unificationComponents.none { it is Placeholder && it.filler }) throw IllegalCallerException()
+        // merge additional components in one filler
+
+        // create new unificator with filler at the end
+        val filler = unificationComponents.first { it is Placeholder && it.filler }
+        val uniMod = unificationComponents.toMutableList()
+        val unificator: UnifyingTree = init()
+        uniMod.remove(filler)
+        uniMod.add(filler) // the filler is now at the end
+        uniMod.forEach { unificator.addComponent(it) }
+
+        // create new UnifyingTree that contains additional components
+        val additionalOwnComps = ownComponents.slice(unificationComponents.size - 1 until ownComponents.size)
+        val subTree: UnifyingTree = init()
+        additionalOwnComps.forEach { subTree.addComponent(it) }
+
+        // create a New Unifying tree that contains the subtree instead of the additional components
+        val ownMod = ownComponents.slice(0 until ownComponents.size - uniMod.size).toMutableList()
+        ownMod.add(subTree)
+        return Pair(ownMod, uniMod)
     }
+
+    fun init(): UnifyingTree
 
     fun unifyComponent(unification: UnifyingTree): List<MutableMap<Placeholder, UnifyingTree>> {
         return when (unification) {
@@ -71,7 +103,14 @@ interface UnifyingTree : Cloneable {
         unificationComponents: List<UnifyingTree>
     ): List<HashMap<Placeholder, UnifyingTree>> {
         val finalSolution = ArrayList<HashMap<Placeholder, UnifyingTree>>()
-        val subResults = List(ownComponents.size) { i -> ownComponents[i].unify(unificationComponents[i]) }
+        val (own, uni) = if (ownComponents.size == unificationComponents.size) {
+            Pair(ownComponents, unificationComponents)
+        } else if (ownComponents.size > unificationComponents.size) {
+            unifyDifferentSize(ownComponents, unificationComponents)
+        } else {
+            return listOf()
+        }
+        val subResults: List<List<MutableMap<Placeholder, UnifyingTree>>> = List(own.size) { i -> own[i].unify(uni[i]) }
         // resultSorted[i] contains all solutions of component i as List<HashMap<Placeholder, UnifyingTree>>
         val resultSorted = subResults.sortedBy { it.size }
         if (resultSorted[0].isEmpty()) return listOf()
