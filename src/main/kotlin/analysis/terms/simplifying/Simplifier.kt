@@ -4,22 +4,26 @@ import analysis.terms.*
 import kotlin.math.log
 import kotlin.math.pow
 
-interface Simplifier<T : Term> {
+abstract class Simplifier<T : Term>(val rules: List<Rule>) {
     /**
      * Simplifies the given expression
      *
      * @param t the Term
      * @return simplified version
      */
-    fun simplify(t: T): Term
-
-    /**
-     * Replaces a trivial subterm by a more trivial subterm e.g. sum(x) -> x, prod(x) -> x, Power(x,1) -> x, Power(x, 0) -> 1
-     *
-     * @param t
-     * @return
-     */
-    fun flatten(t: T): Term
+    open fun simplify(t: T): Term {
+        pullUp(t)
+        var res: Term
+        res = t.eval()
+        while (true) {
+            try {
+                res = rules.first { it.applicable(res).first }.apply(res)
+            } catch (e: NoSuchElementException) {
+                break
+            }
+        }
+        return res
+    }
 
     /**
      * Combines numbers in term t sum(3, 2, x) -> sum(5, x)
@@ -27,69 +31,24 @@ interface Simplifier<T : Term> {
      * @param t
      * @return
      */
-    fun eval(t: T): Term
+    abstract fun eval(t: T): Term
 
     /**
      * Flattens all layers in this term not just one
      *
      * @param t
      */
-    fun pullUp(t: T): Term
+    abstract fun pullUp(t: T): Term
 }
 
-class SimplifierTrivial<T: Term>: Simplifier<T> {
+
+class SimplifierTrivial<T : Term> : Simplifier<T>(listOf()) {
     override fun simplify(t: T) = t
-    override fun flatten(t: T) = t
     override fun eval(t: T) = t
     override fun pullUp(t: T) = t
 }
 
-class SumSimplifier: Simplifier<Sum> {
-    /**
-     * 2 * a + 3 - 2 * (3 * a * 1/3) - 2 - a^(1 - 1) + x -> x
-     * 1. simplify components 2 * a + 3 - 2 * a - 2 - 1 + x
-     * 2. eval 2 * a - 2 * a + x
-     * 3. for each element != 1 != -1 try to factor out with [factorize] factor out 2 * a * (1 - 1) + x
-     * 3.5 simplify components 0 + x
-     * 4. eval x
-     * 5. sort 1
-     * 6. flatten this 1
-     *
-     * @param t Sum
-     * @return t in a simpler form
-     */
-    override fun simplify(t: Sum): Term {
-        var res: Term
-        // 0. pull up
-        pullUp(t)
-        // 1. simplify components
-        res = Sum(t.map { it.simplify() })
-        // 2. eval
-        res = eval(res)
-        // 3. factorize
-        res = factorize(res)
-        // 3.5
-        res = Sum(res.map { it.simplify() })
-        // 4
-        res = res.eval()
-        // 5
-        // 6
-        //println("Simplifying $t to ${res.flatten()}")
-        return res.flatten()
-    }
-
-    override fun flatten(t: Sum): Term {
-        val t1 = t.map { it.flatten() }.toMutableList()
-        for (i in t1.indices) {
-            if (t1[i] is Sum) {
-                t1.addAll(t1[i] as Sum)
-                t1.removeAt(i)
-            }
-        }
-        if (t1.size == 1) return t1[0]
-        return Sum(t1)
-    }
-
+class SumSimplifier : Simplifier<Sum>(SumRules.rules) {
     override fun eval(t: Sum): Sum {
         var n = Num(0)
         val res = t.clone()
@@ -118,17 +77,6 @@ class SumSimplifier: Simplifier<Sum> {
         return t
     }
 
-    /**
-     * a + 2 * a + 3 + sqrt(3) - 2 * sqrt(3)
-     * 1. take first comp (a):
-     * 2. iterate over sum and create divisible array that contains the quotient q=it/a for each element if q is Num and Null otherwise
-     * 3. check if divisible array contains more than 1 no null element. if not continue with 1 with next summand.
-     * 4. iterate over sum from behind and remove all elements with entries != 0 in the divisible array and add their divisors to Product(a, Sum(it, it, it, ...))
-     * 5. add Product to sum
-     * 6. return sum.factorize()
-     *
-     * @return
-     */
     fun factorize(sum: Sum): Sum {
         if (sum.size <= 1) return sum
         for (a in sum) {
@@ -147,53 +95,7 @@ class SumSimplifier: Simplifier<Sum> {
     }
 }
 
-class ProductSimplifier : Simplifier<Product> {
-    /**
-     * 2 * a² * 3 * a * (1 - 1)
-     * 1. simplify components 2 * a² * 3 * a * 0
-     * 2. eval a² * a * 0
-     * 2.5. if contains 0 return 0
-     * 3. for each element != 1 try to potentiate with [potentiate] 0 * a⁽²⁺¹⁾
-     * 3.5 simplify components 0 * a³
-     * 4. eval 0 * a³
-     * 4.5 distribute contained sums ?
-     * 5. sort a³ * 0
-     * 6. flatten this a³ * 0
-     *
-     * @param t Product
-     * @return t in a simpler form
-     */
-    override fun simplify(t: Product): Term {
-        var res: Term
-        // 0. pullUp
-        pullUp(t)
-        // 1. simplify components
-        res = Product(t.map { it.simplify() })
-        // 2. evaluate
-        res = eval(res)
-        // 2.5. does not contain 0
-        if (res.any { it == Num(0) }) return Num(0)
-        // 3. potentiate
-        res = potentiate(res)
-        // 3.5. simplify components
-        res = Product(res.map { it.simplify() })
-        // 4. evaluate
-        res = eval(res)
-        // 4.5 distribute sums
-        if (res.size >= 2) {
-            for (i in res.indices.reversed()) {
-                if (res[i] is Sum) {
-                    val s = res.removeAt(i) as Sum
-                    return Sum(s.map { it * res }).simplify()
-                }
-            }
-        }
-        // 5. sort
-        // 6. flatten
-        //println("Simplifying $t to ${res.flatten()}")
-        return res.flatten()
-    }
-
+class ProductSimplifier : Simplifier<Product>(ProductRules.rules) {
     override fun pullUp(t: Product): Term {
         if (t.size == 1) t[0].pullUp()
         for (i in t.indices.reversed()) {
@@ -211,18 +113,6 @@ class ProductSimplifier : Simplifier<Product> {
             }
         }
         return t
-    }
-
-    override fun flatten(t: Product): Term {
-        val t1 = t.map { it.flatten() }.toMutableList()
-        for (i in t1.indices) {
-            if (t1[i] is Product) {
-                t1.addAll(t1[i] as Product)
-                t1.removeAt(i)
-            }
-        }
-        if (t1.size == 1) return t1[0]
-        return Product(t1)
     }
 
     override fun eval(t: Product): Product {
@@ -251,49 +141,10 @@ class ProductSimplifier : Simplifier<Product> {
     }
 }
 
-class PowerSimplifier: Simplifier<Power> {
-
-    /**
-     * (x ^ ((2 ^ b) ^ c)) ^ 2
-     * 1. simplify components x ^ (2 * 2 ^ (c * b))
-     * 2. if exp == 0 return 1, if base == 0 return 0, x ^ (2 * 2 ^ (c * b))
-     * 3. simplify components x ^ 2 ^ (c * b + 1)
-     * 4. eval x ^ 2 ^ (c * b + 1)
-     * 5. flatten x ^ 2 ^ (c * b + 1)
-     *
-     * @param t Product
-     * @return t in a simpler form
-     */
-    override fun simplify(t: Power): Term {
-        var res: Term
-        // 1. simplify components
-        res = Power(t.base.simplify(), t.exponent.simplify())
-        // 2. evaluate
-        if (res.exponent == Num(0)) return Num(1)
-        if (res.base == Num(0)) return Num(0)
-        // 3. simplify components
-        res = Power(res.base.simplify(), res.exponent.simplify())
-        // 4. eval
-        res = eval(res)
-        //println("Simplifying $t to ${res.flatten()}")
-        if (res !is Power) return res
-        if (res.base is Product) {
-            return Product((res.base as Product).map { Power(it, res.exponent) }).simplify()
-        }
-        // 5. flatten
-        return res.flatten()
-    }
-
-    override fun pullUp(t: Power): Term{
+class PowerSimplifier : Simplifier<Power>(PowerRules.rules) {
+    override fun pullUp(t: Power): Term {
         t.base = t.base.pullUp()
         t.exponent = t.exponent.pullUp()
-        return t
-    }
-
-    override fun flatten(t: Power): Term {
-        t.exponent = t.exponent.flatten()
-        t.base = t.base.flatten()
-        if (t.exponent == Num(1)) return t.base
         return t
     }
 
@@ -313,20 +164,7 @@ class PowerSimplifier: Simplifier<Power> {
     }
 }
 
-class LogSimplifier: Simplifier<Log> {
-    override fun simplify(t: Log): Term {
-        t.base = t.base.simplify()
-        t.arg = t.arg.simplify()
-        if (t.base == t.arg) return Num(1)
-        if (t.arg == Num(0)) return Num(1)
-        if (t.arg is Power) {
-            return (t.arg as Power).exponent * Log(t.base, (t.arg as Power).base)
-        }
-        return t
-    }
-
-    override fun flatten(t: Log): Term = t
-
+class LogSimplifier : Simplifier<Log>(LogRules.rules) {
     override fun eval(t: Log): Term {
         return if (t.base is Num && t.arg is Num) {
             val x = log((t.arg as Num).num, (t.base as Num).toDouble())
@@ -341,7 +179,6 @@ class LogSimplifier: Simplifier<Log> {
             t
         }
     }
-
     override fun pullUp(t: Log): Term {
         t.base = t.base.pullUp()
         t.arg = t.arg.pullUp()
@@ -349,10 +186,9 @@ class LogSimplifier: Simplifier<Log> {
     }
 }
 
-class VariableSimplifier: Simplifier<Variable> {
+class VariableSimplifier : Simplifier<Variable>(listOf()) {
 
     override fun simplify(t: Variable): Term = t.value ?: t
-    override fun flatten(t: Variable): Term = t
     override fun eval(t: Variable): Term = t.value ?: t
     override fun pullUp(t: Variable): Term = t.value?.pullUp() ?: t
 }

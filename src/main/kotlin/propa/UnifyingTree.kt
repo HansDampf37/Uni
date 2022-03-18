@@ -9,41 +9,60 @@ interface UnifyingTree : Cloneable {
     override fun equals(other: Any?): Boolean
 
     fun unify(unification: UnifyingTree): List<MutableMap<Placeholder, UnifyingTree>> {
-        if (unification.isComponent()) {
-            return when (unification) {
-                is Placeholder -> listOf(mutableMapOf(Pair(unification, this)))
-                this -> listOf(mutableMapOf())
-                else -> listOf()
-            }
-        }
+        if (unification.isComponent()) return unifyComponent(unification)
         if (this.javaClass != unification.javaClass) return listOf()
         val ownComponents = getComponents()
         val unificationComponents = unification.getComponents()
         if (ownComponents.size != unificationComponents.size) {
+            return listOf()
             // might still unify multiple components into one Placeholder but only if order doesn't matter
-            if (componentOrderMatters()) return listOf()
-            if (ownComponents.size < unificationComponents.size) {
-                val temporary = ownComponents.filter { it is Placeholder && it.temporary }
-                return if (ownComponents.size - temporary.size == unificationComponents.size) {
-                    for (temp in temporary) unification.removeComponent(temp)
-                    unify(unification)
-                } else {
-                    listOf()
-                }
-            }
-            // introduce new placeholders
-            repeat(ownComponents.size - unificationComponents.size) { i ->
-                unification.addComponent(Placeholder("Temp$i", null, true))
-            }
-            return unify(unification)
+            // return unifyDifferentSize(ownComponents, unificationComponents, unification)
         }
         return if (componentOrderMatters()) unifyComponents(ownComponents, unificationComponents)
-        else {
-            val permutations = Permutations(ownComponents)
-            permutations.map {
-                //unify each permutation and merge all solutions
-                unifyComponents(it, unificationComponents)
-            }.flatten()
+        else unifyAllPermutations(ownComponents, unificationComponents)
+    }
+
+    fun unifyAllPermutations(
+        ownComponents: List<UnifyingTree>,
+        unificationComponents: List<UnifyingTree>
+    ): List<HashMap<Placeholder, UnifyingTree>> {
+        val permutations = Permutations(ownComponents)
+        return permutations.map {
+            //unify each permutation and merge all solutions
+            unifyComponents(it, unificationComponents)
+        }.flatten()
+    }
+
+    fun unifyDifferentSize(
+        ownComponents: List<UnifyingTree>,
+        unificationComponents: List<UnifyingTree>,
+        unification: UnifyingTree
+    ): List<MutableMap<Placeholder, UnifyingTree>> {
+        if (componentOrderMatters()) return listOf()
+        if (ownComponents.size < unificationComponents.size) {
+            val temporary = ownComponents.filter { it is Placeholder && it.temporary }
+            return if (ownComponents.size - temporary.size == unificationComponents.size) {
+                for (temp in temporary) unification.removeComponent(temp)
+                unify(unification)
+            } else {
+                listOf()
+            }
+        }
+        // introduce new placeholders
+        repeat(ownComponents.size - unificationComponents.size) { i ->
+            unification.addComponent(Placeholder("Temp$i", { true }, null, true))
+        }
+        return unify(unification)
+    }
+
+    fun unifyComponent(unification: UnifyingTree): List<MutableMap<Placeholder, UnifyingTree>> {
+        return when (unification) {
+            is Placeholder -> {
+                if (unification.constraint(this)) listOf(mutableMapOf(Pair(unification, this)))
+                else listOf()
+            }
+            this -> listOf(mutableMapOf())
+            else -> listOf()
         }
     }
 
@@ -55,10 +74,6 @@ interface UnifyingTree : Cloneable {
         val subResults = List(ownComponents.size) { i -> ownComponents[i].unify(unificationComponents[i]) }
         // resultSorted[i] contains all solutions of component i as List<HashMap<Placeholder, UnifyingTree>>
         val resultSorted = subResults.sortedBy { it.size }
-        if (subResults[0].size == 2) {
-            println("breakpoint")
-        }
-
         if (resultSorted[0].isEmpty()) return listOf()
 
         val notTriedMask: MutableList<Long> = MutableList(resultSorted.size) { -1L }

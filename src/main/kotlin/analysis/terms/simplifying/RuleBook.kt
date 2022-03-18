@@ -14,6 +14,9 @@ private val a = UnificationVariable("a")
 private val b = UnificationVariable("b")
 private val c = UnificationVariable("c")
 private val d = UnificationVariable("d")
+private val n1 = UnificationVariable("n1", { it is Num }, null)
+private val n2 = UnificationVariable("n2", { it is Num }, null)
+private val n3 = UnificationVariable("n3", { it is Num }, null)
 val zero = Num(0)
 val one = Num(1)
 val two = Num(2)
@@ -37,6 +40,8 @@ object LogRules {
 
 object SumRules {
     val rules = listOf(
+        Rule(S(n1, n2), n1, n2) { (n1.t as Num) + (n2.t as Num) },
+        Rule(S(n1, n2, a), n1, n2, a) { S((n1.t as Num) + (n2.t as Num), a) },
         Rule(S(a, zero), a) { a },
         Rule(S(a, P(-one, a)), a) { zero },
         Rule(S(P(a, b), P(a, c)), a, b, c) { P(a, S(b, c)) },
@@ -50,6 +55,8 @@ object SumRules {
 
 object ProductRules {
     val rules = listOf(
+        Rule(P(n1, n2), n1, n2) { (n1.t as Num) * (n2.t as Num) },
+        Rule(P(n1, n2, a), n1, n2, a) { P((n1.t as Num) * (n2.t as Num), a) },
         Rule(P(a, one), a) { a },
         Rule(P(a, zero), a) { zero },
         Rule(P(a, Pow(a, -one)), a) { one },
@@ -65,6 +72,7 @@ object ProductRules {
 
 object PowerRules {
     val rules = listOf(
+        Rule(Pow(n1, n2), n1, n2) { (n1.t as Num).pow(n2.t as Num) },
         Rule(Pow(a, one), a) { a },
         Rule(Pow(a, zero), a) { one },
         Rule(Pow(Pow(a, b), c), a, b, c) { Pow(a, P(b, c)) },

@@ -1,6 +1,11 @@
 package propa
 
-open class Placeholder(protected val name: String, internal var t: UnifyingTree? = null, val temporary: Boolean = false): UnifyingTree {
+open class Placeholder(
+    protected val name: String,
+    val constraint: (UnifyingTree) -> Boolean = { true },
+    internal var t: UnifyingTree? = null,
+    val temporary: Boolean = false
+) : UnifyingTree {
     override fun getComponents() = throw NoComponents(this)
     override fun componentOrderMatters(): Boolean = throw NoComponents(this)
     override fun isComponent(): Boolean = true
@@ -8,9 +13,10 @@ open class Placeholder(protected val name: String, internal var t: UnifyingTree?
     override fun removeComponent(c: UnifyingTree) = throw NoComponents(this)
 
     override fun equals(other: Any?): Boolean {
-        return other is Placeholder && name == other.name && t == other.t && temporary == other.temporary
+        return other is Placeholder && other.name == name && other.t == t && constraint == other.constraint
     }
-    override fun clone(): UnifyingTree = Placeholder(name, t)
+
+    override fun clone(): UnifyingTree = Placeholder(name, constraint, t)
 
     fun assign(tNew: UnifyingTree) {
         if (t != null) {

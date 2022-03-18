@@ -140,7 +140,7 @@ internal class SimplifierTest: TestCase() {
 
     @Test
     fun testLog() {
-        val term = Sum(Ln(x), Ln(x))
+        val term = Sum(Log(Num(3), x), Log(Num(3), x))
         val simp = term.simplify()
         println("$term -> $simp")
         Assertions.assertEquals(two * Ln(x), simp)
