@@ -1,10 +1,15 @@
 package analysis.terms
 
+import algo.datastructures.Node
+import algo.datastructures.Tree
 import analysis.*
 import analysis.terms.simplifying.Simplifier
+import propa.Placeholder
 import propa.UnifyingTree
 
-interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree {
+interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree, Tree<Term>, Node<Term> {
+    override val root: Node<Term> get() = this
+    override fun get(): Term = this
 
     operator fun times(sum: Sum): Term = Product(this, sum).simplify()
     operator fun times(prod: Product): Term = Product(this).apply { addAll(prod) }.simplify()
@@ -20,16 +25,16 @@ interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree {
     operator fun plus(l: Log): Term = Sum(this, l).simplify()
     operator fun plus(other: Num): Term = Sum(this, other).simplify()
 
-    operator fun div(sum: Sum): Term = this * sum.pullUp().inverseMult().simplify()
-    operator fun div(prod: Product): Term = this * prod.pullUp().inverseMult().simplify()
-    operator fun div(pow: Power): Term = this * pow.pullUp().inverseMult().simplify()
+    operator fun div(sum: Sum): Term = this * sum.inverseMult().simplify()
+    operator fun div(prod: Product): Term = this * prod.inverseMult().simplify()
+    operator fun div(pow: Power): Term = this * pow.inverseMult().simplify()
     operator fun div(v: Variable): Term = this * v.inverseMult().simplify()
     operator fun div(l: Log): Term = this * l.inverseMult().simplify()
     operator fun div(other: Num): Term = this * other.inverseMult().simplify()
 
-    operator fun minus(sum: Sum): Term = this + sum.pullUp().inverseAdd().simplify()
-    operator fun minus(prod: Product): Term = this + prod.pullUp().inverseAdd().simplify()
-    operator fun minus(pow: Power): Term = this + pow.pullUp().inverseAdd().simplify()
+    operator fun minus(sum: Sum): Term = this + sum.inverseAdd().simplify()
+    operator fun minus(prod: Product): Term = this + prod.inverseAdd().simplify()
+    operator fun minus(pow: Power): Term = this + pow.inverseAdd().simplify()
     operator fun minus(v: Variable): Term = this + v.inverseAdd().simplify()
     operator fun minus(l: Log): Term = this + l.inverseAdd().simplify()
     operator fun minus(other: Num): Term = this + other.inverseAdd().simplify()
@@ -42,6 +47,7 @@ interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree {
             else -> Power(e, Num(-1))
         }
     }
+
     override fun inverseAdd(e: Term): Term {
         return when (e) {
             is Num -> Num(-e.num, e.denominator)
@@ -49,13 +55,9 @@ interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree {
         }
     }
 
-    fun sqrt(): Term {
-        return when (this) {
-            is Num -> Power(this, Num(1, 2)).simplify()
-            is Power -> Power(this.base, this.exponent / Num (2))
-            else -> Power(this, Num(1, 2))
-        }
-    }
+    fun sqrt(): Term = Power(this, Num(1, 2)).simplify()
+    fun log(arg: Number) = Log(this, Num(arg)).simplify()
+    fun log(arg: Term) = Log(this, arg).simplify()
     fun pow(num: Number): Term = Power(this, Num(num.toDouble())).simplify()
     fun pow(t: Term): Term = Power(this, t).simplify()
 
@@ -74,13 +76,6 @@ interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree {
      */
     fun toInt(): Int
 
-    /**
-     * Simplifier returns a simplifier<this.class>
-     *
-     * @return
-     */
-    fun simplifier(): Simplifier<*>
-
     override fun zero() = Num(0)
     override fun one() = Num(1)
 
@@ -92,12 +87,12 @@ interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree {
             simplify1 = (this - other).simplify()
             val compare = simplify1.toDouble()
             if (compare > 0) 1 else if (compare == 0.0) 0 else -1
-        } catch (_ : NotANumberException) {
+        } catch (_: NotANumberException) {
             try {
                 simplify2 = (this / other).simplify()
                 val compare = simplify2.toDouble()
                 if (compare > 1) 1 else if (compare == 1.0) 0 else -1
-            } catch (_ : NotANumberException) {
+            } catch (_: NotANumberException) {
                 throw NotComparableException(this, other, simplify1, simplify2)
             }
         }
@@ -110,17 +105,13 @@ interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree {
 }
 
 class NotANumberException(t: Term) : Exception("$t can not be simplified to a number")
-class NotComparableException(t1: Term, t2: Term, t1MinT2Simp: Term, t1DivT2Simp: Term)
-    : Exception("$t1 can not be compared to $t2 since " +
-        "$t1 - $t2 = $t1MinT2Simp and $t1 / $t2 = $t1DivT2Simp which are no Numbers")
+class NotComparableException(t1: Term, t2: Term, t1MinT2Simp: Term, t1DivT2Simp: Term) : Exception(
+    "$t1 can not be compared to $t2 since " +
+            "$t1 - $t2 = $t1MinT2Simp and $t1 / $t2 = $t1DivT2Simp which are no Numbers"
+)
 
 interface Primitive : Term
 
 @Suppress("UNCHECKED_CAST")
-fun <T : Term> T.simplify() = (this.simplifier() as Simplifier<T>).simplify(this)
+fun <T : Term> T.simplify() = Simplifier().simplify(this)
 
-@Suppress("UNCHECKED_CAST")
-fun <T : Term> T.eval() = (this.simplifier() as Simplifier<T>).eval(this)
-
-@Suppress("UNCHECKED_CAST")
-fun <T : Term> T.pullUp() = (this.simplifier() as Simplifier<T>).pullUp(this)

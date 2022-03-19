@@ -1,7 +1,6 @@
 package analysis.functions
 
 import analysis.terms.*
-import analysis.terms.simplifying.SumSimplifier
 
 class Equation(private var left: Term, private var right: Term) {
 
@@ -9,12 +8,6 @@ class Equation(private var left: Term, private var right: Term) {
         left -= right
         right = Num(0)
         left = left.simplify()
-        if (left is Sum) {
-            val factorized = ((left as Sum).simplifier() as SumSimplifier).factorize(left as Sum)
-            if (factorized.size == 1 && factorized[0] is Product) {
-                return (factorized[0] as Product).map { Equation(it, Num(0)).solve() }.flatten()
-            }
-        }
         return separateVariables()
     }
 

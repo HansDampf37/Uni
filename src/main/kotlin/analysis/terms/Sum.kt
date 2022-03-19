@@ -1,7 +1,6 @@
 package analysis.terms
 
-import analysis.terms.simplifying.Simplifier
-import analysis.terms.simplifying.SumSimplifier
+import algo.datastructures.Node
 import propa.UnifyingTree
 
 class Sum(terms: List<Term>) : ArrayList<Term>(), Term {
@@ -23,7 +22,6 @@ class Sum(terms: List<Term>) : ArrayList<Term>(), Term {
     override fun getComponents(): List<UnifyingTree> = this.toList()
     override fun nonCommutativeComponents(): Boolean = false
     override fun isComponent(): Boolean = false
-    override fun simplifier(): Simplifier<Sum> = SumSimplifier()
     override fun addComponent(c: UnifyingTree) {
         this.add(c as Term)
     }
@@ -31,6 +29,12 @@ class Sum(terms: List<Term>) : ArrayList<Term>(), Term {
         this.remove(c as Term)
     }
     override fun init(): UnifyingTree = Sum()
+
+    override fun getNode(i: Int): Node<Term> = this[i]
+    override fun setNode(i: Int, node: Node<Term>) {
+        this[i] = node.get()
+    }
+    override fun nodeSize(): Int = size
 
     override fun toInt(): Int = sumOf { it.toInt() }
     override fun toDouble(): Double = sumOf { it.toDouble() }

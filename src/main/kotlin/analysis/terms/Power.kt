@@ -1,7 +1,6 @@
 package analysis.terms
 
-import analysis.terms.simplifying.PowerSimplifier
-import analysis.terms.simplifying.Simplifier
+import algo.datastructures.Node
 import propa.Placeholder
 import propa.UnifyingTree
 import kotlin.math.pow
@@ -14,11 +13,11 @@ class Power(var base: Term, var exponent: Term) : Term {
     override fun contains(x: Variable): Boolean = base.contains(x) || exponent.contains(x)
     override fun derive(x: Variable): Term {
         return if (base.contains(x) && exponent.contains(x)) {
-            (exponent.derive(x) * Variable("ln($base)") + exponent / base) * this.clone()
+            (exponent.derive(x) * Ln(base) + exponent / base) * this.clone()
         } else if (base.contains(x)) {
             exponent * Power(base, exponent - Num(1)) * base.derive(x)
         } else if (exponent.contains(x)) {
-            Variable("ln($base)") * this.clone() * exponent.derive(x)
+            Ln(base) * this.clone() * exponent.derive(x)
         } else {
             Num(0)
         }
@@ -27,10 +26,25 @@ class Power(var base: Term, var exponent: Term) : Term {
     override fun getComponents(): List<UnifyingTree> = listOf(base, exponent)
     override fun nonCommutativeComponents(): Boolean = true
     override fun isComponent(): Boolean = false
-    override fun simplifier(): Simplifier<Power> = PowerSimplifier()
     override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun init(): UnifyingTree = throw IllegalCallerException()
+
+    override fun getNode(i: Int): Node<Term> {
+        return when (i) {
+            0 -> base
+            1 -> exponent
+            else -> throw IndexOutOfBoundsException(i)
+        }
+    }
+    override fun setNode(i: Int, node: Node<Term>) {
+        when (i) {
+            0 -> base = node.get()
+            1 -> exponent = node.get()
+            else -> throw IndexOutOfBoundsException(i)
+        }
+    }
+    override fun nodeSize(): Int = 2
 
     override fun toDouble(): Double {
         return base.simplify().toDouble().pow(exponent.simplify().toDouble())

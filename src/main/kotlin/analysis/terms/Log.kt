@@ -1,8 +1,7 @@
 package analysis.terms
 
+import algo.datastructures.Node
 import analysis.inverseMult
-import analysis.terms.simplifying.LogSimplifier
-import analysis.terms.simplifying.Simplifier
 import analysis.unaryMinus
 import propa.Placeholder
 import propa.UnifyingTree
@@ -28,12 +27,27 @@ open class Log(var base: Term, var arg: Term) : Term {
         return arg.derive(x) / (arg * Ln(base))
     }
 
+    override fun getNode(i: Int): Node<Term> {
+        return when (i) {
+            0 -> base
+            1 -> arg
+            else -> throw IndexOutOfBoundsException(i)
+        }
+    }
+    override fun setNode(i: Int, node: Node<Term>) {
+        when (i) {
+            0 -> base = node.get()
+            1 -> arg = node.get()
+            else -> throw IndexOutOfBoundsException(i)
+        }
+    }
+    override fun nodeSize(): Int = 2
+
     override fun getComponents(): List<UnifyingTree> {
         return listOf(base, arg)
     }
     override fun nonCommutativeComponents(): Boolean = true
     override fun isComponent(): Boolean = false
-    override fun simplifier(): Simplifier<*> = LogSimplifier()
     override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun init(): UnifyingTree = throw IllegalCallerException()

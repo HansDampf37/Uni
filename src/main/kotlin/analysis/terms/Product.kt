@@ -1,7 +1,6 @@
 package analysis.terms
 
-import analysis.terms.simplifying.ProductSimplifier
-import analysis.terms.simplifying.Simplifier
+import algo.datastructures.Node
 import propa.UnifyingTree
 
 class Product(terms: List<Term>) : ArrayList<Term>(), Term {
@@ -31,7 +30,6 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
     override fun getComponents(): List<UnifyingTree> = this.toList()
     override fun nonCommutativeComponents(): Boolean = false
     override fun isComponent(): Boolean = false
-    override fun simplifier(): Simplifier<Product> = ProductSimplifier()
     override fun addComponent(c: UnifyingTree) {
         this.add(c as Term)
     }
@@ -39,6 +37,12 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
         this.remove(c as Term)
     }
     override fun init(): UnifyingTree = Product()
+
+    override fun getNode(i: Int): Node<Term> = this[i]
+    override fun setNode(i: Int, node: Node<Term>) {
+        this[i] = node.get()
+    }
+    override fun nodeSize(): Int = size
 
     override fun toDouble(): Double = this.fold(1.0) { acc, new -> acc * new.toDouble() }
     override fun toInt(): Int = this.fold(1) { acc, new -> acc * new.toInt() }

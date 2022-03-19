@@ -1,56 +1,95 @@
 package analysis.terms.simplifying
 
 import analysis.terms.*
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
-
-internal class RuleBookTest {
-
+class RuleBookTest {
     @Test
-    fun simplifyExplicitly() {
-        val x = Variable("x")
-        //val term = Sum(Log(Num(3), x), Log(Num(3), x))
-        val term = Sum()
-        term.add(Sum(Num(3), Num(4)))
-        val uni = Sum().apply { add(Sum(f1)) }
-        println(uni)
-        println(term)
-        println(Rule(uni, f1) { Sum(f1, f2) }.applicable(term))
+    fun testSumRules() {
+        val term = Sum(Log(x, y), Log(x, four))
+        val result = Log(x, Product(y, four))
+        val rules = RuleBook.sumRules
+        assertCanBeSimplified(rules, term, result)
     }
 
     @Test
-    fun getLogRules() {
-        println(RuleBook.logRules.joinToString(separator = "\n"))
+    fun testSumRules1() {
+        val term = Sum(one, two)
+        val result = three
+        val rules = RuleBook.numericalRules
+        assertCanBeSimplified(rules, term, result)
     }
 
     @Test
-    fun getSumRules() {
-        println(RuleBook.sumRules.joinToString(separator = "\n"))
+    fun testSumRules2() {
+        val term = Sum(one, two, x)
+        val result = three + x
+        val rules = RuleBook.numericalRules
+        assertCanBeSimplified(rules, term, result)
     }
 
     @Test
-    fun getProductRules() {
-        println(RuleBook.productRules.joinToString(separator = "\n"))
+    fun testSumRules3() {
+        val term = Sum(one, y, two)
+        val result = three + y
+        val rules = RuleBook.numericalRules
+        assertCanBeSimplified(rules, term, result)
     }
 
     @Test
-    fun getPowerRules() {
-        println(RuleBook.powerRules.joinToString(separator = "\n"))
+    fun testLogRules() {
+        val term = Log(Sum(one, x), one)
+        val result = zero
+        val rules = RuleBook.logRules
+        assertCanBeSimplified(rules, term, result)
     }
 
     @Test
-    fun getFlattenRules() {
-        println(RuleBook.flattenRules.joinToString(separator = "\n"))
+    fun testLogRules2() {
+        val term = Log(x, Power(x, y))
+        val result = y
+        val rules = RuleBook.logRules
+        assertCanBeSimplified(rules, term, result)
     }
 
     @Test
-    fun getNumericalRules() {
-        println(RuleBook.numericalRules.joinToString(separator = "\n"))
+    fun testLogRules3() {
+        val term = Log(Sum(x, one), Power(Sum(x, one), y))
+        val result = y
+        val rules = RuleBook.logRules
+        assertCanBeSimplified(rules, term, result)
     }
 
     @Test
-    fun getSimplificationRules() {
-        println(RuleBook.simplificationRules.joinToString())
+    fun testLogRules4() {
+        val term = Log(Sum(x, one), Power(Sum(one, x), y))
+        val result = y
+        val rules = RuleBook.logRules
+        assertCanBeSimplified(rules, term, result)
+    }
+
+    @Test
+    fun testPowerRules1() {
+        val term = Pow(five, two)
+        val result = Num(25)
+        val rules = RuleBook.numericalRules
+        assertCanBeSimplified(rules, term, result)
+    }
+
+    @Test
+    fun testPowerRules2() {
+        val term = Pow(five, Num(1, 2))
+        val rules = RuleBook.numericalRules
+        assertCanBeSimplified(rules, term, term)
+    }
+
+    private fun assertCanBeSimplified(
+        rules: List<Rule>,
+        term: Term,
+        result: Term
+    ) {
+        Assertions.assertTrue(rules.filter { it.applicable(term).first }.map { it.apply(term) }
+            .contains(result))
     }
 }

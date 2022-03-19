@@ -1,7 +1,7 @@
 package analysis.terms
 
+import algo.datastructures.Node
 import analysis.terms.simplifying.Simplifier
-import analysis.terms.simplifying.VariableSimplifier
 import propa.Placeholder
 import propa.UnifyingTree
 
@@ -20,12 +20,23 @@ class Variable(val str: String) : Primitive, TermContainer {
     override fun derive(x: Variable): Term = if (this == x) Num(1) else Num(0)
 
     override fun getComponents(): List<UnifyingTree> = value?.getComponents() ?: throw Placeholder.NoComponents(this)
-    override fun nonCommutativeComponents(): Boolean = value?.nonCommutativeComponents() ?: throw Placeholder.NoComponents(this)
+    override fun nonCommutativeComponents(): Boolean =
+        value?.nonCommutativeComponents() ?: throw Placeholder.NoComponents(this)
+
     override fun isComponent(): Boolean = value?.isComponent() ?: throw Placeholder.NoComponents(this)
-    override fun simplifier(): Simplifier<Variable> = VariableSimplifier()
     override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun init(): UnifyingTree = throw IllegalCallerException()
+
+    override fun getNode(i: Int): Node<Term> {
+        return if (value != null) value!!.getNode(i) else throw IndexOutOfBoundsException(i)
+    }
+    override fun setNode(i: Int, node: Node<Term>) {
+        return if (value != null) value!!.setNode(i, node) else throw IndexOutOfBoundsException(i)
+    }
+    override fun nodeSize(): Int {
+        return if (value != null) value!!.nodeSize() else 0
+    }
 
     override fun toInt(): Int = value?.toInt() ?: throw NotANumberException(this)
     override fun toDouble(): Double = value?.toDouble() ?: throw NotANumberException(this)
@@ -36,6 +47,7 @@ class Variable(val str: String) : Primitive, TermContainer {
         if (other is Variable) return str == other.str
         return false
     }
+
     override fun hashCode(): Int {
         return str.hashCode()
     }
@@ -58,6 +70,8 @@ object VariableBindings {
 
     fun getBinding(v: Variable) = m[v]
 
-    class VariableAlreadyBoundException(v: Variable, new: Term, old: Term) : Exception("Variable $v is already bound to" +
-            " value $old and can therefore not be bound to value $new")
+    class VariableAlreadyBoundException(v: Variable, new: Term, old: Term) : Exception(
+        "Variable $v is already bound to" +
+                " value $old and can therefore not be bound to value $new"
+    )
 }

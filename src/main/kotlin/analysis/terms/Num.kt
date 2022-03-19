@@ -1,15 +1,15 @@
 package analysis.terms
 
+import algo.datastructures.Node
 import analysis.Field
-import analysis.terms.simplifying.Simplifier
-import analysis.terms.simplifying.SimplifierTrivial
 import propa.Placeholder
 import propa.UnifyingTree
+import kotlin.math.log
 import kotlin.math.pow
 import kotlin.math.sign
 import kotlin.math.withSign
 
-class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Field<Term> {
+open class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Field<Term> {
     constructor(num: Number, denominator: Number = 1.0) : this(num.toDouble(), denominator.toDouble())
 
     init {
@@ -30,7 +30,6 @@ class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Field<Ter
     override fun isComponent() = true
     override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
-    override fun simplifier(): Simplifier<Num> =  SimplifierTrivial()
     override fun init(): UnifyingTree = throw IllegalCallerException()
 
     override fun zero() = Num(0)
@@ -61,6 +60,26 @@ class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Field<Ter
     }
     override fun plus(other: Term) = other + this
     override fun times(other: Term) = other * this
+    override fun pow(t: Term): Term {
+        if (t !is Num) return super.pow(t)
+        val numerator = num.pow(t.toDouble())
+        val denominator = denominator.pow(t.toDouble())
+        val lengths = Pair(numerator.toString().split(".")[1].length, denominator.toString().split(".")[1].length)
+        return if (lengths.first < 5 && lengths.second < 5) {
+            Num(numerator, denominator)
+        } else {
+            Power(this, t)
+        }
+    }
+    override fun log(arg: Term): Term {
+        if (arg !is Num) return super.log(arg)
+        val result = log(arg.toDouble(), toDouble())
+        return if (result.toString().split(".")[1].length < 5) {
+            Num(result)
+        } else {
+            Log(this, arg)
+        }
+    }
 
     private fun shorten(): Num {
         if (num % denominator == 0.0) {
@@ -87,6 +106,14 @@ class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Field<Ter
 
     override fun contains(x: Variable): Boolean = false
     override fun derive(x: Variable): Term = Num(0)
+
+    override fun getNode(i: Int): Node<Term> {
+        throw IndexOutOfBoundsException(i)
+    }
+    override fun setNode(i: Int, node: Node<Term>) {
+        throw IndexOutOfBoundsException(i)
+    }
+    override fun nodeSize(): Int = 0
 
     override fun equals(other: Any?): Boolean {
         if (other is Number) return toDouble() == other.toDouble()
