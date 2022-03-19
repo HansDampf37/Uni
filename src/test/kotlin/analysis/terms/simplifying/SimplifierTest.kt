@@ -118,19 +118,18 @@ internal class SimplifierTest {
     fun testLog1() {
         val term = Sum(Ln(x), Ln(P(two, x)))
         val expected = Ln(P(two, Pow(x, two)))
-        val expected1 = S(one, P(two, Ln(x)))
         assertSimplifiesTo(term, expected)
     }
 
     @Test
     fun testLog2() {
-        val term = Ln(two)
+        val term = Ln(E)
         assertSimplifiesTo(term, one)
     }
 
     @Test
     fun testLog3() {
-        val term = P(Ln(two), x)
+        val term = P(Ln(E), x)
         assertSimplifiesTo(term, x)
     }
 

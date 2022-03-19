@@ -2,16 +2,13 @@ package propa
 
 import analysis.terms.*
 import analysis.terms.simplifying.UnificationVariable
+import analysis.terms.simplifying.a
+import analysis.terms.simplifying.b
+import analysis.terms.simplifying.c
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 internal class UnificationTest {
-    private val two = Num(2)
-    private val one = Num(1)
-    private val a = Variable("a")
-    private val b = Variable("b")
-    private val c = Variable("c")
-
     @Test
     fun testUnification0() {
         val x = UnificationVariable("x")

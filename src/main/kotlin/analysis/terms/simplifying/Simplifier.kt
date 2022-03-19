@@ -8,63 +8,109 @@ fun Term.quality(): Double {
     if (isLeaf()) return 0.0
     val allNodes = DFS(this).toList()
     val amountOfVariables = allNodes.filterIsInstance<Variable>().size
-    val weightDepth = 0.2
-    val weightSize = 0.2
-    val weightAmountOfVariable = 0.4
-    val weightAmountOfLeaves = 1 - weightDepth - weightSize - weightAmountOfVariable
-    val punishment = (weightDepth * depth() + weightSize * nodeSize() + weightAmountOfLeaves * width() + amountOfVariables * weightAmountOfVariable)
+    val amountOfLogs = allNodes.filterIsInstance<Log>().size
+    val punishment: Double = Simplifier.weightDepth * depth() +
+            Simplifier.weightSize * nodeSize() +
+            Simplifier.weightAmountOfLeaves * width() +
+            Simplifier.weightAmountOfVariable * amountOfVariables +
+            Simplifier.weightAmountOfLogs * amountOfLogs
     return -sqrt(punishment)
 }
 
 class Simplifier {
-    var N: Int = -1
-    var K: Int = -1
+    private var N: Int = -1
+    private var K: Int = -1
 
     fun simplify(t: Term): Term {
         val quality = 9 * t.quality()
         N = -quality.toInt()
-        K = 8
+        K = 4 - quality.toInt()
 
-        var l = listOf(Pair(t, t.quality()))
+        var listOfTerms = listOf(Pair(t, t.quality()))
         var best = Pair(t, quality)
         repeat(N) {
-            l.forEach { simplifyComponents(it.first) }
-            var l1 = simplify(l, RuleBook.numericalRules)
-            l = l1.ifEmpty { l }
-            l1 = simplify(l, RuleBook.simplificationRules)
-            l = l1.ifEmpty { l }
-            l1 = simplify(l, RuleBook.flattenRules)
-            l = l1.ifEmpty { l }
-            if (l.isEmpty()) return best.first
-            if (l[0].second > best.second) {
-                best = l[0]
+            listOfTerms.forEach { simplifyComponents(it.first) }
+
+            var newListOfTerms = simplifyNumbers(listOfTerms)
+            if (newListOfTerms.isNotEmpty()) {
+                listOfTerms = newListOfTerms
+                best = updateBest(listOfTerms, best)
+                if (best.second == 0.0) return best.first
             }
+
+            newListOfTerms = simplify(listOfTerms)
+            if (newListOfTerms.isNotEmpty()) {
+                listOfTerms = newListOfTerms
+                best = updateBest(listOfTerms, best)
+                if (best.second == 0.0) return best.first
+            }
+
+            newListOfTerms = simplifyFlatten(listOfTerms)
+            if (newListOfTerms.isNotEmpty()) {
+                listOfTerms = newListOfTerms
+                best = updateBest(listOfTerms, best)
+                if (best.second == 0.0) return best.first
+            }
+
+            if (listOfTerms.isEmpty()) return best.first
+            best = updateBest(listOfTerms, best)
         }
         return best.first
+    }
+
+    private fun updateBest(l: List<Pair<Term, Double>>, best: Pair<Term, Double>): Pair<Term, Double> {
+        return if (best.second > l[0].second) best else l[0]
     }
 
     private fun simplifyComponents(t: Term) {
         for (i in 0 until t.nodeSize()) t.setNode(i, t.getNode(i).get().simplify())
     }
 
-    fun flatten(t: Term): Term {
-        if (t.isLeaf()) return t
-        else {
-            for (i in 0 until t.nodeSize()) flatten(t.getNode(i).get())
-            for (i in 0 until t.nodeSize()) {
-                for (rule in RuleBook.flattenRules) {
-                    if (rule.applicable(t.getNode(i).get()).first) {
-                        t.setNode(i, rule.apply(t.getNode(i).get()))
-                    }
-                }
-            }
-        }
-        return t
+    private fun simplify(l: List<Pair<Term, Double>>): List<Pair<Term, Double>> {
+        return sortAndCutTerms(l.map { term -> simplifySingle(term.first) }.flatten())
     }
 
-    private fun simplify(l: List<Pair<Term, Double>>, rules: List<Rule>): List<Pair<Term, Double>> {
-        val res = l.map { term -> rules.filter {it.applicable(term.first).first}.map { rule -> rule.apply(term.first) } }.flatten()
-        return res.map { Pair(it, it.quality()) }.sortedByDescending { it.second }.slice(0 until minOf(K, res.size))
+    private fun simplifyNumbers(l: List<Pair<Term, Double>>): List<Pair<Term, Double>> {
+        return sortAndCutTerms(l.map { term -> simplifyNumbersSingle(term.first) }.flatten())
+    }
+
+    private fun simplifyFlatten(l: List<Pair<Term, Double>>): List<Pair<Term, Double>> {
+        return sortAndCutTerms(l.map { term -> simplifyFlattenSingle(term.first) }.flatten())
+    }
+
+    private fun sortAndCutTerms(terms: List<Pair<Term, Double>>) =
+        terms.sortedByDescending { it.second }.slice(0 until minOf(K, terms.size))
+
+    private fun simplifySingle(term: Term): List<Pair<Term, Double>> {
+        val rules = when (term) {
+            is Sum -> RuleBook.sumRules
+            is Product -> RuleBook.productRules
+            is Power -> RuleBook.powerRules
+            is Log -> RuleBook.logRules
+            else -> throw NotImplementedError()
+        }
+        return simplifyWithRules(rules, term)
+    }
+
+    private fun simplifyNumbersSingle(term: Term): List<Pair<Term, Double>> =
+        simplifyWithRules(RuleBook.numericalRules, term)
+
+    private fun simplifyFlattenSingle(term: Term): List<Pair<Term, Double>> =
+        simplifyWithRules(RuleBook.flattenRules, term)
+
+    private fun simplifyWithRules(
+        rules: List<Rule>,
+        term: Term
+    ): List<Pair<Term, Double>> {
+        return rules.filter { it.applicable(term).first }.map { it.apply(term) }.map { Pair(it, it.quality()) }
+    }
+
+    companion object {
+        const val weightDepth = 0
+        const val weightSize = 0
+        const val weightAmountOfVariable = 0.5
+        const val weightAmountOfLogs = 0.25
+        const val weightAmountOfLeaves = 1 - weightDepth - weightSize - weightAmountOfVariable
     }
 }
 /*

@@ -1,61 +1,66 @@
 package analysis.terms
 
-import analysis.terms.simplifying.zero
+import analysis.terms.simplifying.*
 import analysis.unaryMinus
+import junit.framework.Assert.assertEquals
 import junit.framework.TestCase
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
-class DerivativeTest : TestCase() {
-    private val x = Variable("x")
-    private val y = Variable("y")
-    private val one = Num(1)
-    private val two = Num(2)
-    private val three = Num(3)
-
+class DerivativeTest {
+    @Test
     fun test1() {
         val term = x
         assertDerivative(term, listOf(x, y), listOf(one, zero))
     }
 
+    @Test
     fun test2() {
         val term = two * x
         assertDerivative(term, listOf(x, y), listOf(two, zero))
     }
 
+    @Test
     fun test3() {
         val term = x + two * y
         assertDerivative(term, listOf(x, y), listOf(one, two))
     }
 
+    @Test
     fun test3_1() {
         val term = three * x.pow(three) + two * y
         assertDerivative(term, listOf(x, y), listOf(Num(9) * x.pow(two), two))
     }
 
+    @Test
     fun test4() {
         val term = x.pow(2) * two.pow(x)
-        assertDerivative(term, listOf(x, y), listOf(two * x * two.pow(x) + x.pow(2) * two.pow(x), zero))
+        assertDerivative(term, listOf(x, y), listOf(P(Pow(two, x), x,S(two, P(x, Ln(two)))), zero))
     }
 
+    @Test
     fun test5() {
-        val term = x * Power(two, x) * Power(y, x)
+        val term = P(x, Power(two, x), Power(y, x))
         assertDerivative(
             term, listOf(x, y), listOf(
-                y.pow(x) * (x * two.pow(x) + two.pow(x)) + two.pow(x) * x * Ln(y) * y.pow(x),
+                P(Pow(P(two, y), x), S(one, P(x, Ln(P(two, y))))),
                 x.pow(two) * Power(two, x) * Power(y, x - one)
             )
         )
     }
 
+    @Test
     fun test6() {
         val term = two.pow(x.pow(y))
         assertDerivative(
             term, listOf(x, y), listOf(
-                two.pow(x.pow(y)) * x.pow(-one + y) * y,
-                two.pow(x.pow(y)) * x.pow(y) * Ln(x)
+                P(two.pow(x.pow(y)), x.pow(S(-one, y)), y, Ln(two)),
+                P(two.pow(x.pow(y)), x.pow(y), Ln(x), Ln(two))
             )
         )
     }
 
+    @Test
     fun test7() {
         val term = two * x.pow(8) + three * x.pow(4)
         assertDerivative(
@@ -69,7 +74,11 @@ class DerivativeTest : TestCase() {
         val calculatedDerivatives = variables.map { term.derive(it) }
         for (i in variables.indices) {
             println("d/d${variables[i]} $term = ${calculatedDerivatives[i]}")
-            assertEquals(expectedDerivatives[i], calculatedDerivatives[i].simplify())
+            Assertions.assertEquals(
+                expectedDerivatives[i],
+                calculatedDerivatives[i].simplify(),
+                "Expected derivative's quality ${expectedDerivatives[i].quality()}\nCalculated derivative's quality ${calculatedDerivatives[i].quality()}"
+            )
         }
     }
 }

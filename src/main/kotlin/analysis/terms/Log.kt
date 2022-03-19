@@ -69,7 +69,7 @@ open class Log(var base: Term, var arg: Term) : Term {
     }
 }
 
-class Ln(arg: Term) : Log(Num(2), arg) {
+class Ln(arg: Term) : Log(E, arg) {
     override fun toString() = "Ln($arg)"
 }
 class Log10(arg: Term) : Log(Num(10), arg) {

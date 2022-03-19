@@ -84,12 +84,19 @@ class RuleBookTest {
         assertCanBeSimplified(rules, term, term)
     }
 
+    @Test
+    fun testLogRules1() {
+        val term = Ln(E)
+        val rules = RuleBook.logRules
+        assertCanBeSimplified(rules, term, one)
+    }
+
     private fun assertCanBeSimplified(
         rules: List<Rule>,
         term: Term,
         result: Term
     ) {
         Assertions.assertTrue(rules.filter { it.applicable(term).first }.map { it.apply(term) }
-            .contains(result))
+            .contains(result), "Expected simplifcation from $term to $result")
     }
 }

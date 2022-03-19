@@ -10,26 +10,6 @@ typealias S = Sum
 typealias Pow = Power
 typealias L = Log
 
-class Const(private val str: String): Num(0) {
-    override fun toString(): String = str
-    fun plus(c: Const) = Const("$str + ${c.str}")
-    fun times(c: Const) = Const("$str * ${c.str}")
-    fun minus(c: Const) = Const("$str - ${c.str}")
-    fun div(c: Const) = Const("$str / ${c.str}")
-
-    override fun plus(other: Num): Num {
-        return if (other is Const) plus(other) else super.plus(other)
-    }
-    override fun minus(other: Num): Num {
-        return if (other is Const) minus(other) else super.plus(other)
-    }
-    override fun times(other: Num): Num {
-        return if (other is Const) times(other) else super.plus(other)
-    }
-    override fun div(other: Num): Num {
-        return if (other is Const) div(other) else super.plus(other)
-    }
-}
 val a = UnificationVariable("a")
 val b = UnificationVariable("b")
 val c = UnificationVariable("c")
@@ -45,24 +25,15 @@ val sum1 = UnificationVariable("Sum1", constraint = { it is Sum })
 val u = UnificationVariable("u", constraint = { it is UnificationVariable })
 val f1 = UnificationVariable("f1", filler = true)
 val f2 = UnificationVariable("f2", filler = true)
-val zero = Num(0)
-val one = Num(1)
-val two = Num(2)
-val three = Num(3)
-val four = Num(4)
-val five = Num(5)
-val six = Num(6)
-val seven = Num(7)
-val x = Variable("x")
-val y = Variable("y")
-val z = Variable("z")
-val q = Variable("q")
+val f3 = UnificationVariable("f3", filler = true)
 
 object RuleBook {
     val logRules = listOf(
         Rule(L(a, one)) { Num(0) },
+        Rule(L(a, a)) { one },
         Rule(L(a, Pow(a, b))) { b },
         Rule(L(a, Pow(b, c))) { P(c, L(a, b)) },
+        Rule(L(c, P(a, b))) { S(L(c, a), L(c, b)) }
     )
 
     val sumRules = listOf(
@@ -71,6 +42,7 @@ object RuleBook {
         Rule(S(a, P(-one, a), f1)) { f1 },
         Rule(S(a, a)) { P(two, a) },
         Rule(S(a, a, f1)) { S(P(two, a), f1) },
+        Rule(S(P(f1, f2), P(f1, f3))) { P(f1, S(f2, f3)) },
         Rule(S(P(a, b), a)) { P(a, S(b, one)) },
         Rule(S(P(a, b), a, f1)) { S(P(a, S(b, one)), f1) },
         Rule(S(P(a, b), P(a, c))) { P(a, S(b, c)) },
@@ -93,7 +65,7 @@ object RuleBook {
         Rule(P(a, Pow(a, b), f1)) { P(Pow(a, S(b, one)), f1) },
         Rule(P(Pow(a, b), Pow(a, c))) { Pow(a, S(b, c)) },
         Rule(P(Pow(a, b), Pow(a, c), f1)) { P(Pow(a, S(b, c)), f1) },
-        Rule(P(Pow(a, b), Pow(c, b))) { Pow(S(a, c), b) },
+        Rule(P(Pow(a, b), Pow(c, b))) { Pow(P(a, c), b) },
         Rule(P(Pow(a, b), Pow(c, b), f1)) { P(Pow(S(a, c), b), f1) },
     )
 
@@ -113,11 +85,11 @@ object RuleBook {
         Rule(S(a)) { a },
         Rule(S(sum1, f2)) {
             S().apply {
-                if (product1.t != null && f2.t != null) {
-                    addAll(product1.t as S)
+                if (sum1.t != null && f2.t != null) {
+                    addAll(sum1.t as S)
                     if (f2.t!! is S) addAll(f2.t as S) else add(f2)
                 } else {
-                    add(f1)
+                    add(sum1)
                     add(f2)
                 }
             }
@@ -130,7 +102,7 @@ object RuleBook {
                     // add(f2)
                     if (f2.t!! is P) addAll(f2.t as P) else add(f2)
                 } else {
-                    add(f1)
+                    add(product1)
                     add(f2)
                 }
             }

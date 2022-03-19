@@ -1,9 +1,6 @@
 package analysis.terms.simplifying
 
-import analysis.terms.Num
-import analysis.terms.Product
-import analysis.terms.Sum
-import analysis.terms.Term
+import analysis.terms.*
 import analysis.unaryMinus
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -113,6 +110,13 @@ internal class RuleTest {
         val rule = Rule(S(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num) + (n2.t as Num) else S(n1, n2)}
         val expected = -three
         assertRuleApplied(rule, t, expected)
+    }
+
+    @Test
+    fun testLogRules() {
+        val t = Ln(E)
+        val rule = Rule(L(a, a)) { one }
+        assertRuleApplied(rule, t, one)
     }
 
     fun assertRuleApplied(rule: Rule, initial: Term, expectedResult: Term, successExpected: Boolean = true) {

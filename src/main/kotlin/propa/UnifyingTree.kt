@@ -10,7 +10,7 @@ interface UnifyingTree : Cloneable{
 
     fun unify(unification: UnifyingTree): List<MutableMap<Placeholder, UnifyingTree>> {
         if (unification.isComponent()) return unifyComponent(unification)
-        if (this.javaClass != unification.javaClass) return listOf()
+        if (!unification.javaClass.isAssignableFrom(this.javaClass)) return listOf()
         val ownComponents = getComponents()
         val unificationComponents = unification.getComponents()
         if (ownComponents.size != unificationComponents.size) {
