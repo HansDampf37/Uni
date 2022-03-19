@@ -1,16 +1,83 @@
 package analysis.terms.simplifying
 
+import algo.datastructures.DFS
 import analysis.terms.*
-import kotlin.math.log
-import kotlin.math.pow
+import kotlin.math.sqrt
+
+fun Term.quality(): Double {
+    if (isLeaf()) return 0.0
+    val allNodes = DFS(this).toList()
+    val amountOfVariables = allNodes.filterIsInstance<Variable>().size
+    val weightDepth = 0.2
+    val weightSize = 0.2
+    val weightAmountOfVariable = 0.4
+    val weightAmountOfLeaves = 1 - weightDepth - weightSize - weightAmountOfVariable
+    val punishment = (weightDepth * depth() + weightSize * nodeSize() + weightAmountOfLeaves * width() + amountOfVariables * weightAmountOfVariable)
+    return -sqrt(punishment)
+}
+
+class Simplifier {
+    var N: Int = -1
+    var K: Int = -1
+
+    fun simplify(t: Term): Term {
+        val quality = 9 * t.quality()
+        N = -quality.toInt()
+        K = 8
+
+        var l = listOf(Pair(t, t.quality()))
+        var best = Pair(t, quality)
+        repeat(N) {
+            l.forEach { simplifyComponents(it.first) }
+            var l1 = simplify(l, RuleBook.numericalRules)
+            l = l1.ifEmpty { l }
+            l1 = simplify(l, RuleBook.simplificationRules)
+            l = l1.ifEmpty { l }
+            l1 = simplify(l, RuleBook.flattenRules)
+            l = l1.ifEmpty { l }
+            if (l.isEmpty()) return best.first
+            if (l[0].second > best.second) {
+                best = l[0]
+            }
+        }
+        return best.first
+    }
+
+    private fun simplifyComponents(t: Term) {
+        for (i in 0 until t.nodeSize()) t.setNode(i, t.getNode(i).get().simplify())
+    }
+
+    fun flatten(t: Term): Term {
+        if (t.isLeaf()) return t
+        else {
+            for (i in 0 until t.nodeSize()) flatten(t.getNode(i).get())
+            for (i in 0 until t.nodeSize()) {
+                for (rule in RuleBook.flattenRules) {
+                    if (rule.applicable(t.getNode(i).get()).first) {
+                        t.setNode(i, rule.apply(t.getNode(i).get()))
+                    }
+                }
+            }
+        }
+        return t
+    }
+
+    private fun simplify(l: List<Pair<Term, Double>>, rules: List<Rule>): List<Pair<Term, Double>> {
+        val res = l.map { term -> rules.filter {it.applicable(term.first).first}.map { rule -> rule.apply(term.first) } }.flatten()
+        return res.map { Pair(it, it.quality()) }.sortedByDescending { it.second }.slice(0 until minOf(K, res.size))
+    }
+}
+/*
 
 abstract class Simplifier<T : Term>(val rules: List<Rule>) {
-    /**
-     * Simplifies the given expression
-     *
-     * @param t the Term
-     * @return simplified version
-     */
+    */
+/**
+ * Simplifies the given expression
+ *
+ * @param t the Term
+ * @return simplified version
+ *//*
+
     open fun simplify(t: T): Term {
         pullUp(t)
         var res: Term
@@ -25,19 +92,23 @@ abstract class Simplifier<T : Term>(val rules: List<Rule>) {
         return res
     }
 
-    /**
-     * Combines numbers in term t sum(3, 2, x) -> sum(5, x)
-     *
-     * @param t
-     * @return
-     */
+    */
+/**
+ * Combines numbers in term t sum(3, 2, x) -> sum(5, x)
+ *
+ * @param t
+ * @return
+ *//*
+
     abstract fun eval(t: T): Term
 
-    /**
-     * Flattens all layers in this term not just one
-     *
-     * @param t
-     */
+    */
+/**
+ * Flattens all layers in this term not just one
+ *
+ * @param t
+ *//*
+
     abstract fun pullUp(t: T): Term
 }
 
@@ -48,7 +119,7 @@ class SimplifierTrivial<T : Term> : Simplifier<T>(listOf()) {
     override fun pullUp(t: T) = t
 }
 
-class SumSimplifier : Simplifier<Sum>(SumRules.rules) {
+class SumSimplifier : Simplifier<Sum>(RuleBook.sumRules) {
     override fun eval(t: Sum): Sum {
         var n = Num(0)
         val res = t.clone()
@@ -95,7 +166,7 @@ class SumSimplifier : Simplifier<Sum>(SumRules.rules) {
     }
 }
 
-class ProductSimplifier : Simplifier<Product>(ProductRules.rules) {
+class ProductSimplifier : Simplifier<Product>(RuleBook.productRules) {
     override fun pullUp(t: Product): Term {
         if (t.size == 1) t[0].pullUp()
         for (i in t.indices.reversed()) {
@@ -141,7 +212,7 @@ class ProductSimplifier : Simplifier<Product>(ProductRules.rules) {
     }
 }
 
-class PowerSimplifier : Simplifier<Power>(PowerRules.rules) {
+class PowerSimplifier : Simplifier<Power>(RuleBook.powerRules) {
     override fun pullUp(t: Power): Term {
         t.base = t.base.pullUp()
         t.exponent = t.exponent.pullUp()
@@ -164,7 +235,7 @@ class PowerSimplifier : Simplifier<Power>(PowerRules.rules) {
     }
 }
 
-class LogSimplifier : Simplifier<Log>(LogRules.rules) {
+class LogSimplifier : Simplifier<Log>(RuleBook.logRules) {
     override fun eval(t: Log): Term {
         return if (t.base is Num && t.arg is Num) {
             val x = log((t.arg as Num).num, (t.base as Num).toDouble())
@@ -192,3 +263,4 @@ class VariableSimplifier : Simplifier<Variable>(listOf()) {
     override fun eval(t: Variable): Term = t.value ?: t
     override fun pullUp(t: Variable): Term = t.value?.pullUp() ?: t
 }
+*/

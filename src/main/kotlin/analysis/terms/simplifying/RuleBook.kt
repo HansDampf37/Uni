@@ -10,14 +10,41 @@ typealias S = Sum
 typealias Pow = Power
 typealias L = Log
 
-private val a = UnificationVariable("a")
-private val b = UnificationVariable("b")
-private val c = UnificationVariable("c")
-private val d = UnificationVariable("d")
-private val n1 = UnificationVariable("n1", constraint = { it is Num })
-private val n2 = UnificationVariable("n2", constraint = { it is Num })
-private val n3 = UnificationVariable("n3", constraint = { it is Num })
-private val f = UnificationVariable("f", filler = true)
+class Const(private val str: String): Num(0) {
+    override fun toString(): String = str
+    fun plus(c: Const) = Const("$str + ${c.str}")
+    fun times(c: Const) = Const("$str * ${c.str}")
+    fun minus(c: Const) = Const("$str - ${c.str}")
+    fun div(c: Const) = Const("$str / ${c.str}")
+
+    override fun plus(other: Num): Num {
+        return if (other is Const) plus(other) else super.plus(other)
+    }
+    override fun minus(other: Num): Num {
+        return if (other is Const) minus(other) else super.plus(other)
+    }
+    override fun times(other: Num): Num {
+        return if (other is Const) times(other) else super.plus(other)
+    }
+    override fun div(other: Num): Num {
+        return if (other is Const) div(other) else super.plus(other)
+    }
+}
+val a = UnificationVariable("a")
+val b = UnificationVariable("b")
+val c = UnificationVariable("c")
+val d = UnificationVariable("d")
+val n1 = UnificationVariable("n1", constraint = { it is Num })
+val n2 = UnificationVariable("n2", constraint = { it is Num })
+val n3 = UnificationVariable("n3", constraint = { it is Num })
+val v1 = UnificationVariable("v1", constraint = { it is Variable })
+val v2 = UnificationVariable("v2", constraint = { it is Variable })
+val v3 = UnificationVariable("v3", constraint = { it is Variable })
+val product1 = UnificationVariable("Product1", constraint = { it is Product })
+val sum1 = UnificationVariable("Sum1", constraint = { it is Sum })
+val u = UnificationVariable("u", constraint = { it is UnificationVariable })
+val f1 = UnificationVariable("f1", filler = true)
+val f2 = UnificationVariable("f2", filler = true)
 val zero = Num(0)
 val one = Num(1)
 val two = Num(2)
@@ -31,58 +58,97 @@ val y = Variable("y")
 val z = Variable("z")
 val q = Variable("q")
 
-object LogRules {
-    val rules = listOf(
-        Rule(L(a, one), a) { Num(0) },
-        Rule(L(a, Pow(a, b)), a, b) { b },
-        Rule(L(a, Pow(b, c)), a, b, c) { P(c, L(a, b)) },
+object RuleBook {
+    val logRules = listOf(
+        Rule(L(a, one)) { Num(0) },
+        Rule(L(a, Pow(a, b))) { b },
+        Rule(L(a, Pow(b, c))) { P(c, L(a, b)) },
     )
-}
 
-object SumRules {
-    val rules = listOf(
-        Rule(S(n1, n2), n1, n2) { (n1.t as Num) + (n2.t as Num) },
-        Rule(S(n1, n2, f), n1, n2, f) { S((n1.t as Num) + (n2.t as Num), f) },
-        Rule(S(f, zero), f) { f },
-        Rule(S(a, P(-one, a)), a) { zero },
-        Rule(S(a, P(-one, a), f), f) { f },
-        Rule(S(P(a, b), P(a, c)), a, b, c) { P(a, S(b, c)) },
-        Rule(S(P(a, b), P(a, c), f), a, b, c, f) { Sum(P(a, S(b, c)), f) },
-        Rule(S(L(c, a), L(c, b)), a, b, c) { L(c, P(a, b)) },
-        Rule(S(L(c, a), L(c, b), f), a, b, c, f) { S(L(c, P(a, b)), f) },
-        Rule(S(L(c, a), P(-one, L(c, b))), a, b, c) { L(c, P(a, b.inverseMult())) },
-        Rule(S(L(c, a), P(-one, L(c, b)), f), a, b, c, f) { S(L(c, P(a, b.inverseMult())), f) }
+    val sumRules = listOf(
+        Rule(S(f1, zero)) { f1 },
+        Rule(S(a, P(-one, a))) { zero },
+        Rule(S(a, P(-one, a), f1)) { f1 },
+        Rule(S(a, a)) { P(two, a) },
+        Rule(S(a, a, f1)) { S(P(two, a), f1) },
+        Rule(S(P(a, b), a)) { P(a, S(b, one)) },
+        Rule(S(P(a, b), a, f1)) { S(P(a, S(b, one)), f1) },
+        Rule(S(P(a, b), P(a, c))) { P(a, S(b, c)) },
+        Rule(S(P(a, b), P(a, c), f1)) { S(P(a, S(b, c)), f1) },
+        Rule(S(L(c, a), L(c, b))) { L(c, P(a, b)) },
+        Rule(S(L(c, a), L(c, b), f1)) { S(L(c, P(a, b)), f1) },
+        Rule(S(L(c, a), P(-one, L(c, b)))) { L(c, P(a, b.inverseMult())) },
+        Rule(S(L(c, a), P(-one, L(c, b)), f1)) { S(L(c, P(a, b.inverseMult())), f1) }
     )
-}
 
-object ProductRules {
-    val rules = listOf(
-        Rule(P(n1, n2), n1, n2) { (n1.t as Num) * (n2.t as Num) },
-        Rule(P(n1, n2, f), n1, n2, f) { P((n1.t as Num) * (n2.t as Num), f) },
-        Rule(P(f, one), f) { f },
-        Rule(P(f, zero), f) { zero },
-        Rule(P(a, Pow(a, -one)), a) { one },
-        Rule(P(a, Pow(a, -one), f), a, f) { f },
-        Rule(P(a, Pow(a, b)), a, b) { Pow(a, b + one) },
-        Rule(P(a, Pow(a, b), f), a, b, f) { P(Pow(a, b + one), f) },
-        Rule(P(Pow(a, b), Pow(a, c)), a, b, c) { Pow(a, S(b + c)) },
-        Rule(P(Pow(a, b), Pow(a, c), f), a, b, c, f) { P(Pow(a, S(b + c)), f) },
-        Rule(P(Pow(a, b), Pow(c, b)), a, b, c) { Pow(S(a, c), b) },
-        Rule(P(Pow(a, b), Pow(c, b), f), a, b, c, f) { P(Pow(S(a, c), b), f) },
+    val productRules = listOf(
+        Rule(P(f1, one)) { f1 },
+        Rule(P(f1, zero)) { zero },
+        Rule(P(a, Pow(a, -one))) { one },
+        Rule(P(f1, S(a, f2))) { S(P(f1, a), P(f1, f2)) },
+        Rule(P(a, Pow(a, -one), f1)) { f1 },
+        Rule(P(a, a)) { Pow(a, two) },
+        Rule(P(a, a, f1)) { P(Pow(a, two), f1) },
+        Rule(P(a, Pow(a, b))) { Pow(a, S(b, one)) },
+        Rule(P(a, Pow(a, b), f1)) { P(Pow(a, S(b, one)), f1) },
+        Rule(P(Pow(a, b), Pow(a, c))) { Pow(a, S(b, c)) },
+        Rule(P(Pow(a, b), Pow(a, c), f1)) { P(Pow(a, S(b, c)), f1) },
+        Rule(P(Pow(a, b), Pow(c, b))) { Pow(S(a, c), b) },
+        Rule(P(Pow(a, b), Pow(c, b), f1)) { P(Pow(S(a, c), b), f1) },
     )
-}
 
-object PowerRules {
-    val rules = listOf(
-        Rule(Pow(n1, n2), n1, n2) { (n1.t as Num).pow(n2.t as Num) },
-        Rule(Pow(a, one), a) { a },
-        Rule(Pow(a, zero), a) { one },
-        Rule(Pow(Pow(a, b), c), a, b, c) { Pow(a, P(b, c)) },
-        Rule(Pow(a, Pow(a, b)), a, b) { Pow(a, b + one) },
-        Rule(P(Pow(a, b), Pow(a, c)), a, b, c) { Pow(a, S(b + c)) },
-        Rule(P(Pow(a, b), Pow(c, b)), a, b, c) { Pow(S(a, c), b) },
-        Rule(Pow(a, L(a, b) * c), a, b, c) { Pow(b, c) },
-        Rule(Pow(a, L(a, b)), a, b, c) { b },
-        Rule(Pow(a, L(a, b)), a, b) { b }
+    val powerRules = listOf(
+        Rule(Pow(a, one)) { a },
+        Rule(Pow(a, zero)) { one },
+        Rule(Pow(Pow(a, b), c)) { Pow(a, P(b, c)) },
+        Rule(Pow(a, Pow(a, b))) { Pow(a, S(b, one)) },
+        Rule(P(Pow(a, b), Pow(a, c))) { Pow(a, S(b, c)) },
+        Rule(P(Pow(a, b), Pow(c, b))) { Pow(S(a, c), b) },
+        Rule(Pow(a, P(L(a, b), c))) { Pow(b, c) },
+        Rule(Pow(a, L(a, b))) { b },
+        Rule(Pow(a, L(a, b))) { b }
     )
+
+    val flattenRules = listOf(
+        Rule(S(a)) { a },
+        Rule(S(sum1, f2)) {
+            S().apply {
+                if (product1.t != null && f2.t != null) {
+                    addAll(product1.t as S)
+                    if (f2.t!! is S) addAll(f2.t as S) else add(f2)
+                } else {
+                    add(f1)
+                    add(f2)
+                }
+            }
+        },
+        Rule(P(a)) { a },
+        Rule(P(product1, f2)) {
+            P().apply {
+                if (product1.t != null && f2.t != null) {
+                    addAll(product1.t as P)
+                    // add(f2)
+                    if (f2.t!! is P) addAll(f2.t as P) else add(f2)
+                } else {
+                    add(f1)
+                    add(f2)
+                }
+            }
+        }
+        //Rule(v1) { (v1.t as Variable?)?.value ?: (v1.t as Variable?) ?: v1 },
+        //Rule(u) { (u.t as UnificationVariable?)?.value ?: (u.t as UnificationVariable?) ?: u },
+    )
+
+    val numericalRules = listOf(
+        Rule(S(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num) + (n2.t as Num) else S(n1, n2)},
+        Rule(S(n1, n2, f1)) { if (n1.t != null && n2.t != null) S((n1.t as Num) + (n2.t as Num), f1) else S(n1, n2, f1) },
+        Rule(P(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num) * (n2.t as Num) else P(n1, n2) },
+        Rule(P(n1, n2, f1)) { if (n1.t != null && n2.t != null) P((n1.t as Num) * (n2.t as Num), f1) else P(n1, n2, f1)},
+        Rule(Pow(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num).pow(n2.t as Num) else Pow(n1, n2) },
+        Rule(Pow(n1, P(n2, f1))) { if (n1.t != null && n2.t != null) Pow((n1.t as Num).pow(n2.t as Num), f1) else Pow(n1, P(n2, f1)) },
+        Rule(Pow(P(n1, f1), n2)) { if (n1.t != null && n2.t != null) P((n1.t as Num).pow(n2.t as Num), Pow(f1, n2)) else Pow(P(n1, f1), n2) },
+        Rule(Log(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num).log(n2.t as Num) else Log(n1, n2) }
+    )
+
+    val simplificationRules = listOf(logRules, sumRules, productRules, powerRules).flatten()
 }

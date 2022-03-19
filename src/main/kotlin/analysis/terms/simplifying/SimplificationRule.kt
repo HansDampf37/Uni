@@ -1,19 +1,43 @@
 package analysis.terms.simplifying
 
+import algo.datastructures.DFS
 import analysis.terms.Term
-import analysis.terms.pullUp
 import propa.Placeholder
 import propa.UnifyingTree
 
-class SimplificationRule(private val precondition: Term, vararg variables: UnificationVariable, val transform: () -> Term) {
-    private val variables = variables.toList()
+class SimplificationRule(private val precondition: Term, val transform: () -> Term) {
+    private val variables = ArrayList<UnificationVariable>()
+
+    init {
+        for (c in DFS(precondition)) {
+            if (c is UnificationVariable && !variables.contains(c)) variables.add(c)
+        }
+    }
+
     fun apply(term: Term): Term {
         val uniResult = applicable(term)
         if (uniResult.first) {
-            uniResult.second.forEach { it.key.t = it.value }
-            val simplify = transform().pullUp()
-            println("$term -> $simplify since: $this")
-            return simplify
+            for (i in variables.indices) {
+                variables[i].t = uniResult.second[variables[i]]
+            }
+            val result = transform()
+            if (variables.any { it.value == null }) {
+                throw IllegalStateException("")
+            }
+            for (c in DFS(result)) {
+                if (!c.isLeaf()) {
+                    for (i in 0 until c.nodeSize()) {
+                        val node = c.getNode(i)
+                        if (node is UnificationVariable) {
+                            if (node.t == null) {
+                                throw IllegalStateException("")
+                            }
+                            c.setNode(i, node.t as Term)
+                        }
+                    }
+                }
+            }
+            return if (result is UnificationVariable) result.t as Term else result
         }
         return term
     }
@@ -25,6 +49,11 @@ class SimplificationRule(private val precondition: Term, vararg variables: Unifi
     }
 
     override fun toString(): String {
-        return "$precondition -> ${transform()}"
+        try {
+            return "$precondition -> ${transform()}"
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return ""
     }
 }
