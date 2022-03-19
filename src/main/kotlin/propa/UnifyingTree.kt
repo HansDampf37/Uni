@@ -1,6 +1,6 @@
 package propa
 
-interface UnifyingTree : Cloneable {
+interface UnifyingTree : Cloneable{
     fun getComponents(): List<UnifyingTree>
     fun nonCommutativeComponents(): Boolean
     fun isComponent(): Boolean
@@ -44,8 +44,15 @@ interface UnifyingTree : Cloneable {
      * tree a, b, c, d, e
      * -> x, y, f
      * -> a, b, (c, d, e)
-     * additionalElements = uni.size - 1 until tree.size
-     * ownNew = 0 until tree.size - uni.size
+     * Unificator f
+     * Tree a, b, c
+     * -> f
+     * -> (a, b, c)
+     * the unificator is split in a part without f (u1) and in f (u2)
+     * the tree is split in a part (t1) with same size as first unificator part (u1) and remaining (t2)
+     * create Tree (tree) from t2
+     * resTree = t1 + tree
+     * resUni = u1 + u2
      *
      * Caller must assure that
      * - [nonCommutativeComponents] == false
@@ -65,24 +72,19 @@ interface UnifyingTree : Cloneable {
         if (ownComponents.size < unificationComponents.size) throw IllegalCallerException()
         if (unificationComponents.none { it is Placeholder && it.filler }) throw IllegalCallerException()
         // merge additional components in one filler
-
-        // create new unificator with filler at the end
         val filler = unificationComponents.first { it is Placeholder && it.filler }
-        val uniMod = unificationComponents.toMutableList()
-        val unificator: UnifyingTree = init()
-        uniMod.remove(filler)
-        uniMod.add(filler) // the filler is now at the end
-        uniMod.forEach { unificator.addComponent(it) }
+        val u1 =  unificationComponents.toMutableList()
+        u1.remove(filler)
 
-        // create new UnifyingTree that contains additional components
-        val additionalOwnComps = ownComponents.slice(unificationComponents.size - 1 until ownComponents.size)
-        val subTree: UnifyingTree = init()
-        additionalOwnComps.forEach { subTree.addComponent(it) }
+        val t1 = ownComponents.slice(0 until u1.size).toMutableList()
+        val t2 = ownComponents.slice(u1.size until ownComponents.size)
 
-        // create a New Unifying tree that contains the subtree instead of the additional components
-        val ownMod = ownComponents.slice(0 until ownComponents.size - uniMod.size).toMutableList()
-        ownMod.add(subTree)
-        return Pair(ownMod, uniMod)
+        val tree: UnifyingTree = init()
+        t2.forEach { tree.addComponent(it) }
+
+        t1.add(tree)
+        u1.add(filler)
+        return Pair(t1, u1)
     }
 
     fun init(): UnifyingTree

@@ -1,5 +1,6 @@
 package analysis.terms.simplifying
 
+import algo.datastructures.Node
 import analysis.terms.*
 import propa.Placeholder
 import propa.UnifyingTree
@@ -18,12 +19,15 @@ class UnificationVariable(name: String, constraint: (UnifyingTree) -> Boolean = 
     override fun toString(): String = name
     override fun toDouble(): Double = throw OnlyPlaceholderException()
     override fun toInt(): Int = throw OnlyPlaceholderException()
-    override fun simplifier(): Simplifier<*> = object : Simplifier<UnificationVariable>(listOf()) {
-        override fun simplify(t: UnificationVariable): Term = if (t.t != null) (t.t!! as Term).simplify() else t
-        override fun eval(t: UnificationVariable): Term = if (t.t != null) (t.t!! as Term).eval() else t
-        override fun pullUp(t: UnificationVariable): Term {
-            return if (value == null) this@UnificationVariable else value!!
-        }
+
+    override fun getNode(i: Int): Node<Term> {
+        return if (value != null) value!!.getNode(i) else throw IndexOutOfBoundsException(i)
+    }
+    override fun setNode(i: Int, node: Node<Term>) {
+        return if (value != null) value!!.setNode(i, node) else throw IndexOutOfBoundsException(i)
+    }
+    override fun nodeSize(): Int {
+        return if (value != null) value!!.nodeSize() else 0
     }
 
     override fun contains(x: Variable): Boolean = throw OnlyPlaceholderException()
