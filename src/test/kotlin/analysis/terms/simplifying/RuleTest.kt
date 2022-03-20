@@ -40,7 +40,7 @@ internal class RuleTest {
                     // add(f2)
                     if (f2.t!! is P) addAll(f2.t as P) else add(f2)
                 } else {
-                    add(f1)
+                    add(product1)
                     add(f2)
                 }
             }
@@ -117,6 +117,13 @@ internal class RuleTest {
         val t = Ln(E)
         val rule = Rule(L(a, a)) { one }
         assertRuleApplied(rule, t, one)
+    }
+
+    @Test
+    fun testPowRules() {
+        val t = Pow(two, S(x, one))
+        val rule = Rule(Pow(a, S(b, f1))) { P(Pow(a, b), Pow(a, f1)) }
+        assertRuleApplied(rule, t, P(Pow(two, x), Pow(two, one)))
     }
 
     fun assertRuleApplied(rule: Rule, initial: Term, expectedResult: Term, successExpected: Boolean = true) {

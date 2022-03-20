@@ -78,7 +78,8 @@ object RuleBook {
         Rule(P(Pow(a, b), Pow(c, b))) { Pow(S(a, c), b) },
         Rule(Pow(a, P(L(a, b), c))) { Pow(b, c) },
         Rule(Pow(a, L(a, b))) { b },
-        Rule(Pow(a, L(a, b))) { b }
+        Rule(Pow(a, L(a, b))) { b },
+        Rule(Pow(a, S(b, f1))) { P(Pow(a, b), Pow(a, f1)) }
     )
 
     val flattenRules = listOf(

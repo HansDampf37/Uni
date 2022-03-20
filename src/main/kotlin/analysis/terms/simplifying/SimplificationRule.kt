@@ -9,8 +9,12 @@ class SimplificationRule(private val precondition: Term, val transform: () -> Te
     private val variables = ArrayList<UnificationVariable>()
 
     init {
-        for (c in DFS(precondition)) {
-            if (c is UnificationVariable && !variables.contains(c)) variables.add(c)
+        for (c in DFS(precondition).filterIsInstance<UnificationVariable>()) {
+            if (!variables.contains(c)) variables.add(c)
+        }
+        for (c in DFS(transform()).filterIsInstance<UnificationVariable>()) {
+            if (!variables.contains(c)) throw IllegalArgumentException("Rule $this uses variable $c in " +
+                    "its transformed term but it never appears in the precondition term")
         }
     }
 

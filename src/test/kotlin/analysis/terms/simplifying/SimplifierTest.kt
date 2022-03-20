@@ -29,7 +29,7 @@ internal class SimplifierTest {
     @Test
     fun testSimplifyTimes4() {
         val product = Product(Power(two, x), Power(Power(two, x), -one))
-        val expected = Pow(Num(5, 2), x)
+        val expected = Pow(one, x)
         assertSimplifiesTo(product, expected)
     }
 

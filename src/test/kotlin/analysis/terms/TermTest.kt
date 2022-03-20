@@ -5,7 +5,7 @@ import junit.framework.TestCase
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class TermTest: TestCase() {
+class TermTest {
     @Test
     fun test1() {
         val x = Variable("x")

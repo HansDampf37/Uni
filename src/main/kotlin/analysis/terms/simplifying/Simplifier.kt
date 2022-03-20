@@ -20,8 +20,11 @@ fun Term.quality(): Double {
 class Simplifier {
     private var N: Int = -1
     private var K: Int = -1
+    private val cache: Cache = Cache(100)
 
     fun simplify(t: Term): Term {
+        val simplified = cache.get(t)
+        if (simplified != null) return simplified
         val quality = 9 * t.quality()
         N = -quality.toInt()
         K = 4 - quality.toInt()
@@ -55,6 +58,7 @@ class Simplifier {
             if (listOfTerms.isEmpty()) return best.first
             best = updateBest(listOfTerms, best)
         }
+        cache.add(t, best.first)
         return best.first
     }
 
@@ -63,7 +67,7 @@ class Simplifier {
     }
 
     private fun simplifyComponents(t: Term) {
-        for (i in 0 until t.nodeSize()) t.setNode(i, t.getNode(i).get().simplify())
+        for (i in 0 until t.nodeSize()) t.setNode(i, simplify(t.getNode(i).get()))
     }
 
     private fun simplify(l: List<Pair<Term, Double>>): List<Pair<Term, Double>> {
@@ -111,6 +115,27 @@ class Simplifier {
         const val weightAmountOfVariable = 0.5
         const val weightAmountOfLogs = 0.25
         const val weightAmountOfLeaves = 1 - weightDepth - weightSize - weightAmountOfVariable
+    }
+}
+
+class Cache(private val size: Int) {
+    private val cache: MutableList<Pair<Term, Term>> = ArrayList()
+
+    fun get(t: Term): Term? {
+        val i = cache.indexOfFirst { it.first == t }
+        if (i == -1) {
+            return null
+        }
+        val el = cache.removeAt(i)
+        cache.add(0, el)
+        return el.second
+    }
+
+    fun add(key: Term, value: Term) {
+        cache.add(0, Pair(key, value))
+        if (cache.size > size) {
+            cache.removeLast()
+        }
     }
 }
 /*
