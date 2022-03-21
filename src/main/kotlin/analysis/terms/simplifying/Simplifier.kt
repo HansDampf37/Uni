@@ -17,20 +17,20 @@ fun Term.quality(): Double {
     return -sqrt(punishment)
 }
 
-class Simplifier {
+class Simplifier : ISimplifier {
     private var N: Int = -1
     private var K: Int = -1
     private val cache: Cache = Cache(100)
 
-    fun simplify(t: Term): Term {
+    override fun simplify(t: Term): Term {
         val simplified = cache.get(t)
         if (simplified != null) return simplified
         val quality = 9 * t.quality()
         N = -quality.toInt()
-        K = 4 - quality.toInt()
+        K = 12 - quality.toInt()
 
-        var listOfTerms = listOf(Pair(t, t.quality()))
-        var best = Pair(t, quality)
+        var listOfTerms = listOf(Triple(t, t.quality(), Rule(zero) { zero }))
+        var best = Triple(t, t.quality(), Rule(zero) { zero })
         repeat(N) {
             listOfTerms.forEach { simplifyComponents(it.first) }
 
@@ -62,7 +62,10 @@ class Simplifier {
         return best.first
     }
 
-    private fun updateBest(l: List<Pair<Term, Double>>, best: Pair<Term, Double>): Pair<Term, Double> {
+    private fun updateBest(
+        l: List<Triple<Term, Double, Rule>>,
+        best: Triple<Term, Double, Rule>
+    ): Triple<Term, Double, Rule> {
         return if (best.second > l[0].second) best else l[0]
     }
 
@@ -70,44 +73,20 @@ class Simplifier {
         for (i in 0 until t.nodeSize()) t.setNode(i, simplify(t.getNode(i).get()))
     }
 
-    private fun simplify(l: List<Pair<Term, Double>>): List<Pair<Term, Double>> {
+    private fun simplify(l: List<Triple<Term, Double, Rule>>): List<Triple<Term, Double, Rule>> {
         return sortAndCutTerms(l.map { term -> simplifySingle(term.first) }.flatten())
     }
 
-    private fun simplifyNumbers(l: List<Pair<Term, Double>>): List<Pair<Term, Double>> {
+    private fun simplifyNumbers(l: List<Triple<Term, Double, Rule>>): List<Triple<Term, Double, Rule>> {
         return sortAndCutTerms(l.map { term -> simplifyNumbersSingle(term.first) }.flatten())
     }
 
-    private fun simplifyFlatten(l: List<Pair<Term, Double>>): List<Pair<Term, Double>> {
+    private fun simplifyFlatten(l: List<Triple<Term, Double, Rule>>): List<Triple<Term, Double, Rule>> {
         return sortAndCutTerms(l.map { term -> simplifyFlattenSingle(term.first) }.flatten())
     }
 
-    private fun sortAndCutTerms(terms: List<Pair<Term, Double>>) =
+    private fun sortAndCutTerms(terms: List<Triple<Term, Double, Rule>>) =
         terms.sortedByDescending { it.second }.slice(0 until minOf(K, terms.size))
-
-    private fun simplifySingle(term: Term): List<Pair<Term, Double>> {
-        val rules = when (term) {
-            is Sum -> RuleBook.sumRules
-            is Product -> RuleBook.productRules
-            is Power -> RuleBook.powerRules
-            is Log -> RuleBook.logRules
-            else -> throw NotImplementedError()
-        }
-        return simplifyWithRules(rules, term)
-    }
-
-    private fun simplifyNumbersSingle(term: Term): List<Pair<Term, Double>> =
-        simplifyWithRules(RuleBook.numericalRules, term)
-
-    private fun simplifyFlattenSingle(term: Term): List<Pair<Term, Double>> =
-        simplifyWithRules(RuleBook.flattenRules, term)
-
-    private fun simplifyWithRules(
-        rules: List<Rule>,
-        term: Term
-    ): List<Pair<Term, Double>> {
-        return rules.filter { it.applicable(term).first }.map { it.apply(term) }.map { Pair(it, it.quality()) }
-    }
 
     companion object {
         const val weightDepth = 0

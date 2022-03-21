@@ -124,4 +124,5 @@ object RuleBook {
     )
 
     val simplificationRules = listOf(logRules, sumRules, productRules, powerRules).flatten()
+    val rules = listOf(simplificationRules, flattenRules, numericalRules).flatten()
 }

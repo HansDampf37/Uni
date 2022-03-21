@@ -85,6 +85,14 @@ class RuleBookTest {
     }
 
     @Test
+    fun testPowerRules3() {
+        val term = Pow(five, S(x, y))
+        val expected = P(Pow(five, x), Pow(five, y))
+        val rules = RuleBook.simplificationRules
+        assertCanBeSimplified(rules, term, expected)
+    }
+
+    @Test
     fun testLogRules1() {
         val term = Ln(E)
         val rules = RuleBook.logRules
