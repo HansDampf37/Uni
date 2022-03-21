@@ -57,10 +57,7 @@ open class Log(var base: Term, var arg: Term) : Term {
 
     override fun clone() = Log(base, arg)
     override fun toString() = if (base is Num) "Log$base($arg)" else "Log_($base)($arg)"
-    override fun equals(other: Any?): Boolean {
-        return if (other is Log) other.base == base && other.arg == arg
-        else false
-    }
+    override fun equals(other: Any?): Boolean = other is Log && other.arg == arg && other.base == base
 
     override fun hashCode(): Int {
         var result = base.hashCode()

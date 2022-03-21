@@ -4,10 +4,9 @@ import algo.datastructures.Graph
 import algo.datastructures.Node
 
 class Dijkstra<T, S>(private val graph: Graph<T, S>) {
-    private val dist = HashMap<Node<T>, Double>()
-    private val pred = HashMap<Node<T>, Node<T>>()
+    private val dist: HashMap<Node<T>, Double> = HashMap()
+    private val pred: HashMap<Node<T>, Node<T>> = HashMap()
     private val q = graph.v.toMutableList()
-    private val v get() = graph.v
 
     private fun initialize(start: Node<T>) {
         graph.v.forEach { n -> dist[n] = Double.MAX_VALUE }
@@ -15,14 +14,11 @@ class Dijkstra<T, S>(private val graph: Graph<T, S>) {
     }
 
     fun run(start: Node<T>): HashMap<Node<T>, Node<T>> {
+        assert(graph.contains(start))
         initialize(start)
         while (q.isNotEmpty()) {
             // u = node in q with the smallest value in distance
-            val indexOfMin = q.indexOfFirst { first ->
-                q.all { all ->
-                    dist[first]!! <= dist[all]!!
-                }
-            }
+            val indexOfMin: Int = q.withIndex().minByOrNull { el: IndexedValue<Node<T>> -> dist[el.value]!! }!!.index
             val u = q[indexOfMin]
             q.remove(u)
             graph.getNeighborsOf(u).forEach { v ->

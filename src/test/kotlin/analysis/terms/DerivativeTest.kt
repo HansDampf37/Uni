@@ -28,14 +28,14 @@ class DerivativeTest {
 
     @Test
     fun test3_1() {
-        val term = three * x.pow(three) + two * y
+        val term = S(P(three, x.pow(three)), P(two, y))
         assertDerivative(term, listOf(x, y), listOf(Num(9) * x.pow(two), two))
     }
 
     @Test
     fun test4() {
-        val term = x.pow(2) * two.pow(x)
-        assertDerivative(term, listOf(x, y), listOf(P(Pow(two, x), x,S(two, P(x, Ln(two)))), zero))
+        val term = P(Pow(x,two), Pow(two, x))
+        assertDerivative(term, listOf(x, y), listOf(P(Pow(two, x), x, S(two, P(x, Ln(two)))), zero))
     }
 
     @Test

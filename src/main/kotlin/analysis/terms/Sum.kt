@@ -38,17 +38,16 @@ class Sum(terms: List<Term>) : ArrayList<Term>(), Term {
 
     override fun toInt(): Int = sumOf { it.toInt() }
     override fun toDouble(): Double = sumOf { it.toDouble() }
-    override fun toString() = joinToString(" + ") { t: Term -> t.toString() }
-
-    override fun clone(): Sum = Sum(this.toList())
-    override fun equals(other: Any?): Boolean {
-        if (other is Sum) {
-            return this.all { other.contains(it) } && other.all { this.contains(it) }
+    override fun toString() = joinToString(" + ") { t: Term ->
+        when (t) {
+            is Sum -> "(${t})"
+            else -> "$t"
         }
-        return false
     }
 
+    override fun clone(): Sum = Sum(this.toList())
+    override fun equals(other: Any?): Boolean = other is Sum && other.toSet() == toSet()
     override fun hashCode(): Int {
-        return super.hashCode()
+        return toSet().hashCode()
     }
 }

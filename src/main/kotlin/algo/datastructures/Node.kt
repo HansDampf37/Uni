@@ -7,4 +7,5 @@ interface Node<T> {
     fun setNode(i: Int, node: Node<T>)
     fun nodeSize(): Int
     fun get(): T
+    fun toTree(): Tree<T>
 }

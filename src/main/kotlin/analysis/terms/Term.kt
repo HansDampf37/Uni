@@ -2,14 +2,17 @@ package analysis.terms
 
 import algo.datastructures.Node
 import algo.datastructures.Tree
-import analysis.*
-import analysis.terms.simplifying.Simplifier
-import propa.Placeholder
+import analysis.Field
+import analysis.inverseAdd
+import analysis.inverseMult
+import analysis.terms.simplifying.SimplifierGraph
+import analysis.unaryMinus
 import propa.UnifyingTree
 
 interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree, Tree<Term>, Node<Term> {
     override val root: Node<Term> get() = this
     override fun get(): Term = this
+    override fun toTree(): Tree<Term> = this
 
     operator fun times(sum: Sum): Term = Product(this, sum).simplify()
     operator fun times(prod: Product): Term = Product(this).apply { addAll(prod) }.simplify()
@@ -113,5 +116,5 @@ class NotComparableException(t1: Term, t2: Term, t1MinT2Simp: Term, t1DivT2Simp:
 interface Primitive : Term
 
 @Suppress("UNCHECKED_CAST")
-fun <T : Term> T.simplify() = Simplifier().simplify(this)
+fun <T : Term> T.simplify() = SimplifierGraph().simplify(this)
 

@@ -97,6 +97,14 @@ internal class RuleTest {
     }
 
     @Test
+    fun testSumRules5() {
+        val r1 = Rule(S(P(a, f1), P(a, f2))) { P(a, S(f1, f2)) }
+        val t1: Term = S(P(Ln(two), Pow(two, x), Pow(x, two)), P(Pow(two, x), two, x))
+        val expected = P(Pow(two, x), S(P(Ln(two), Pow(x, two)), P(two, x)))
+        assertRuleApplied(r1, t1, expected)
+    }
+
+    @Test
     fun testSumRules5_1() {
         val t = Sum(x, y, Product(x, Num(-4)))
         val rule = Rule(S(P(a, b), a, f1)) { S(P(a, S(b, one)), f1) }

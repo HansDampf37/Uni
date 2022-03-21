@@ -6,7 +6,7 @@ class Graph<T, S>(
     private val nodes: MutableList<Node<T>> = mutableListOf(),
     private val edges: MutableList<Edge<T, S>> = mutableListOf()
 ): Iterable<Node<T>> {
-    class Path<T, S>(private val g: Graph<T, S>, private val nodes: List<Node<T>>) {
+    class Path<T, S>(private val g: Graph<T, S>, private val nodes: List<Node<T>>): Iterable<Node<T>> {
         fun dist(): Double {
             var sum = 0.0
             for (i in 0 until nodes.size - 1) {
@@ -18,6 +18,8 @@ class Graph<T, S>(
         override fun toString(): String {
             return nodes.map { it.get() }.toString()
         }
+
+        override fun iterator(): Iterator<Node<T>> = nodes.iterator()
     }
 
     fun addNode(node: Node<T>, neighbors: List<Triple<Node<T>, Double, S?>>) {
@@ -50,6 +52,12 @@ class Graph<T, S>(
 
     override fun iterator(): Iterator<Node<T>> {
         return nodes.iterator()
+    }
+
+    fun addEdge(edge: Edge<T, S>) {
+        assert(contains(edge.from))
+        assert(contains(edge.to))
+        edges.add(edge)
     }
 }
 

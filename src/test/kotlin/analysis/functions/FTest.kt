@@ -2,14 +2,12 @@ package analysis.functions
 
 import analysis.terms.Num
 import analysis.terms.Power
-import analysis.terms.Product
 import analysis.terms.Variable
-import analysis.unaryMinus
-import junit.framework.TestCase
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 
-internal class FTest : TestCase() {
+internal class FTest {
 
     private val two = Num(2)
     private val three = Num(3)
@@ -18,7 +16,7 @@ internal class FTest : TestCase() {
     fun evaluate() {
         val x = Variable("x")
         val f = F(x) { x * x }
-        assertEquals(Num(9), f.evaluate(mapOf(Pair(x, Num(3)))))
+        Assertions.assertEquals(Num(9), f.evaluate(mapOf(Pair(x, Num(3)))))
     }
 
     @Test
@@ -26,7 +24,7 @@ internal class FTest : TestCase() {
         val x = Variable("x")
         val y = Variable("y")
         val f = F(x, y) { x * y * y }
-        assertEquals(Num(12), f.evaluate(mapOf(Pair(x, Num(3)), Pair(y, Num(2)))))
+        Assertions.assertEquals(Num(12), f.evaluate(mapOf(Pair(x, Num(3)), Pair(y, Num(2)))))
     }
 
     @Test
@@ -35,7 +33,7 @@ internal class FTest : TestCase() {
         val y = Variable("y")
         val f = F(x, y) { Num(2) * x - Num(3) }
         val g = F(x, y) { Num(-1) * (x + Num(2)) }
-        assertEquals(listOf(mutableMapOf(Pair(x, Num(1, 3)))), f.cuts(g))
+        Assertions.assertEquals(listOf(mutableMapOf(Pair(x, Num(1, 3)))), f.cuts(g))
     }
 
     @Test
@@ -45,7 +43,7 @@ internal class FTest : TestCase() {
         val g = F(x) { Num(-2) * Power(x, Num(2)) + Num(2) }
         val cuts = f.cuts(g)
         println("$f cuts $g for $cuts")
-        assertEquals(listOf(mutableMapOf(Pair(x, Power(Num(1, 2), Num(1, 2))))), cuts)
+        Assertions.assertEquals(listOf(mutableMapOf(Pair(x, Power(Num(1, 2), Num(1, 2))))), cuts)
     }
 
     @Test
@@ -67,7 +65,7 @@ internal class FTest : TestCase() {
         val cuts = f.cuts(g)
         // TODO
         println("$f cuts $g for $cuts")
-        assertEquals(listOf(mutableMapOf(Pair(x, Num(0))), mutableMapOf(Pair(x, Num(1)))), cuts)
+        Assertions.assertEquals(listOf(mutableMapOf(Pair(x, Num(0))), mutableMapOf(Pair(x, Num(1)))), cuts)
     }
 
     @Test

@@ -42,7 +42,7 @@ object RuleBook {
         Rule(S(a, P(-one, a), f1)) { f1 },
         Rule(S(a, a)) { P(two, a) },
         Rule(S(a, a, f1)) { S(P(two, a), f1) },
-        Rule(S(P(f1, f2), P(f1, f3))) { P(f1, S(f2, f3)) },
+        Rule(S(P(a, f1), P(a, f2))) { P(a, S(f1, f2)) },
         Rule(S(P(a, b), a)) { P(a, S(b, one)) },
         Rule(S(P(a, b), a, f1)) { S(P(a, S(b, one)), f1) },
         Rule(S(P(a, b), P(a, c))) { P(a, S(b, c)) },
@@ -100,7 +100,6 @@ object RuleBook {
             P().apply {
                 if (product1.t != null && f2.t != null) {
                     addAll(product1.t as P)
-                    // add(f2)
                     if (f2.t!! is P) addAll(f2.t as P) else add(f2)
                 } else {
                     add(product1)
@@ -108,8 +107,6 @@ object RuleBook {
                 }
             }
         }
-        //Rule(v1) { (v1.t as Variable?)?.value ?: (v1.t as Variable?) ?: v1 },
-        //Rule(u) { (u.t as UnificationVariable?)?.value ?: (u.t as UnificationVariable?) ?: u },
     )
 
     val numericalRules = listOf(

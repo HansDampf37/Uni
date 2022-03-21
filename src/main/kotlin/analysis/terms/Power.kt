@@ -68,12 +68,7 @@ class Power(var base: Term, var exponent: Term) : Term {
     }
 
     override fun clone(): Power = Power(base, exponent)
-    override fun equals(other: Any?): Boolean {
-        if (other is Power) {
-            return this.exponent == other.exponent && this.base == other.base
-        }
-        return false
-    }
+    override fun equals(other: Any?): Boolean = other is Power && other.exponent == exponent && other.base == base
     override fun hashCode(): Int {
         var result = base.hashCode()
         result = 31 * result + exponent.hashCode()

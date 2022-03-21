@@ -110,7 +110,7 @@ internal class SimplifierTest {
     @Test
     fun testLog() {
         val term = Sum(Log(Num(3), x), Log(Num(3), x))
-        val res = two * Log(Num(3), x)
+        val res = P(two, Log(Num(3), x))
         assertSimplifiesTo(term, res)
     }
 

@@ -49,19 +49,14 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
     override fun toString() = joinToString(" * ") { t: Term ->
         when (t) {
             is Sum -> "(${t})"
+            is Product -> "(${t})"
             else -> "$t"
         }
     }
 
     override fun clone(): Product = Product(this.toList())
-    override fun equals(other: Any?): Boolean {
-        if (other is Product) {
-            return this.all { other.contains(it) } && other.all { this.contains(it) }
-        }
-        return false
-    }
-
+    override fun equals(other: Any?): Boolean = other is Product && other.toSet() == toSet()
     override fun hashCode(): Int {
-        return super.hashCode()
+        return toSet().hashCode()
     }
 }

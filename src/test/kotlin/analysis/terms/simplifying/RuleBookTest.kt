@@ -1,6 +1,7 @@
 package analysis.terms.simplifying
 
 import analysis.terms.*
+import analysis.unaryMinus
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -90,6 +91,20 @@ class RuleBookTest {
         val expected = P(Pow(five, x), Pow(five, y))
         val rules = RuleBook.simplificationRules
         assertCanBeSimplified(rules, term, expected)
+    }
+
+    /*@Test
+    fun testPowerRules4() {
+        val term = Pow(two, x)
+        val rules = RuleBook.rules
+        assertCanBeSimplified(rules, term, P(two, Pow(two, S(x, -one))))
+    }*/
+
+    @Test
+    fun testSumRules4() {
+        val term = S(P(Ln(two), Pow(two, x), Pow(x, two)), P(Pow(two, x), two, x))
+        val expected = P(Pow(two, x), S(P(Ln(two), Pow(x, two)), P(two, x)))
+        assertCanBeSimplified(RuleBook.simplificationRules, term, expected)
     }
 
     @Test
