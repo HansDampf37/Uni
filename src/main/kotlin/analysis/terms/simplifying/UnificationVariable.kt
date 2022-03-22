@@ -13,8 +13,9 @@ class UnificationVariable(name: String, constraint: (UnifyingTree) -> Boolean = 
             t = value
         }
 
-    override fun plus(other: Term): Term = Sum(this, other)
-    override fun times(other: Term): Term = Product(this, other)
+    override fun plus(other: Term): Term = if (t != null) (t!! as Term).plus(other) else Sum(this, other)
+    override fun times(other: Term): Term = if (t != null) (t!! as Term).times(other) else Product(this, other)
+
     override fun clone(): Term = UnificationVariable(name, constraint, value, filler)
     override fun toString(): String = name
     override fun toDouble(): Double = throw OnlyPlaceholderException()

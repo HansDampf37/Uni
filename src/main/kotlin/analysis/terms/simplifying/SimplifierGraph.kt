@@ -25,7 +25,6 @@ class SimplifierGraph : ISimplifier {
             val results = simplifyWithRules(RuleBook.rules, current.get())
             for (result in results) {
                 val term = result.first
-                val quality = result.second
                 val rule = result.third
                 val newNode = SimplifyingNode(term)
                 if (graph.contains(newNode)) graph.addEdge(Edge(current, newNode, 1.0, rule))
@@ -33,8 +32,8 @@ class SimplifierGraph : ISimplifier {
             }
         }
         val best = graph.maxByOrNull { it.get().quality() }!!
-        if (graph.toList().size > 1) println("Chose $best (${best.get().quality()}) out of\n${graph.map { Pair(it.get(), it.get().quality()) }}")
-        if (graph.toList().size > 1) println("Shortest Path: " + graph.shortestPath(start, best).map { it.get() })
+        if (graph.toList().size > 5) println("Chose $best (${best.get().quality()}) out of\n${graph.map { Pair(it.get(), it.get().quality()) }}")
+        if (graph.toList().size > 5) println("Shortest Path: " + graph.shortestPath(start, best).map { it.get() })
         cache.add(t, best.get())
         return best.get()
     }

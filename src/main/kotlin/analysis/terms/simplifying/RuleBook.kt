@@ -39,34 +39,41 @@ object RuleBook {
     val sumRules = listOf(
         Rule(S(f1, zero)) { f1 },
         Rule(S(a, P(-one, a))) { zero },
-        Rule(S(a, P(-one, a), f1)) { f1 },
+        Rule(S(a, P(-one, a), f2)) { f2 },
         Rule(S(a, a)) { P(two, a) },
         Rule(S(a, a, f1)) { S(P(two, a), f1) },
+
         Rule(S(P(a, f1), P(a, f2))) { P(a, S(f1, f2)) },
-        Rule(S(P(a, b), a)) { P(a, S(b, one)) },
-        Rule(S(P(a, b), a, f1)) { S(P(a, S(b, one)), f1) },
-        Rule(S(P(a, b), P(a, c))) { P(a, S(b, c)) },
-        Rule(S(P(a, b), P(a, c), f1)) { S(P(a, S(b, c)), f1) },
+        Rule(S(P(a, f1), P(a, f2), f3)) { S(P(a, S(f1, f2)), f3) },
+        Rule(S(P(a, f1), a)) { P(a, S(f1, one)) },
+        Rule(S(P(a, f1), a, f2)) { S(P(a, S(f1, one)), f2) },
+
+        Rule(S(P(a, f1), P(Pow(a, b), f2))) { P(a, S(f1, P(f2, Pow(a, S(b, -one))))) },
+        Rule(S(P(a, f1), P(Pow(a, b), f2), f3)) { S(P(a, S(f1, P(f2, Pow(a, S(b, -one))))), f3) },
+
         Rule(S(L(c, a), L(c, b))) { L(c, P(a, b)) },
         Rule(S(L(c, a), L(c, b), f1)) { S(L(c, P(a, b)), f1) },
         Rule(S(L(c, a), P(-one, L(c, b)))) { L(c, P(a, b.inverseMult())) },
-        Rule(S(L(c, a), P(-one, L(c, b)), f1)) { S(L(c, P(a, b.inverseMult())), f1) }
+        Rule(S(L(c, a), P(-one, L(c, b)), f1)) { S(L(c, P(a, b.inverseMult())), f1) },
+
     )
 
     val productRules = listOf(
         Rule(P(f1, one)) { f1 },
         Rule(P(f1, zero)) { zero },
-        Rule(P(a, Pow(a, -one))) { one },
-        Rule(P(f1, S(a, f2))) { S(P(f1, a), P(f1, f2)) },
+        Rule(P(f1, Pow(f1, -one))) { one },
         Rule(P(a, Pow(a, -one), f1)) { f1 },
+        Rule(P(f1, S(a, f2))) { S(P(f1, a), P(f1, f2)) },
+
         Rule(P(a, a)) { Pow(a, two) },
         Rule(P(a, a, f1)) { P(Pow(a, two), f1) },
-        Rule(P(a, Pow(a, b))) { Pow(a, S(b, one)) },
+        Rule(P(f1, Pow(f1, b))) { Pow(f1, S(b, one)) },
         Rule(P(a, Pow(a, b), f1)) { P(Pow(a, S(b, one)), f1) },
+
         Rule(P(Pow(a, b), Pow(a, c))) { Pow(a, S(b, c)) },
         Rule(P(Pow(a, b), Pow(a, c), f1)) { P(Pow(a, S(b, c)), f1) },
         Rule(P(Pow(a, b), Pow(c, b))) { Pow(P(a, c), b) },
-        Rule(P(Pow(a, b), Pow(c, b), f1)) { P(Pow(S(a, c), b), f1) },
+        Rule(P(Pow(a, b), Pow(c, b), f1)) { P(Pow(P(a, c), b), f1) },
     )
 
     val powerRules = listOf(
