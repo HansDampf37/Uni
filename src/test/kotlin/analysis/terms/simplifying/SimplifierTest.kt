@@ -133,6 +133,19 @@ internal class SimplifierTest {
         assertSimplifiesTo(term, x)
     }
 
+    @Test
+    fun testCalc() {
+        assertSimplifiesTo(Num(12) * Pow(Num(12), Num(-1)), one)
+        println((Num(-8) * Pow(Num(12), Num(-1)) + Num(4)).simplify())
+    }
+
+    @Test
+    fun testCalc2() {
+        val term = P(Pow(Num(12), one), Pow(-two, -one))
+        println(term)
+        assertSimplifiesTo(term, -six)
+    }
+
     private fun assertSimplifiesTo(complex: Term, simplified: Term) {
         val res = complex.simplify()
         println("replace: $complex         (${complex.quality()}) \nby:      $res         (${res.quality()})")

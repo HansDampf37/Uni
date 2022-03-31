@@ -2,6 +2,7 @@ package analysis.terms
 
 import algo.datastructures.Node
 import analysis.Field
+import analysis.unaryMinus
 import propa.Placeholder
 import propa.UnifyingTree
 import kotlin.math.log
@@ -15,7 +16,9 @@ open class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Fiel
     init {
         if (denominator == 0.0) throw ArithmeticException("Division by 0")
         if (num.toInt().toDouble() != num) {
-            val digitsAfterComma = num.toString().split(".")[1]
+            // TODO fix splitting in *10 ^x presentation
+            val split = num.toString().split(".")
+            val digitsAfterComma = split[1]
             val shift = if (digitsAfterComma.endsWith("0")) digitsAfterComma.length - 1 else digitsAfterComma.length
             if (shift < 5) {
                 num *= 10.0.pow(shift)

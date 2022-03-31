@@ -9,7 +9,7 @@ import analysis.Field
  *
  * @param entries 2d-List of contained elements
  */
-class Matrix<T : Field<T>>(entries: List<List<T>>) : Cloneable, ArrayList<Vec<T>>(), Field<Matrix<T>> {
+open class Matrix<T : Field<T>>(entries: List<List<T>>) : Cloneable, ArrayList<Vec<T>>(), Field<Matrix<T>> {
 
     constructor(vararg rows: Vec<T>) : this(rows.toList())
 

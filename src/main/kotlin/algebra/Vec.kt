@@ -14,6 +14,8 @@ class Vec<T: Field<T>>(entries: List<T>) : ArrayList<T>(), VectorSpace<T> {
     @Suppress("UNCHECKED_CAST")
     constructor(vararg comps: Number): this(comps.map { Num(it) } as List<T>)
 
+    constructor(size: Int, operation: (Int) -> T): this(List(size, operation))
+
     init {
         for (e in entries) add(e)
     }

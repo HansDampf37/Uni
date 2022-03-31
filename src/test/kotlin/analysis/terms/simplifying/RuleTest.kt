@@ -134,6 +134,14 @@ internal class RuleTest {
         assertRuleApplied(rule, t, P(Pow(two, x), Pow(two, one)))
     }
 
+    @Test
+    fun testProductRules2() {
+        val twelve = Num(12)
+        val t = P(twelve, Pow(twelve, -one))
+        val rule = Rule(P(f1, Pow(f1, b))) { Pow(f1, S(b, one)) }
+        assertRuleApplied(rule, t, Pow(twelve, S(one, -one)))
+    }
+
     fun assertRuleApplied(rule: Rule, initial: Term, expectedResult: Term, successExpected: Boolean = true) {
         val applicable = rule.applicable(initial)
         println(if (applicable.first) "$rule is applicable to $initial: ${applicable.second}" else "$rule is not applicable to $initial")

@@ -1,6 +1,6 @@
 package propa
 
-interface UnifyingTree : Cloneable{
+interface UnifyingTree : Cloneable {
     fun getComponents(): List<UnifyingTree>
     fun nonCommutativeComponents(): Boolean
     fun isComponent(): Boolean

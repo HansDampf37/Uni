@@ -32,8 +32,6 @@ class SimplifierGraph : ISimplifier {
             }
         }
         val best = graph.maxByOrNull { it.get().quality() }!!
-        if (graph.toList().size > 5) println("Chose $best (${best.get().quality()}) out of\n${graph.map { Pair(it.get(), it.get().quality()) }}")
-        if (graph.toList().size > 5) println("Shortest Path: " + graph.shortestPath(start, best).map { it.get() })
         cache.add(t, best.get())
         return best.get()
     }

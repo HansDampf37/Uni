@@ -270,6 +270,11 @@ class RuleBookTest {
     }
 
     @Test
+    fun testNumericalRules4() {
+        println(Pow(one, three).simplify())
+    }
+
+    @Test
     fun testLogRules() {
         val term = Log(Sum(one, x), one)
         val result = zero

@@ -1,6 +1,7 @@
 package analysis.terms
 
 import algo.datastructures.Node
+import analysis.unaryMinus
 import propa.Placeholder
 import propa.UnifyingTree
 import kotlin.math.pow
@@ -57,11 +58,21 @@ class Power(var base: Term, var exponent: Term) : Term {
             is Sum -> "($base)"
             is Product -> "($base)"
             is Power -> "($base)"
+            is Num -> {
+                val str = base.toString()
+                if (str.contains("/")) "($str)"
+                else str
+            }
             else -> "$base"
         }
         val expStr = when (exponent) {
             is Sum -> "($exponent)"
             is Product -> "($exponent)"
+            is Num -> {
+                val str = exponent.toString()
+                if (str.contains("/")) "($str)"
+                else str
+            }
             else -> "$exponent"
         }
         return "$baseStr^$expStr"
