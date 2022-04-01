@@ -1,6 +1,7 @@
 package analysis.terms.simplifying
 
 import algo.datastructures.DFS
+import algo.datastructures.INode
 import analysis.terms.Term
 import propa.Placeholder
 import propa.UnifyingTree
@@ -9,11 +10,11 @@ class SimplificationRule(private val precondition: Term, val transform: () -> Te
     private val variables = ArrayList<UnificationVariable>()
 
     init {
-        for (c in DFS(precondition).filterIsInstance<UnificationVariable>()) {
+        for (c in DFS(precondition.toTree()).filterIsInstance<UnificationVariable>()) {
             if (!variables.contains(c)) variables.add(c)
         }
-        for (c in DFS(transform()).filterIsInstance<UnificationVariable>()) {
-            if (!variables.contains(c)) throw IllegalArgumentException("Rule $this uses variable $c in " +
+        for (c in DFS(transform().toTree()).filterIsInstance<UnificationVariable>()) {
+            if (!variables.contains(c.get())) throw IllegalArgumentException("Rule $this uses variable ${c.get()} in " +
                     "its transformed term but it never appears in the precondition term")
         }
     }
@@ -28,7 +29,7 @@ class SimplificationRule(private val precondition: Term, val transform: () -> Te
             if (variables.any { it.value == null }) {
                 throw IllegalStateException("")
             }
-            for (c in DFS(result)) {
+            for (c in DFS(result.toTree())) {
                 if (!c.isLeaf()) {
                     for (i in 0 until c.nodeSize()) {
                         val node = c.getNode(i)

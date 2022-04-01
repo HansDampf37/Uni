@@ -35,13 +35,13 @@ internal class SimplifierTest {
 
     @Test
     fun testSimplifyTimes5() {
-        val product = x * x
+        val product = P(x, x)
         assertSimplifiesTo(product, Pow(x, two))
     }
 
     @Test
     fun testSimplifyTimes6() {
-        val product = x * Num(3) * x
+        val product = P(x, Num(3), x)
         val result = P(Num(3), Pow(x, two))
         assertSimplifiesTo(product, result)
     }

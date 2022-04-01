@@ -2,8 +2,8 @@ package analysis
 
 interface GroupAdd<T> {
     operator fun plus(other: T): T
-    operator fun minus(other: T): T = plus(inverseAdd(other))
-    fun inverseAdd(e: T): T
+    operator fun minus(other: T): T
+    fun inverseAdd(): T
 
     fun zero(): T
 }
@@ -13,15 +13,15 @@ fun <T> T.abs(): T where T : GroupAdd<T>, T : Comparable<T> {
 }
 
 operator fun <T: GroupAdd<T>> T.unaryMinus(): T {
-    return inverseAdd(this)
+    return this.inverseAdd()
 }
 
 fun <T: GroupAdd<T>> T.inverseAdd(): T {
-    return inverseAdd(this)
+    return this.inverseAdd()
 }
 
 fun <T: GroupMult<T>> T.inverseMult(): T {
-    return inverseMult(this)
+    return this.inverseMult()
 }
 
 fun <T : GroupAdd<T>> List<T>.sum(): T {

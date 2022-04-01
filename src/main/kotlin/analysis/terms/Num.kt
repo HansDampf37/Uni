@@ -1,8 +1,7 @@
 package analysis.terms
 
-import algo.datastructures.Node
+import algo.datastructures.INode
 import analysis.Field
-import analysis.unaryMinus
 import propa.Placeholder
 import propa.UnifyingTree
 import kotlin.math.log
@@ -38,14 +37,14 @@ open class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Fiel
     override fun zero() = Num(0)
     override fun one() = Num(1)
 
-    override fun plus(other: Num): Num {
+    fun plus(other: Num): Num {
         return if (denominator != other.denominator) {
             Num(this.num * other.denominator + other.num * this.denominator, other.denominator * this.denominator)
         } else {
             Num(this.num + other.num, denominator)
         }
     }
-    override fun times(other: Num): Num {
+    fun times(other: Num): Num {
         val (n,d) = if (num % other.denominator == 0.0) {
             // 6/5 * 3/2
             Pair(num / other.denominator * other.num, denominator)
@@ -61,8 +60,10 @@ open class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Fiel
         }
         return Num(n, d)
     }
-    override fun plus(other: Term) = other + this
-    override fun times(other: Term) = other * this
+
+    override fun inverseMult(): Term = Num(denominator, num)
+    override fun inverseAdd(): Term = Num(-num, denominator)
+
     override fun pow(t: Term): Term {
         if (t !is Num) return super.pow(t)
         val numerator = num.pow(t.toDouble())
@@ -110,10 +111,10 @@ open class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Fiel
     override fun contains(x: Variable): Boolean = false
     override fun derive(x: Variable): Term = Num(0)
 
-    override fun getNode(i: Int): Node<Term> {
+    override fun getNode(i: Int): INode<Term> {
         throw IndexOutOfBoundsException(i)
     }
-    override fun setNode(i: Int, node: Node<Term>) {
+    override fun setNode(i: Int, node: INode<Term>) {
         throw IndexOutOfBoundsException(i)
     }
     override fun nodeSize(): Int = 0

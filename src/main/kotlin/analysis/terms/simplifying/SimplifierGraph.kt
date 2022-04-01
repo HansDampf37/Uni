@@ -2,8 +2,8 @@ package analysis.terms.simplifying
 
 import algo.datastructures.Edge
 import algo.datastructures.Graph
-import algo.datastructures.Node
-import algo.datastructures.Tree
+import algo.datastructures.INode
+import algo.datastructures.ITree
 import analysis.terms.Term
 
 class SimplifierGraph : ISimplifier {
@@ -36,24 +36,24 @@ class SimplifierGraph : ISimplifier {
         return best.get()
     }
 
-    private inner class SimplifyingNode(val t: Term) : Node<Term> {
+    private inner class SimplifyingNode(val t: Term) : INode<Term> {
         override fun equals(other: Any?): Boolean {
             return other is SimplifyingNode && other.t == t
         }
 
-        override fun toTree(): Tree<Term> {
-            return object : Tree<Term> {
-                override val root: Node<Term>
+        override fun toTree(): ITree<Term> {
+            return object : ITree<Term> {
+                override val root: INode<Term>
                     get() = this@SimplifyingNode
             }
         }
 
 
-        override fun getNode(i: Int): Node<Term> {
+        override fun getNode(i: Int): INode<Term> {
             TODO("Not yet implemented")
         }
 
-        override fun setNode(i: Int, node: Node<Term>) {
+        override fun setNode(i: Int, node: INode<Term>) {
             TODO("Not yet implemented")
         }
 

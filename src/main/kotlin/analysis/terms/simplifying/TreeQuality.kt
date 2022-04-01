@@ -1,17 +1,17 @@
 package analysis.terms.simplifying
 
 import algo.datastructures.DFS
-import algo.datastructures.Tree
+import algo.datastructures.ITree
 import analysis.terms.Log
 import analysis.terms.Variable
 import kotlin.math.sqrt
 
 interface ITreeQuality {
-    fun <T> calc(t: Tree<T>): Double
+    fun <T> calc(t: ITree<T>): Double
 }
 
 class TreeQuality : ITreeQuality {
-    override fun <T> calc(t: Tree<T>): Double {
+    override fun <T> calc(t: ITree<T>): Double {
         if (t.root.isLeaf()) return 0.0
         val allNodes = DFS(t).toList()
         val amountOfVariables = allNodes.filterIsInstance<Variable>().size
@@ -34,7 +34,7 @@ class TreeQuality : ITreeQuality {
 }
 
 class TreeQuality2: ITreeQuality {
-    override fun <T> calc(t: Tree<T>): Double {
+    override fun <T> calc(t: ITree<T>): Double {
         if (t.root.subNodes().isEmpty()) return 0.0
         val subQualities = t.root.subNodes().map { calc(it.toTree()) }
         val width = t.root.subNodes().size

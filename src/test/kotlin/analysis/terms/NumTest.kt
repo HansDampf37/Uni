@@ -1,23 +1,20 @@
 package analysis.terms
 
-import analysis.terms.Num
 import junit.framework.TestCase
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 
 internal class NumTest: TestCase() {
 
     @Test
     fun inverseAdd() {
-        assertEquals(Num(1, 2), Num(0).inverseAdd(Num(-1, 2)))
-        assertEquals(Num(1, 2), Num(0).inverseAdd(Num(1, -2)))
+        assertEquals(Num(1, 2), Num(-1, 2).inverseAdd())
+        assertEquals(Num(1, 2), Num(1, -2).inverseAdd())
     }
 
     @Test
     fun inverseMult() {
-        assertEquals(Num(1, 2), Num(0).inverseMult(Num(2)))
-        assertEquals(Num(1, -2), Num(0).inverseMult(Num(-2)))
+        assertEquals(Num(1, 2), Num(2).inverseMult())
+        assertEquals(Num(1, -2), Num(-2).inverseMult())
     }
 
     @Test

@@ -106,7 +106,7 @@ internal class RuleTest {
 
     @Test
     fun testSumRules5_1() {
-        val t = Sum(x, y, Product(x, Num(-4)))
+        val t = Sum(x, y, Product(x, -four))
         val rule = Rule(S(P(a, b), a, f1)) { S(P(a, S(b, one)), f1) }
         val expected = S(P(x, S(-four, one)), y)
         assertRuleApplied(rule, t, expected)

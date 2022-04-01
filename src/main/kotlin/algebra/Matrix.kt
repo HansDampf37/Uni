@@ -1,6 +1,7 @@
 package algebra
 
 import analysis.Field
+import analysis.unaryMinus
 
 /**
  * Matrix is a List of transposed Vectors
@@ -104,7 +105,7 @@ open class Matrix<T : Field<T>>(entries: List<List<T>>) : Cloneable, ArrayList<V
      * @param other Matrix
      * @return this * other⁻¹
      */
-    override fun div(other: Matrix<T>): Matrix<T> = times(inverseMult(other))
+    override fun div(other: Matrix<T>): Matrix<T> = times(other.inverseMult())
 
     /**
      * Plus adds two matrices elementwise
@@ -152,14 +153,14 @@ open class Matrix<T : Field<T>>(entries: List<List<T>>) : Cloneable, ArrayList<V
      * @return e⁻¹
      * @throws NotRegularException if this matrix doesn't have an inverse
      */
-    override fun inverseMult(e: Matrix<T>): Matrix<T> {
+    override fun inverseMult(): Matrix<T> {
         val extended = extendCols(one().subMatrix(0, minOf(height, width), 0, maxOf(height, width)))
         val (res, det) = extended.toStaircase()
         if (det == zeroElement) throw NotRegularException()
         for (j in 1 until res.height) {
             for (upperRow in 0 until j) {
                 if (res[upperRow][j] == res.zeroElement) continue
-                res.addRowToRow(j, res.zeroElement - res[upperRow][j], upperRow)
+                res.addRowToRow(j, -res[upperRow][j], upperRow)
             }
         }
         return res.subMatrix(0, res.height, width, res.width)
@@ -170,8 +171,8 @@ open class Matrix<T : Field<T>>(entries: List<List<T>>) : Cloneable, ArrayList<V
      *
      * @return -e
      */
-    override fun inverseAdd(e: Matrix<T>): Matrix<T> {
-        return Matrix(map { row -> row.map { it.zero() - it } })
+    override fun inverseAdd(): Matrix<T> {
+        return Matrix(map { row -> row.map { -it } })
     }
 
     /**

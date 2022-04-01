@@ -116,10 +116,10 @@ object RuleBook {
     )
 
     val numericalRules = listOf(
-        Rule(S(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num) + (n2.t as Num) else S(n1, n2)},
-        Rule(S(n1, n2, f1)) { if (n1.t != null && n2.t != null) S((n1.t as Num) + (n2.t as Num), f1) else S(n1, n2, f1) },
-        Rule(P(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num) * (n2.t as Num) else P(n1, n2) },
-        Rule(P(n1, n2, f1)) { if (n1.t != null && n2.t != null) P((n1.t as Num) * (n2.t as Num), f1) else P(n1, n2, f1)},
+        Rule(S(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num).plus(n2.t as Num) else S(n1, n2)},
+        Rule(S(n1, n2, f1)) { if (n1.t != null && n2.t != null) S((n1.t as Num).plus(n2.t as Num), f1) else S(n1, n2, f1) },
+        Rule(P(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num).times(n2.t as Num) else P(n1, n2) },
+        Rule(P(n1, n2, f1)) { if (n1.t != null && n2.t != null) P((n1.t as Num).times(n2.t as Num), f1) else P(n1, n2, f1)},
         Rule(Pow(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num).pow(n2.t as Num) else Pow(n1, n2) },
         Rule(Pow(n1, P(n2, f1))) { if (n1.t != null && n2.t != null) Pow((n1.t as Num).pow(n2.t as Num), f1) else Pow(n1, P(n2, f1)) },
         Rule(Pow(P(n1, f1), n2)) { if (n1.t != null && n2.t != null) P((n1.t as Num).pow(n2.t as Num), Pow(f1, n2)) else Pow(P(n1, f1), n2) },

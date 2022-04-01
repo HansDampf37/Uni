@@ -3,7 +3,7 @@ package analysis.terms.simplifying
 import analysis.terms.*
 
 fun Term.quality(): Double {
-    return TreeQuality2().calc(this)
+    return TreeQuality2().calc(this.toTree())
 }
 
 class Simplifier : ISimplifier {

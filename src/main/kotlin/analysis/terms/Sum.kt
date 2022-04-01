@@ -1,6 +1,6 @@
 package analysis.terms
 
-import algo.datastructures.Node
+import algo.datastructures.INode
 import propa.UnifyingTree
 
 class Sum(terms: List<Term>) : ArrayList<Term>(), Term {
@@ -12,9 +12,6 @@ class Sum(terms: List<Term>) : ArrayList<Term>(), Term {
             add(t)
         }
     }
-
-    override fun plus(other: Term): Term = other + this
-    override fun times(other: Term): Term = other * this
 
     override fun contains(x: Variable): Boolean = any { it.contains(x) }
     override fun derive(x: Variable): Term = Sum(map{ it.derive(x) }).simplify()
@@ -30,8 +27,8 @@ class Sum(terms: List<Term>) : ArrayList<Term>(), Term {
     }
     override fun init(): UnifyingTree = Sum()
 
-    override fun getNode(i: Int): Node<Term> = this[i]
-    override fun setNode(i: Int, node: Node<Term>) {
+    override fun getNode(i: Int): INode<Term> = this[i]
+    override fun setNode(i: Int, node: INode<Term>) {
         this[i] = node.get()
     }
     override fun nodeSize(): Int = size

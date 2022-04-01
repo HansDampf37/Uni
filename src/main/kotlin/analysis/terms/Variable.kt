@@ -1,7 +1,6 @@
 package analysis.terms
 
-import algo.datastructures.Node
-import analysis.terms.simplifying.Simplifier
+import algo.datastructures.INode
 import propa.Placeholder
 import propa.UnifyingTree
 
@@ -12,9 +11,6 @@ class Variable(val str: String) : Primitive, TermContainer {
             if (v == null) VariableBindings.unbind(this)
             else VariableBindings.bind(this, v)
         }
-
-    override fun times(other: Term) = other * this
-    override fun plus(other: Term) = other + this
 
     override fun contains(x: Variable): Boolean = this == x || this.value?.contains(x) ?: false
     override fun derive(x: Variable): Term = if (this == x) Num(1) else Num(0)
@@ -28,10 +24,10 @@ class Variable(val str: String) : Primitive, TermContainer {
     override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun init(): UnifyingTree = throw IllegalCallerException()
 
-    override fun getNode(i: Int): Node<Term> {
+    override fun getNode(i: Int): INode<Term> {
         return if (value != null) value!!.getNode(i) else throw IndexOutOfBoundsException(i)
     }
-    override fun setNode(i: Int, node: Node<Term>) {
+    override fun setNode(i: Int, node: INode<Term>) {
         return if (value != null) value!!.setNode(i, node) else throw IndexOutOfBoundsException(i)
     }
     override fun nodeSize(): Int {

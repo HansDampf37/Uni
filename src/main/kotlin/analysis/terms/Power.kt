@@ -1,15 +1,11 @@
 package analysis.terms
 
-import algo.datastructures.Node
-import analysis.unaryMinus
+import algo.datastructures.INode
 import propa.Placeholder
 import propa.UnifyingTree
 import kotlin.math.pow
 
 class Power(var base: Term, var exponent: Term) : Term {
-
-    override fun times(other: Term) = other * this
-    override fun plus(other: Term) = other + this
 
     override fun contains(x: Variable): Boolean = base.contains(x) || exponent.contains(x)
     override fun derive(x: Variable): Term {
@@ -31,14 +27,14 @@ class Power(var base: Term, var exponent: Term) : Term {
     override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
     override fun init(): UnifyingTree = throw IllegalCallerException()
 
-    override fun getNode(i: Int): Node<Term> {
+    override fun getNode(i: Int): INode<Term> {
         return when (i) {
             0 -> base
             1 -> exponent
             else -> throw IndexOutOfBoundsException(i)
         }
     }
-    override fun setNode(i: Int, node: Node<Term>) {
+    override fun setNode(i: Int, node: INode<Term>) {
         when (i) {
             0 -> base = node.get()
             1 -> exponent = node.get()

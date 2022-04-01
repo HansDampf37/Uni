@@ -1,62 +1,25 @@
 package analysis.terms
 
-import algo.datastructures.Node
+import algo.datastructures.INode
+import algo.datastructures.ITree
 import algo.datastructures.Tree
 import analysis.Field
 import analysis.inverseAdd
 import analysis.inverseMult
 import analysis.terms.simplifying.SimplifierGraph
-import analysis.unaryMinus
 import propa.UnifyingTree
 
-interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree, Tree<Term>, Node<Term> {
-    override val root: Node<Term> get() = this
+interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree, INode<Term> {
     override fun get(): Term = this
-    override fun toTree(): Tree<Term> = this
+    override fun toTree(): ITree<Term> = Tree(this)
 
-    operator fun times(sum: Sum): Term = Product(this, sum).simplify()
-    operator fun times(prod: Product): Term = Product(this).apply { addAll(prod) }.simplify()
-    operator fun times(pow: Power): Term = Product(this, pow).simplify()
-    operator fun times(v: Variable): Term = Product(this, v).simplify()
-    operator fun times(l: Log): Term = Product(this, l).simplify()
-    operator fun times(other: Num): Term = Product(this, other).simplify()
+    override operator fun plus(other: Term): Term = Sum(this, other).simplify()
+    override operator fun times(other: Term): Term = Product(this, other).simplify()
+    override fun div(other: Term): Term = times(other.inverseMult())
+    override fun minus(other: Term): Term = plus(other.inverseAdd())
 
-    operator fun plus(sum: Sum): Term = Sum(this).apply { addAll(sum) }.simplify()
-    operator fun plus(prod: Product): Term = Sum(this, prod).simplify()
-    operator fun plus(pow: Power): Term = Sum(this, pow).simplify()
-    operator fun plus(v: Variable): Term = Sum(this, v).simplify()
-    operator fun plus(l: Log): Term = Sum(this, l).simplify()
-    operator fun plus(other: Num): Term = Sum(this, other).simplify()
-
-    operator fun div(sum: Sum): Term = this * sum.inverseMult().simplify()
-    operator fun div(prod: Product): Term = this * prod.inverseMult().simplify()
-    operator fun div(pow: Power): Term = this * pow.inverseMult().simplify()
-    operator fun div(v: Variable): Term = this * v.inverseMult().simplify()
-    operator fun div(l: Log): Term = this * l.inverseMult().simplify()
-    operator fun div(other: Num): Term = this * other.inverseMult().simplify()
-
-    operator fun minus(sum: Sum): Term = this + sum.inverseAdd().simplify()
-    operator fun minus(prod: Product): Term = this + prod.inverseAdd().simplify()
-    operator fun minus(pow: Power): Term = this + pow.inverseAdd().simplify()
-    operator fun minus(v: Variable): Term = this + v.inverseAdd().simplify()
-    operator fun minus(l: Log): Term = this + l.inverseAdd().simplify()
-    operator fun minus(other: Num): Term = this + other.inverseAdd().simplify()
-
-    override fun inverseMult(e: Term): Term {
-        return when (e) {
-            is Power -> Power(e.base, -e.exponent)
-            is Num -> Num(e.denominator, e.num)
-            is Product -> Product(e.map { it.inverseMult() })
-            else -> Power(e, Num(-1))
-        }
-    }
-
-    override fun inverseAdd(e: Term): Term {
-        return when (e) {
-            is Num -> Num(-e.num, e.denominator)
-            else -> Product(e, Num(-1))
-        }
-    }
+    override fun inverseMult(): Term = Power(this, Num(-1))
+    override fun inverseAdd(): Term = Product(this, Num(-1))
 
     fun sqrt(): Term = Power(this, Num(1, 2)).simplify()
     fun log(arg: Number) = Log(this, Num(arg)).simplify()
@@ -100,7 +63,6 @@ interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree, Tree<Te
             }
         }
     }
-
     operator fun compareTo(other: Number): Int = compareTo(Num(other.toFloat()))
 
     fun contains(x: Variable): Boolean
@@ -117,4 +79,5 @@ interface Primitive : Term
 
 @Suppress("UNCHECKED_CAST")
 fun <T : Term> T.simplify() = SimplifierGraph().simplify(this)
+// fun <T : Term> T.simplifyNumerical() = SimplifierGraph().simplifyNumerical(this)
 

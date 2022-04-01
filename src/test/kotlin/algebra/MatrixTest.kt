@@ -158,9 +158,9 @@ internal class MatrixTest {
 
     @Test
     fun inverseMult() {
-        assertEquals(invert, invertable.inverseMult(invertable))
-        assertEquals(invert1, invertable1.inverseMult(invertable1))
-        println(invertable2.inverseMult(invertable2))
+        assertEquals(invert, invertable.inverseMult())
+        assertEquals(invert1, invertable1.inverseMult())
+        println(invertable2.inverseMult())
         println("must equal")
         println(invert2)
         /*assertEquals(i3.one(), i3 * i3.inverseMult(i3))
@@ -175,11 +175,11 @@ internal class MatrixTest {
 
     @Test
     fun inverseAdd() {
-        assertEquals(m34.zero(), m34 + m34.inverseAdd(m34))
-        assertEquals(m44.zero(), m44 + m44.inverseAdd(m44))
-        assertEquals(m33.zero(), m33 + m33.inverseAdd(m33))
-        assertEquals(i3.zero(), i3 + i3.inverseAdd(i3))
-        assertEquals(i4.zero(), i4 + i4.inverseAdd(i4))
+        assertEquals(m34.zero(), m34 + m34.inverseAdd())
+        assertEquals(m44.zero(), m44 + m44.inverseAdd())
+        assertEquals(m33.zero(), m33 + m33.inverseAdd())
+        assertEquals(i3.zero(), i3 + i3.inverseAdd())
+        assertEquals(i4.zero(), i4 + i4.inverseAdd())
     }
 
     @Test

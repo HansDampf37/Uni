@@ -1,6 +1,6 @@
 package analysis.terms
 
-import algo.datastructures.Node
+import algo.datastructures.INode
 import propa.UnifyingTree
 
 class Product(terms: List<Term>) : ArrayList<Term>(), Term {
@@ -11,9 +11,6 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
             add(t)
         }
     }
-
-    override fun times(other: Term) = other * this
-    override fun plus(other: Term) = other + this
 
     override fun contains(x: Variable): Boolean = any { it.contains(x) }
     override fun derive(x: Variable): Term {
@@ -38,8 +35,8 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
     }
     override fun init(): UnifyingTree = Product()
 
-    override fun getNode(i: Int): Node<Term> = this[i]
-    override fun setNode(i: Int, node: Node<Term>) {
+    override fun getNode(i: Int): INode<Term> = this[i]
+    override fun setNode(i: Int, node: INode<Term>) {
         this[i] = node.get()
     }
     override fun nodeSize(): Int = size

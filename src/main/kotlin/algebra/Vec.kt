@@ -6,6 +6,7 @@ import analysis.sum
 import analysis.terms.Num
 import analysis.terms.Power
 import analysis.terms.Term
+import analysis.unaryMinus
 
 class Vec<T: Field<T>>(entries: List<T>) : ArrayList<T>(), VectorSpace<T> {
 
@@ -96,11 +97,10 @@ class Vec<T: Field<T>>(entries: List<T>) : ArrayList<T>(), VectorSpace<T> {
     /**
      * Inverse add returns a vector v that satisfies v + e = [0][zero]
      *
-     * @param e Vector
      * @return additive inverse of e
      */
-    override fun inverseAdd(e: Vec<T>): Vec<T> {
-        return Vec(e.map { it.zero() - it })
+    override fun inverseAdd(): Vec<T> {
+        return Vec(this.map { -it })
     }
 
     /**

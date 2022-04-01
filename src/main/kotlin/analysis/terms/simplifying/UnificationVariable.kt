@@ -1,6 +1,6 @@
 package analysis.terms.simplifying
 
-import algo.datastructures.Node
+import algo.datastructures.INode
 import analysis.terms.*
 import propa.Placeholder
 import propa.UnifyingTree
@@ -21,10 +21,10 @@ class UnificationVariable(name: String, constraint: (UnifyingTree) -> Boolean = 
     override fun toDouble(): Double = throw OnlyPlaceholderException()
     override fun toInt(): Int = throw OnlyPlaceholderException()
 
-    override fun getNode(i: Int): Node<Term> {
+    override fun getNode(i: Int): INode<Term> {
         return if (value != null) value!!.getNode(i) else throw IndexOutOfBoundsException(i)
     }
-    override fun setNode(i: Int, node: Node<Term>) {
+    override fun setNode(i: Int, node: INode<Term>) {
         return if (value != null) value!!.setNode(i, node) else throw IndexOutOfBoundsException(i)
     }
     override fun nodeSize(): Int {

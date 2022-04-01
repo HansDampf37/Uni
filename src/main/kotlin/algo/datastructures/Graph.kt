@@ -3,10 +3,10 @@ package algo.datastructures
 import algo.algorithms.Dijkstra
 
 class Graph<T, S>(
-    private val nodes: MutableList<Node<T>> = mutableListOf(),
+    private val nodes: MutableList<INode<T>> = mutableListOf(),
     private val edges: MutableList<Edge<T, S>> = mutableListOf()
-): Iterable<Node<T>> {
-    class Path<T, S>(private val g: Graph<T, S>, private val nodes: List<Node<T>>): Iterable<Node<T>> {
+): Iterable<INode<T>> {
+    class Path<T, S>(private val g: Graph<T, S>, private val nodes: List<INode<T>>): Iterable<INode<T>> {
         fun dist(): Double {
             var sum = 0.0
             for (i in 0 until nodes.size - 1) {
@@ -19,38 +19,38 @@ class Graph<T, S>(
             return nodes.map { it.get() }.toString()
         }
 
-        override fun iterator(): Iterator<Node<T>> = nodes.iterator()
+        override fun iterator(): Iterator<INode<T>> = nodes.iterator()
     }
 
-    fun addNode(node: Node<T>, neighbors: List<Triple<Node<T>, Double, S?>>) {
+    fun addNode(node: INode<T>, neighbors: List<Triple<INode<T>, Double, S?>>) {
         assert(!nodes.contains(node))
         nodes.add(node)
         neighbors.forEach { n -> edges.add(Edge(node, n.first, n.second, n.third)) }
     }
 
-    fun getNeighborsOf(node: Node<T>): List<Node<T>> {
+    fun getNeighborsOf(node: INode<T>): List<INode<T>> {
         return edges.filter { it.from == node || it.to == node }.map { if (it.from == node) it.to else it.from }
     }
 
     val v get() = nodes.toList()
     val e get() = edges.toList()
 
-    fun dist(u: Node<T>, v: Node<T>): Double {
+    fun dist(u: INode<T>, v: INode<T>): Double {
         return shortestPath(u, v).dist()
     }
 
-    fun shortestPath(u: Node<T>, v: Node<T>): Path<T, S> {
+    fun shortestPath(u: INode<T>, v: INode<T>): Path<T, S> {
         val dijkstra = Dijkstra(this)
         return dijkstra.createShortestPathTo(v, dijkstra.run(u))
     }
 
-    fun weightOfEdge(u: Node<T>, v: Node<T>): Double {
+    fun weightOfEdge(u: INode<T>, v: INode<T>): Double {
         val e = e.firstOrNull { it.from == u && it.to == v || it.from == v && it.to == u }
             ?: throw IllegalArgumentException("u and v are not neighbors")
         return e.weight
     }
 
-    override fun iterator(): Iterator<Node<T>> {
+    override fun iterator(): Iterator<INode<T>> {
         return nodes.iterator()
     }
 

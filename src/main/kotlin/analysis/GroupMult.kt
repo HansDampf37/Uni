@@ -2,8 +2,8 @@ package analysis
 
 interface GroupMult<T> {
     operator fun times(other: T): T
-    operator fun div(other: T): T = times(inverseMult(other))
-    fun inverseMult(e: T): T
+    operator fun div(other: T): T
+    fun inverseMult(): T
 
     fun one(): T
 }

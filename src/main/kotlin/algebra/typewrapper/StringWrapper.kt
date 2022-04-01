@@ -7,7 +7,7 @@ class StringWrapper(private val str: String) : Field<StringWrapper> {
         TODO("Not yet implemented")
     }
 
-    override fun inverseAdd(e: StringWrapper): StringWrapper {
+    override fun inverseAdd(): StringWrapper {
         TODO("Not yet implemented")
     }
 
@@ -17,7 +17,15 @@ class StringWrapper(private val str: String) : Field<StringWrapper> {
         TODO("Not yet implemented")
     }
 
-    override fun inverseMult(e: StringWrapper): StringWrapper {
+    override fun inverseMult(): StringWrapper {
+        TODO("Not yet implemented")
+    }
+
+    override fun minus(other: StringWrapper): StringWrapper {
+        TODO("Not yet implemented")
+    }
+
+    override fun div(other: StringWrapper): StringWrapper {
         TODO("Not yet implemented")
     }
 

@@ -1,6 +1,6 @@
 package analysis.terms
 
-import algo.datastructures.Node
+import algo.datastructures.INode
 import analysis.inverseMult
 import analysis.unaryMinus
 import propa.Placeholder
@@ -8,14 +8,6 @@ import propa.UnifyingTree
 import kotlin.math.log
 
 open class Log(var base: Term, var arg: Term) : Term {
-    override fun plus(other: Term): Term = other + this
-    override fun times(other: Term): Term = other * this
-    override fun plus(l: Log): Term {
-        return if (l.base == this.base) Log(base, arg * l.arg) else Sum(this, l)
-    }
-    override fun minus(l: Log): Term = if (l.base == this.base) Log(base, arg / l.arg) else Sum(this, -l)
-    override fun div(l: Log): Term = if (l.base == this.base) Log(l.arg, this.arg) else Product(this, l.inverseMult())
-
     override fun contains(x: Variable): Boolean = base.contains(x) || arg.contains(x)
     override fun derive(x: Variable): Term {
         if (!contains(x)) return Num(0)
@@ -27,14 +19,14 @@ open class Log(var base: Term, var arg: Term) : Term {
         return arg.derive(x) / (arg * Ln(base))
     }
 
-    override fun getNode(i: Int): Node<Term> {
+    override fun getNode(i: Int): INode<Term> {
         return when (i) {
             0 -> base
             1 -> arg
             else -> throw IndexOutOfBoundsException(i)
         }
     }
-    override fun setNode(i: Int, node: Node<Term>) {
+    override fun setNode(i: Int, node: INode<Term>) {
         when (i) {
             0 -> base = node.get()
             1 -> arg = node.get()
