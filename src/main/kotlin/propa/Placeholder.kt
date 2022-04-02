@@ -1,34 +1,22 @@
 package propa
 
-open class Placeholder(
+import algo.datastructures.INode
+
+open class Placeholder<T: Unifiable>(
     protected val name: String,
-    val constraint: (UnifyingTree) -> Boolean = { true },
-    var t: UnifyingTree? = null,
+    val constraint: (INode<T>) -> Boolean = { true },
+    var t: INode<T>? = null,
     val temporary: Boolean = false,
     val filler: Boolean = false
-) : UnifyingTree {
-    override fun getComponents() = throw NoComponents(this)
-    override fun nonCommutativeComponents(): Boolean = throw NoComponents(this)
-    override fun isComponent(): Boolean = true
-    override fun addComponent(c: UnifyingTree) = throw NoComponents(this)
-    override fun removeComponent(c: UnifyingTree) = throw NoComponents(this)
-    override fun init(): UnifyingTree = throw IllegalCallerException()
+) : Unifiable, Cloneable {
+
+    override fun isUnifiableWith(unifiable: Unifiable): Boolean = true
+    override fun isCommutative(): Boolean = false
+    override fun isAssociative(): Boolean = false
+    override fun isPlaceholder(): Boolean = true
 
     override fun equals(other: Any?): Boolean {
-        return other is Placeholder && other.name == name && other.t == t && constraint == other.constraint
-    }
-
-    override fun clone(): UnifyingTree = Placeholder(name, constraint, t)
-
-    fun assign(tNew: UnifyingTree) {
-        if (t != null) {
-            if (tNew != t) throw UnifyingFailedException(this, tNew)
-        }
-        t = tNew
-    }
-
-    fun empty() {
-        t = null
+        return other is Placeholder<*> && other.name == name && other.t == t && constraint == other.constraint
     }
 
     override fun hashCode(): Int {
@@ -36,10 +24,4 @@ open class Placeholder(
         result = 31 * result + (t?.hashCode() ?: 0)
         return result
     }
-
-    class NoComponents(unifyingTree: UnifyingTree) :
-        IllegalArgumentException("$unifyingTree has no components")
-
-    class UnifyingFailedException(placeholder: Placeholder, unifyingTree: UnifyingTree) :
-        Throwable("$placeholder currently is unified to ${placeholder.t} and can therefore not be unified to $unifyingTree since $unifyingTree != ${placeholder.t}")
 }

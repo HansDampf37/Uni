@@ -4,6 +4,7 @@ import analysis.terms.*
 import analysis.unaryMinus
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import propa.Unifier
 
 class RuleBookTest {
     @Test
@@ -343,8 +344,8 @@ class RuleBookTest {
         println("Term: $term")
         Assertions.assertTrue(rules.filter {
             val applicable = it.applicable(term)
-            if (applicable.first) println("with: $it  (${applicable.second})")
-            applicable.first
+            if (applicable) println("with: $it  (${Unifier<Term>().unify(term, it.unificator)})")
+            applicable
         }.map {
             val res = it.apply(term)
             println("is:   $res")

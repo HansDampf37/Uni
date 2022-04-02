@@ -1,10 +1,9 @@
 package analysis.terms.simplifying
 
-import analysis.inverseMult
 import analysis.terms.*
 import analysis.unaryMinus
 
-typealias Rule = SimplificationRule
+typealias Rule = UnificationRule<Term>
 typealias P = Product
 typealias S = Sum
 typealias Pow = Power
@@ -94,10 +93,10 @@ object RuleBook {
             S().apply {
                 if (sum1.t != null && f2.t != null) {
                     addAll(sum1.t as S)
-                    if (f2.t!! is S) addAll(f2.t as S) else add(f2)
+                    if (f2.t!! is S) addAll(f2.t as S) else addNode(f2)
                 } else {
-                    add(sum1)
-                    add(f2)
+                    addNode(sum1)
+                    addNode(f2)
                 }
             }
         },
@@ -106,10 +105,10 @@ object RuleBook {
             P().apply {
                 if (product1.t != null && f2.t != null) {
                     addAll(product1.t as P)
-                    if (f2.t!! is P) addAll(f2.t as P) else add(f2)
+                    if (f2.t!! is P) addAll(f2.t as P) else addNode(f2)
                 } else {
-                    add(product1)
-                    add(f2)
+                    addNode(product1)
+                    addNode(f2)
                 }
             }
         }

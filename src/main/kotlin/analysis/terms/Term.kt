@@ -4,14 +4,18 @@ import algo.datastructures.INode
 import algo.datastructures.ITree
 import algo.datastructures.Tree
 import analysis.Field
-import analysis.inverseAdd
-import analysis.inverseMult
 import analysis.terms.simplifying.SimplifierGraph
-import propa.UnifyingTree
+import propa.Unifiable
 
-interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree, INode<Term> {
-    override fun get(): Term = this
+interface Term : Cloneable, Field<Term>, Comparable<Term>, Unifiable, INode<Term> {
+    override fun element(): Term = this
     override fun toTree(): ITree<Term> = Tree(this)
+
+    override fun isPlaceholder(): Boolean = false
+    override fun isCommutative(): Boolean = false
+    override fun isAssociative(): Boolean = false
+    override fun addNode(node: INode<Term>): Unit = throw NotImplementedError()
+    override fun removeNodeAt(i: Int): INode<Term> = throw NotImplementedError()
 
     override operator fun plus(other: Term): Term = Sum(this, other).simplify()
     override operator fun times(other: Term): Term = Product(this, other).simplify()
@@ -27,7 +31,7 @@ interface Term : Cloneable, Field<Term>, Comparable<Term>, UnifyingTree, INode<T
     fun pow(num: Number): Term = Power(this, Num(num.toDouble())).simplify()
     fun pow(t: Term): Term = Power(this, t).simplify()
 
-    public override fun clone(): Term
+    override fun clone(): Term
 
     /**
      * Returns a double if this expression can be simplified to a number, else throw NotANumberException

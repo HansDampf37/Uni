@@ -15,7 +15,7 @@ internal class UnificationTest {
         val y = UnificationVariable("y")
         val t = Power(two, Sum(a, Num(3)))
         val u = Power(x, y)
-        val result = t.unify(u)
+        val result = Unifier<Term>().unify(t, u)
         println("Unification of terms\n$t and \n$u is \n$result")
         Assertions.assertEquals(listOf(mapOf(Pair(y, Sum(a, Num(3))), Pair(x, Num(2)))), result)
     }
@@ -27,7 +27,7 @@ internal class UnificationTest {
         val z = UnificationVariable("z")
         val t = Sum(a, b, c)
         val u = Sum(x, y, z)
-        val result = t.unify(u)
+        val result = Unifier<Term>().unify(t, u)
         println("Unification of terms\n$t and \n$u is \n$result")
         Assertions.assertEquals(6, result.size)
     }
@@ -39,7 +39,7 @@ internal class UnificationTest {
         val z = UnificationVariable("z")
         val t = Sum(Product(two, a), Product(two, b))
         val u = Sum(Product(x, y), Product(x, z))
-        val result = t.unify(u)
+        val result = Unifier<Term>().unify(t, u)
         println("Unification of terms\n$t and \n$u is \n$result")
         Assertions.assertEquals(listOf(
             mapOf(Pair(z, b), Pair(y, a), Pair(x, Num(2))),
@@ -54,7 +54,7 @@ internal class UnificationTest {
         val z = UnificationVariable("z")
         val t = Sum(Product(two, a), Product(two, b))
         val u = Sum(Product(y, x), Product(z, x))
-        val result = t.unify(u)
+        val result = Unifier<Term>().unify(t, u)
         println("Unification of terms\n$t and \n$u is \n$result")
         Assertions.assertEquals(listOf(
             mapOf(Pair(z, b), Pair(y, a), Pair(x, Num(2))),
@@ -67,7 +67,7 @@ internal class UnificationTest {
         val f = UnificationVariable("f", filler = true)
         val t = Product(one, a, b)
         val u = Product(f, one)
-        val result = t.unify(u)
+        val result = Unifier<Term>().unify(t, u)
         println("Unification of terms\n$t and \n$u is \n$result")
         Assertions.assertEquals(listOf(
             mapOf(Pair(f, a * b)),

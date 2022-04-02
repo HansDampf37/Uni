@@ -4,6 +4,7 @@ import analysis.terms.*
 import analysis.unaryMinus
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import propa.Unifier
 
 internal class RuleTest {
 
@@ -38,10 +39,10 @@ internal class RuleTest {
                 if (product1.t != null && f2.t != null) {
                     addAll(product1.t as P)
                     // add(f2)
-                    if (f2.t!! is P) addAll(f2.t as P) else add(f2)
+                    if (f2.t!! is P) addAll(f2.t as P) else addNode(f2)
                 } else {
-                    add(product1)
-                    add(f2)
+                    addNode(product1)
+                    addNode(f2)
                 }
             }
         }
@@ -144,11 +145,11 @@ internal class RuleTest {
 
     fun assertRuleApplied(rule: Rule, initial: Term, expectedResult: Term, successExpected: Boolean = true) {
         val applicable = rule.applicable(initial)
-        println(if (applicable.first) "$rule is applicable to $initial: ${applicable.second}" else "$rule is not applicable to $initial")
-        assertTrue(applicable.first == successExpected)
+        println(if (applicable) "$rule is applicable to $initial: ${Unifier<Term>().unify(initial, rule.unificator)}" else "$rule is not applicable to $initial")
+        assertTrue(applicable == successExpected)
         if (!successExpected) return
         val apply = rule.apply(initial)
-        println("replace: $initial         (${initial.quality()}) \nby:      $apply         (${apply.quality()})")
+        println("replace: $initial         (${initial.quality()}) \nby:      $apply         (${apply.element().quality()})")
         assertEquals(expectedResult, apply)
     }
 

@@ -1,14 +1,14 @@
 package analysis.terms
 
 import algo.datastructures.INode
-import propa.UnifyingTree
+import propa.Unifiable
 
 class Product(terms: List<Term>) : ArrayList<Term>(), Term {
     constructor(vararg terms: Term) : this(terms.toList())
 
     init {
         for (t in terms) {
-            add(t)
+            addNode(t)
         }
     }
 
@@ -24,22 +24,19 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
         else throw java.lang.IllegalStateException("Case should have been checked in the first line of this method")
     }
 
-    override fun getComponents(): List<UnifyingTree> = this.toList()
-    override fun nonCommutativeComponents(): Boolean = false
-    override fun isComponent(): Boolean = false
-    override fun addComponent(c: UnifyingTree) {
-        this.add(c as Term)
-    }
-    override fun removeComponent(c: UnifyingTree) {
-        this.remove(c as Term)
-    }
-    override fun init(): UnifyingTree = Product()
-
     override fun getNode(i: Int): INode<Term> = this[i]
     override fun setNode(i: Int, node: INode<Term>) {
-        this[i] = node.get()
+        this[i] = node.element()
     }
     override fun nodeSize(): Int = size
+    override fun addNode(node: INode<Term>){
+        this.add(node.element())
+    }
+    override fun removeNodeAt(i: Int): INode<Term> = removeAt(i)
+
+    override fun isUnifiableWith(unifiable: Unifiable): Boolean = unifiable is Product
+    override fun isCommutative(): Boolean = true
+    override fun isAssociative(): Boolean = true
 
     override fun toDouble(): Double = this.fold(1.0) { acc, new -> acc * new.toDouble() }
     override fun toInt(): Int = this.fold(1) { acc, new -> acc * new.toInt() }

@@ -1,10 +1,8 @@
 package analysis.terms
 
 import algo.datastructures.INode
-import analysis.inverseMult
 import analysis.unaryMinus
-import propa.Placeholder
-import propa.UnifyingTree
+import propa.Unifiable
 import kotlin.math.log
 
 open class Log(var base: Term, var arg: Term) : Term {
@@ -28,21 +26,14 @@ open class Log(var base: Term, var arg: Term) : Term {
     }
     override fun setNode(i: Int, node: INode<Term>) {
         when (i) {
-            0 -> base = node.get()
-            1 -> arg = node.get()
+            0 -> base = node.element()
+            1 -> arg = node.element()
             else -> throw IndexOutOfBoundsException(i)
         }
     }
     override fun nodeSize(): Int = 2
 
-    override fun getComponents(): List<UnifyingTree> {
-        return listOf(base, arg)
-    }
-    override fun nonCommutativeComponents(): Boolean = true
-    override fun isComponent(): Boolean = false
-    override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
-    override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
-    override fun init(): UnifyingTree = throw IllegalCallerException()
+    override fun isUnifiableWith(unifiable: Unifiable): Boolean = unifiable is Log
 
     override fun toDouble(): Double = log(arg.toDouble(), base.toDouble())
     override fun toInt(): Int = toDouble().toInt()

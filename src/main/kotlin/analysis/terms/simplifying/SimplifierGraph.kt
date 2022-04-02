@@ -18,11 +18,11 @@ class SimplifierGraph : ISimplifier {
         graph.addNode(start, listOf())
         val n = (-t.quality() * 2).toInt()
         for (i in 0 until n) {
-            val current = graph.filter { !alreadySimplified.contains(it.get()) }.maxByOrNull { it.get().quality() }
+            val current = graph.filter { !alreadySimplified.contains(it.element()) }.maxByOrNull { it.element().quality() }
                 ?: break
-            alreadySimplified.add(current.get())
-            simplifyComponents(current.get())
-            val results = simplifyWithRules(RuleBook.rules, current.get())
+            alreadySimplified.add(current.element())
+            simplifyComponents(current.element())
+            val results = simplifyWithRules(RuleBook.rules, current.element())
             for (result in results) {
                 val term = result.first
                 val rule = result.third
@@ -31,9 +31,9 @@ class SimplifierGraph : ISimplifier {
                 else graph.addNode(newNode, listOf(Triple(current, 1.0, rule)))
             }
         }
-        val best = graph.maxByOrNull { it.get().quality() }!!
-        cache.add(t, best.get())
-        return best.get()
+        val best = graph.maxByOrNull { it.element().quality() }!!
+        cache.add(t, best.element())
+        return best.element()
     }
 
     private inner class SimplifyingNode(val t: Term) : INode<Term> {
@@ -61,9 +61,21 @@ class SimplifierGraph : ISimplifier {
             TODO("Not yet implemented")
         }
 
+        override fun addNode(node: INode<Term>) {
+            TODO("Not yet implemented")
+        }
+
+        override fun removeNodeAt(i: Int): INode<Term> {
+            TODO("Not yet implemented")
+        }
+
+        override fun clone(): SimplifyingNode {
+            return SimplifyingNode(t)
+        }
+
         override fun toString(): String = t.toString()
 
-        override fun get() = t
+        override fun element() = t
 
         override fun hashCode(): Int {
             return t.hashCode()

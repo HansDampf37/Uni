@@ -16,7 +16,7 @@ class Graph<T, S>(
         }
 
         override fun toString(): String {
-            return nodes.map { it.get() }.toString()
+            return nodes.map { it.element() }.toString()
         }
 
         override fun iterator(): Iterator<INode<T>> = nodes.iterator()

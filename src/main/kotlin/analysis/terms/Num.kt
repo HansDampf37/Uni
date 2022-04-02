@@ -2,8 +2,7 @@ package analysis.terms
 
 import algo.datastructures.INode
 import analysis.Field
-import propa.Placeholder
-import propa.UnifyingTree
+import propa.Unifiable
 import kotlin.math.log
 import kotlin.math.pow
 import kotlin.math.sign
@@ -15,10 +14,7 @@ open class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Fiel
     init {
         if (denominator == 0.0) throw ArithmeticException("Division by 0")
         if (num.toInt().toDouble() != num) {
-            // TODO fix splitting in *10 ^x presentation
-            val split = num.toString().split(".")
-            val digitsAfterComma = split[1]
-            val shift = if (digitsAfterComma.endsWith("0")) digitsAfterComma.length - 1 else digitsAfterComma.length
+            val shift = num.digitsAfterComma()
             if (shift < 5) {
                 num *= 10.0.pow(shift)
                 denominator = 10.0.pow(shift)
@@ -26,13 +22,6 @@ open class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Fiel
         }
         shorten()
     }
-
-    override fun getComponents(): List<UnifyingTree> = throw Placeholder.NoComponents(this)
-    override fun nonCommutativeComponents(): Boolean = throw Placeholder.NoComponents(this)
-    override fun isComponent() = true
-    override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
-    override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
-    override fun init(): UnifyingTree = throw IllegalCallerException()
 
     override fun zero() = Num(0)
     override fun one() = Num(1)
@@ -78,12 +67,53 @@ open class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Fiel
     override fun log(arg: Term): Term {
         if (arg !is Num) return super.log(arg)
         val result = log(arg.toDouble(), toDouble())
-        return if (result.toString().split(".")[1].length < 5) {
+        val split = result.toString().split(".")
+        return if (split.size == 1 || split[1].length < 5) {
             Num(result)
         } else {
             Log(this, arg)
         }
     }
+
+    override fun contains(x: Variable): Boolean = false
+    override fun derive(x: Variable): Term = Num(0)
+
+    override fun getNode(i: Int): INode<Term> {
+        throw IndexOutOfBoundsException(i)
+    }
+    override fun setNode(i: Int, node: INode<Term>) {
+        throw IndexOutOfBoundsException(i)
+    }
+    override fun addNode(node: INode<Term>) = throw NotImplementedError()
+    override fun nodeSize(): Int = 0
+    override fun equals(other: Any?): Boolean {
+        if (other is Number) return toDouble() == other.toDouble()
+        else if (other is Num) return toDouble() == other.toDouble()
+        return false
+    }
+
+    override fun clone(): Num = Num(num, denominator)
+    override fun hashCode(): Int {
+        var result = num.hashCode()
+        result = 31 * result + denominator.hashCode()
+        return result
+    }
+    override fun toString(): String {
+        return if (denominator.withSign(1) == 1.0) {
+            (num * denominator.sign).toStringShort()
+        } else {
+            "${num.toStringShort()} / ${denominator.toStringShort()}"
+        }
+    }
+
+    override fun toDouble(): Double {
+        return  num / denominator
+    }
+    override fun toInt(): Int {
+        return  (num / denominator).toInt()
+    }
+
+    override fun isUnifiableWith(unifiable: Unifiable): Boolean = unifiable is Num
 
     private fun shorten(): Num {
         if (num % denominator == 0.0) {
@@ -107,43 +137,6 @@ open class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Fiel
         }
         return this
     }
-
-    override fun contains(x: Variable): Boolean = false
-    override fun derive(x: Variable): Term = Num(0)
-
-    override fun getNode(i: Int): INode<Term> {
-        throw IndexOutOfBoundsException(i)
-    }
-    override fun setNode(i: Int, node: INode<Term>) {
-        throw IndexOutOfBoundsException(i)
-    }
-    override fun nodeSize(): Int = 0
-
-    override fun equals(other: Any?): Boolean {
-        if (other is Number) return toDouble() == other.toDouble()
-        else if (other is Num) return toDouble() == other.toDouble()
-        return false
-    }
-    override fun clone(): Num = Num(num, denominator)
-    override fun hashCode(): Int {
-        var result = num.hashCode()
-        result = 31 * result + denominator.hashCode()
-        return result
-    }
-
-    override fun toString(): String {
-        return if (denominator.withSign(1) == 1.0) {
-            (num * denominator.sign).toStringShort()
-        } else {
-            "${num.toStringShort()} / ${denominator.toStringShort()}"
-        }
-    }
-    override fun toDouble(): Double {
-        return  num / denominator
-    }
-    override fun toInt(): Int {
-        return  (num / denominator).toInt()
-    }
 }
 
 fun Double.toStringShort(): String {
@@ -154,4 +147,13 @@ fun Double.toStringShort(): String {
         this.toString()
     }
     return str
+}
+
+fun Double.digitsAfterComma(): Int {
+    for (i in 0 until 20) {
+        if (((this * 10.0.pow(i)) % 10.0) == 0.0) {
+            return i
+        }
+    }
+    return 100
 }

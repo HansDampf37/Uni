@@ -26,13 +26,13 @@ interface ISimplifier {
         rules: List<Rule>,
         term: Term
     ): List<Triple<Term, Double, Rule>> {
-        return rules.filter { it.applicable(term).first }.map {
-            val result = it.apply(term)
+        return rules.filter { it.applicable(term) }.map {
+            val result = it.apply(term).element()
             Triple(result, result.quality(), it)
         }
     }
 
     fun simplifyComponents(t: Term) {
-        for (i in 0 until t.nodeSize()) t.setNode(i, simplify(t.getNode(i).get()))
+        for (i in 0 until t.nodeSize()) t.setNode(i, simplify(t.getNode(i).element()))
     }
 }

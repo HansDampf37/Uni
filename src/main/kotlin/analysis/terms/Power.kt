@@ -1,8 +1,7 @@
 package analysis.terms
 
 import algo.datastructures.INode
-import propa.Placeholder
-import propa.UnifyingTree
+import propa.Unifiable
 import kotlin.math.pow
 
 class Power(var base: Term, var exponent: Term) : Term {
@@ -20,13 +19,6 @@ class Power(var base: Term, var exponent: Term) : Term {
         }
     }
 
-    override fun getComponents(): List<UnifyingTree> = listOf(base, exponent)
-    override fun nonCommutativeComponents(): Boolean = true
-    override fun isComponent(): Boolean = false
-    override fun addComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
-    override fun removeComponent(c: UnifyingTree) = throw Placeholder.NoComponents(this)
-    override fun init(): UnifyingTree = throw IllegalCallerException()
-
     override fun getNode(i: Int): INode<Term> {
         return when (i) {
             0 -> base
@@ -36,12 +28,15 @@ class Power(var base: Term, var exponent: Term) : Term {
     }
     override fun setNode(i: Int, node: INode<Term>) {
         when (i) {
-            0 -> base = node.get()
-            1 -> exponent = node.get()
+            0 -> base = node.element()
+            1 -> exponent = node.element()
             else -> throw IndexOutOfBoundsException(i)
         }
     }
     override fun nodeSize(): Int = 2
+    override fun addNode(node: INode<Term>) = throw NotImplementedError()
+
+    override fun isUnifiableWith(unifiable: Unifiable): Boolean = unifiable is Power
 
     override fun toDouble(): Double {
         return base.simplify().toDouble().pow(exponent.simplify().toDouble())

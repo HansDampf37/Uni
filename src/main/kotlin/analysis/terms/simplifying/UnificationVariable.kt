@@ -3,10 +3,9 @@ package analysis.terms.simplifying
 import algo.datastructures.INode
 import analysis.terms.*
 import propa.Placeholder
-import propa.UnifyingTree
 
-class UnificationVariable(name: String, constraint: (UnifyingTree) -> Boolean = { true }, t: Term? = null, filler: Boolean = false) :
-    Placeholder(name, constraint, t, false, filler), Term, TermContainer {
+class UnificationVariable(name: String, constraint: (INode<Term>) -> Boolean = { true }, t: Term? = null, filler: Boolean = false) :
+    Placeholder<Term>(name, constraint, t, false, filler), Term, TermContainer {
     override var value: Term?
         get() = t as Term?
         set(value) {
@@ -30,6 +29,11 @@ class UnificationVariable(name: String, constraint: (UnifyingTree) -> Boolean = 
     override fun nodeSize(): Int {
         return if (value != null) value!!.nodeSize() else 0
     }
+    override fun addNode(node: INode<Term>) = throw NotImplementedError()
+
+    override fun isPlaceholder(): Boolean = true
+    override fun isCommutative(): Boolean = false
+    override fun isAssociative(): Boolean = false
 
     override fun contains(x: Variable): Boolean = throw OnlyPlaceholderException()
     override fun derive(x: Variable): Term = throw OnlyPlaceholderException()
