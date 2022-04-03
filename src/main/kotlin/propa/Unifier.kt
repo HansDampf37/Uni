@@ -58,17 +58,21 @@ class Unifier<T: Unifiable> {
         var ownComponents = tree.subNodes()
         var unificationComponents = unificator.subNodes()
         if (ownComponents.size > unificationComponents.size && tree.element().isAssociative()) {
-            val result = unifyDifferentSize(tree, unificator)
-            ownComponents = result.first.subNodes()
-            unificationComponents = result.second.subNodes()
+            if (unificator.subNodes().any { it.element() is Placeholder<*> && (it.element() as Placeholder<*>).filler }) {
+                val result = unifyDifferentSize(tree, unificator)
+                ownComponents = result.first.subNodes()
+                unificationComponents = result.second.subNodes()
+            } else {
+                return emptyList()
+            }
         } else if (ownComponents.size < unificationComponents.size) {
-            return listOf()
+            return emptyList()
         }
         val subResults: List<List<MutableMap<Placeholder<T>, INode<T>>>> =
             List(ownComponents.size) { i -> unify(ownComponents[i], unificationComponents[i]) }
         // resultSorted[i] contains all solutions of component i as List<HashMap<Placeholder, UnifyingTree>>
         val resultSorted = subResults.sortedBy { it.size }
-        if (resultSorted[0].isEmpty()) return listOf()
+        if (resultSorted[0].isEmpty()) return emptyList()
 
         val notTriedMask: MutableList<Long> = MutableList(resultSorted.size) { -1L }
         val availableMask = MutableList(resultSorted.size) { -1L }

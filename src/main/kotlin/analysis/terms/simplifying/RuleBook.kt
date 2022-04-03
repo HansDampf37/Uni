@@ -123,9 +123,13 @@ object RuleBook {
         Rule(Pow(n1, P(n2, f1))) { if (n1.t != null && n2.t != null) Pow((n1.t as Num).pow(n2.t as Num), f1) else Pow(n1, P(n2, f1)) },
         Rule(Pow(P(n1, f1), n2)) { if (n1.t != null && n2.t != null) P((n1.t as Num).pow(n2.t as Num), Pow(f1, n2)) else Pow(P(n1, f1), n2) },
         Rule(Log(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num).log(n2.t as Num) else Log(n1, n2) },
-        Rule(P(n1, Pow(n2, -one))) { if (n1.t != null && n2.t!= null) (n1.t as Num) / (n2.t as Num) else P(n1, Pow(n2, -one)) }
+        Rule(P(n1, Pow(n2, -one))) { if (n1.t != null && n2.t!= null) (n1.t as Num).times((n2.t as Num).inverseMult()) else P(n1, Pow(n2, -one)) }
     )
 
     val simplificationRules = listOf(logRules, sumRules, productRules, powerRules).flatten()
     val rules = listOf(simplificationRules, flattenRules, numericalRules).flatten()
+}
+
+fun main() {
+    println(RuleBook.rules.joinToString("\n"))
 }
