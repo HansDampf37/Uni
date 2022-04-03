@@ -5,6 +5,7 @@ import algo.datastructures.Graph
 import algo.datastructures.INode
 import algo.datastructures.ITree
 import analysis.terms.Term
+import propa.IRule
 
 class SimplifierGraph : ISimplifier {
     private var cache = Cache
@@ -13,7 +14,7 @@ class SimplifierGraph : ISimplifier {
         val simplified = cache.get(t)
         if (simplified != null) return simplified
         val alreadySimplified = HashSet<Term>()
-        val graph: Graph<Term, Rule> = Graph()
+        val graph: Graph<Term, IRule<INode<Term>, INode<Term>>> = Graph()
         val start = SimplifyingNode(t)
         graph.addNode(start, listOf())
         val n = (-t.quality() * 2).toInt()

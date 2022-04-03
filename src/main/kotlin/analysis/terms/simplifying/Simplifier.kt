@@ -1,6 +1,8 @@
 package analysis.terms.simplifying
 
+import algo.datastructures.INode
 import analysis.terms.*
+import propa.IRule
 
 fun Term.quality(): Double {
     return TreeQuality2().calc(this.toTree())
@@ -18,8 +20,12 @@ class Simplifier : ISimplifier {
         N = -quality.toInt()
         K = 12 - quality.toInt()
 
-        var listOfTerms = listOf(Triple(t, t.quality(), Rule(zero) { zero }))
-        var best = Triple(t, t.quality(), Rule(zero) { zero })
+        val id = object : IRule<INode<Term>, INode<Term>> {
+            override fun applicable(x: INode<Term>): Boolean = true
+            override fun apply(x: INode<Term>): INode<Term> = x
+        }
+        var listOfTerms = listOf(Triple<Term, Double, IRule<INode<Term>, INode<Term>>>(t, t.quality(), id))
+        var best = Triple<Term, Double, IRule<INode<Term>, INode<Term>>>(t, t.quality(), id)
         repeat(N) {
             listOfTerms.forEach { simplifyComponents(it.first) }
 
@@ -52,24 +58,24 @@ class Simplifier : ISimplifier {
     }
 
     private fun updateBest(
-        l: List<Triple<Term, Double, Rule>>,
-        best: Triple<Term, Double, Rule>
-    ): Triple<Term, Double, Rule> {
+        l: List<Triple<Term, Double, IRule<INode<Term>, INode<Term>>>>,
+        best: Triple<Term, Double, IRule<INode<Term>, INode<Term>>>
+    ): Triple<Term, Double, IRule<INode<Term>, INode<Term>>> {
         return if (best.second > l[0].second) best else l[0]
     }
 
-    private fun simplify(l: List<Triple<Term, Double, Rule>>): List<Triple<Term, Double, Rule>> {
+    private fun simplify(l: List<Triple<Term, Double, IRule<INode<Term>, INode<Term>>>>): List<Triple<Term, Double, IRule<INode<Term>, INode<Term>>>> {
         return sortAndCutTerms(l.map { term -> simplifySingle(term.first) }.flatten())
     }
 
-    private fun simplifyNumbers(l: List<Triple<Term, Double, Rule>>): List<Triple<Term, Double, Rule>> {
+    private fun simplifyNumbers(l: List<Triple<Term, Double, IRule<INode<Term>, INode<Term>>>>): List<Triple<Term, Double, IRule<INode<Term>, INode<Term>>>> {
         return sortAndCutTerms(l.map { term -> simplifyNumbersSingle(term.first) }.flatten())
     }
 
-    private fun simplifyFlatten(l: List<Triple<Term, Double, Rule>>): List<Triple<Term, Double, Rule>> {
+    private fun simplifyFlatten(l: List<Triple<Term, Double, IRule<INode<Term>, INode<Term>>>>): List<Triple<Term, Double, IRule<INode<Term>, INode<Term>>>> {
         return sortAndCutTerms(l.map { term -> simplifyFlattenSingle(term.first) }.flatten())
     }
 
-    private fun sortAndCutTerms(terms: List<Triple<Term, Double, Rule>>) =
+    private fun sortAndCutTerms(terms: List<Triple<Term, Double, IRule<INode<Term>, INode<Term>>>>) =
         terms.sortedByDescending { it.second }.slice(0 until minOf(K, terms.size))
 }

@@ -2,6 +2,8 @@ package analysis.terms.simplifying
 
 import analysis.terms.*
 import analysis.unaryMinus
+import propa.SubTreeUnificationRule
+import propa.UnificationRule
 
 typealias Rule = UnificationRule<Term>
 typealias P = Product
@@ -91,9 +93,9 @@ object RuleBook {
         Rule(S(a)) { a },
         Rule(S(sum1, f2)) {
             S().apply {
-                if (sum1.t != null && f2.t != null) {
-                    addAll(sum1.t as S)
-                    if (f2.t!! is S) addAll(f2.t as S) else addNode(f2)
+                if (sum1.subtree != null && f2.subtree != null) {
+                    addAll(sum1.subtree as S)
+                    if (f2.subtree!! is S) addAll(f2.subtree as S) else addNode(f2)
                 } else {
                     addNode(sum1)
                     addNode(f2)
@@ -103,9 +105,9 @@ object RuleBook {
         Rule(P(a)) { a },
         Rule(P(product1, f2)) {
             P().apply {
-                if (product1.t != null && f2.t != null) {
-                    addAll(product1.t as P)
-                    if (f2.t!! is P) addAll(f2.t as P) else addNode(f2)
+                if (product1.subtree != null && f2.subtree != null) {
+                    addAll(product1.subtree as P)
+                    if (f2.subtree!! is P) addAll(f2.subtree as P) else addNode(f2)
                 } else {
                     addNode(product1)
                     addNode(f2)
@@ -115,19 +117,20 @@ object RuleBook {
     )
 
     val numericalRules = listOf(
-        Rule(S(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num).plus(n2.t as Num) else S(n1, n2)},
-        Rule(S(n1, n2, f1)) { if (n1.t != null && n2.t != null) S((n1.t as Num).plus(n2.t as Num), f1) else S(n1, n2, f1) },
-        Rule(P(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num).times(n2.t as Num) else P(n1, n2) },
-        Rule(P(n1, n2, f1)) { if (n1.t != null && n2.t != null) P((n1.t as Num).times(n2.t as Num), f1) else P(n1, n2, f1)},
-        Rule(Pow(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num).pow(n2.t as Num) else Pow(n1, n2) },
-        Rule(Pow(n1, P(n2, f1))) { if (n1.t != null && n2.t != null) Pow((n1.t as Num).pow(n2.t as Num), f1) else Pow(n1, P(n2, f1)) },
-        Rule(Pow(P(n1, f1), n2)) { if (n1.t != null && n2.t != null) P((n1.t as Num).pow(n2.t as Num), Pow(f1, n2)) else Pow(P(n1, f1), n2) },
-        Rule(Log(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num).log(n2.t as Num) else Log(n1, n2) },
-        Rule(P(n1, Pow(n2, -one))) { if (n1.t != null && n2.t!= null) (n1.t as Num).times((n2.t as Num).inverseMult()) else P(n1, Pow(n2, -one)) }
+        Rule(S(n1, n2)) { if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).plus(n2.subtree as Num) else S(n1, n2)},
+        Rule(S(n1, n2, f1)) { if (n1.subtree != null && n2.subtree != null) S((n1.subtree as Num).plus(n2.subtree as Num), f1) else S(n1, n2, f1) },
+        Rule(P(n1, n2)) { if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).times(n2.subtree as Num) else P(n1, n2) },
+        Rule(P(n1, n2, f1)) { if (n1.subtree != null && n2.subtree != null) P((n1.subtree as Num).times(n2.subtree as Num), f1) else P(n1, n2, f1)},
+        Rule(Pow(n1, n2)) { if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).pow(n2.subtree as Num) else Pow(n1, n2) },
+        Rule(Pow(n1, P(n2, f1))) { if (n1.subtree != null && n2.subtree != null) Pow((n1.subtree as Num).pow(n2.subtree as Num), f1) else Pow(n1, P(n2, f1)) },
+        Rule(Pow(P(n1, f1), n2)) { if (n1.subtree != null && n2.subtree != null) P((n1.subtree as Num).pow(n2.subtree as Num), Pow(f1, n2)) else Pow(P(n1, f1), n2) },
+        Rule(Log(n1, n2)) { if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).log(n2.subtree as Num) else Log(n1, n2) },
+        Rule(P(n1, Pow(n2, -one))) { if (n1.subtree != null && n2.subtree!= null) (n1.subtree as Num).times((n2.subtree as Num).inverseMult()) else P(n1, Pow(n2, -one)) }
     )
 
     val simplificationRules = listOf(logRules, sumRules, productRules, powerRules).flatten()
-    val rules = listOf(simplificationRules, flattenRules, numericalRules).flatten()
+    private val componentSimplificationRules = listOf(simplificationRules, flattenRules, numericalRules).flatten().map { SubTreeUnificationRule(it) }
+    val rules = listOf(simplificationRules, flattenRules, numericalRules, componentSimplificationRules).flatten()
 }
 
 fun main() {

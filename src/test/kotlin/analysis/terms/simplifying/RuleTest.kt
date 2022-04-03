@@ -36,10 +36,10 @@ internal class RuleTest {
     fun testApplyRule2_2() {
         val r1 = Rule(P(product1, f2)) {
             P().apply {
-                if (product1.t != null && f2.t != null) {
-                    addAll(product1.t as P)
+                if (product1.subtree != null && f2.subtree != null) {
+                    addAll(product1.subtree as P)
                     // add(f2)
-                    if (f2.t!! is P) addAll(f2.t as P) else addNode(f2)
+                    if (f2.subtree!! is P) addAll(f2.subtree as P) else addNode(f2)
                 } else {
                     addNode(product1)
                     addNode(f2)
@@ -87,7 +87,7 @@ internal class RuleTest {
     fun testSumRules4() {
         val t = S(one, y, two)
         val rule = Rule(S(n1, n2, f1)) {
-            if (n1.t != null && n2.t != null) S((n1.t as Num) + (n2.t as Num), f1) else S(
+            if (n1.subtree != null && n2.subtree != null) S((n1.subtree as Num) + (n2.subtree as Num), f1) else S(
                 n1,
                 n2,
                 f1
@@ -116,7 +116,7 @@ internal class RuleTest {
     @Test
     fun testSumRules5_2() {
         val t = Sum(-four, one)
-        val rule = Rule(S(n1, n2)) { if (n1.t != null && n2.t != null) (n1.t as Num) + (n2.t as Num) else S(n1, n2)}
+        val rule = Rule(S(n1, n2)) { if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num) + (n2.subtree as Num) else S(n1, n2)}
         val expected = -three
         assertRuleApplied(rule, t, expected)
     }

@@ -135,7 +135,7 @@ internal class SimplifierTest {
 
     @Test
     fun testCalc() {
-        assertSimplifiesTo(Num(12) * Pow(Num(12), Num(-1)), one)
+        assertSimplifiesTo(P(Num(12), Pow(Num(12), Num(-1))), one)
         println((Num(-8) * Pow(Num(12), Num(-1)) + Num(4)).simplify())
     }
 
