@@ -83,5 +83,3 @@ interface Primitive : Term
 
 @Suppress("UNCHECKED_CAST")
 fun <T : Term> T.simplify() = SimplifierGraph().simplify(this)
-// fun <T : Term> T.simplifyNumerical() = SimplifierGraph().simplifyNumerical(this)
-

@@ -18,11 +18,13 @@ class SimplifierGraph : ISimplifier {
         val start = SimplifyingNode(t)
         graph.addNode(start, listOf())
         val n = (-t.quality() * 2).toInt()
-        for (i in 0 until n) {
+        var i = 0
+        var continueToImprove = false
+        var best = graph.maxByOrNull { it.element().quality() }!!
+        while (i < n || continueToImprove) {
             val current = graph.filter { !alreadySimplified.contains(it.element()) }.maxByOrNull { it.element().quality() }
                 ?: break
             alreadySimplified.add(current.element())
-            simplifyComponents(current.element())
             val results = simplifyWithRules(RuleBook.rules, current.element())
             for (result in results) {
                 val term = result.first
@@ -31,8 +33,16 @@ class SimplifierGraph : ISimplifier {
                 if (graph.contains(newNode)) graph.addEdge(Edge(current, newNode, 1.0, rule))
                 else graph.addNode(newNode, listOf(Triple(current, 1.0, rule)))
             }
+            i++
+            val newBest = graph.maxByOrNull { it.element().quality() }!!
+            if (newBest.element().quality() > best.element().quality()) {
+                continueToImprove = true
+                best = newBest
+            } else {
+                continueToImprove = false
+            }
+
         }
-        val best = graph.maxByOrNull { it.element().quality() }!!
         cache.add(t, best.element())
         return best.element()
     }

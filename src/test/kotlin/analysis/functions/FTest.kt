@@ -1,5 +1,5 @@
 package analysis.functions
-
+/*
 import analysis.terms.Num
 import analysis.terms.Power
 import analysis.terms.Variable
@@ -77,4 +77,4 @@ internal class FTest {
         println("$f -> ${f.derive(x)}")
         println("$g -> ${g.derive(y)}")
     }
-}
+}*/

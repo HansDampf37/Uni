@@ -3,10 +3,16 @@ package algo.datastructures
 import algo.algorithms.Dijkstra
 
 class Graph<T, S>(
-    private val nodes: MutableList<INode<T>> = mutableListOf(),
-    private val edges: MutableList<Edge<T, S>> = mutableListOf()
+    val nodes: MutableList<INode<T>> = mutableListOf(),
+    val edges: MutableList<Edge<T, S>> = mutableListOf()
 ): Iterable<INode<T>> {
     class Path<T, S>(private val g: Graph<T, S>, private val nodes: List<INode<T>>): Iterable<INode<T>> {
+        fun edges(): List<Edge<T, S>> {
+            return List(nodes.size - 1) { i ->
+                g.edges.first { it.from == g.edges[i] && it.to == g.edges[i + 1] || it.to == g.edges[i] && it.from == g.edges[i + 1] }
+            }
+        }
+
         fun dist(): Double {
             var sum = 0.0
             for (i in 0 until nodes.size - 1) {
@@ -25,7 +31,7 @@ class Graph<T, S>(
     fun addNode(node: INode<T>, neighbors: List<Triple<INode<T>, Double, S?>>) {
         assert(!nodes.contains(node))
         nodes.add(node)
-        neighbors.forEach { n -> edges.add(Edge(node, n.first, n.second, n.third)) }
+        neighbors.forEach { n -> edges.add(Edge(n.first, node, n.second, n.third)) }
     }
 
     fun getNeighborsOf(node: INode<T>): List<INode<T>> {
