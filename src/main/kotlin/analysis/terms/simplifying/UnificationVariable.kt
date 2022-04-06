@@ -1,33 +1,29 @@
 package analysis.terms.simplifying
 
 import algo.datastructures.INode
+import algo.datastructures.Node
 import analysis.terms.*
 import propa.Placeholder
 
 class UnificationVariable(name: String, constraint: (INode<Term>) -> Boolean = { true }, t: Term? = null, filler: Boolean = false) :
-    Placeholder<Term>(name, constraint, t, filler), Term, TermContainer {
-    override var value: Term?
-        get() = subtree as Term?
-        set(value) {
-            subtree = value
-        }
+    Placeholder<Term>(name, constraint, t, filler), Term {
 
     override fun plus(other: Term): Term = if (subtree != null) (subtree!! as Term).plus(other) else Sum(this, other)
     override fun times(other: Term): Term = if (subtree != null) (subtree!! as Term).times(other) else Product(this, other)
 
-    override fun clone(): Term = UnificationVariable(name, constraint, value, filler)
+    override fun clone(): Term = UnificationVariable(name, constraint, subtree as Term, filler)
     override fun toString(): String = name
     override fun toDouble(): Double = throw OnlyPlaceholderException()
     override fun toInt(): Int = throw OnlyPlaceholderException()
 
     override fun getNode(i: Int): INode<Term> {
-        return if (value != null) value!!.getNode(i) else throw IndexOutOfBoundsException(i)
+        return if (subtree != null) subtree!!.getNode(i) else throw IndexOutOfBoundsException(i)
     }
     override fun setNode(i: Int, node: INode<Term>) {
-        return if (value != null) value!!.setNode(i, node) else throw IndexOutOfBoundsException(i)
+        return if (subtree != null) subtree!!.setNode(i, node) else throw IndexOutOfBoundsException(i)
     }
     override fun nodeSize(): Int {
-        return if (value != null) value!!.nodeSize() else 0
+        return if (subtree != null) subtree!!.nodeSize() else 0
     }
     override fun addNode(node: INode<Term>) = throw NotImplementedError()
 

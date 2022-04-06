@@ -18,7 +18,9 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
         val one: Term = Num(1)
         if (size > 2) return fold(one) {acc, term -> Product(acc, term) }.derive(x)
         if (size != 2) throw java.lang.IllegalStateException("Product must contain at least 2 factors")
-        return if (this[0].contains(x) && this[1].contains(x)) this[0].derive(x) * this[1] + this[0] * this[1].derive(x)
+        return if (this[0].contains(x) && this[1].contains(x)) {
+            Sum(Product(this[0].derive(x), this[1]), Product(this[0], this[1].derive(x))).simplify()
+        }
         else if (this[0].contains(x)) this[0].derive(x) * this[1]
         else if (this[1].contains(x)) this[0] * this[1].derive(x)
         else throw java.lang.IllegalStateException("Case should have been checked in the first line of this method")

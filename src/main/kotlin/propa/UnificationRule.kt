@@ -18,7 +18,9 @@ class UnificationRule<T : Unifiable>(val unificator: INode<T>, val result: () ->
         val uniResults: List<Map<Placeholder<T>, INode<T>>> = unify(x)
         if (uniResults.isEmpty()) return x
         val uniResult = uniResults.first()
-        for (i in 0 until variables.size) variables[i].subtree = uniResult[variables[i]]
+        for (i in 0 until variables.size) {
+            variables[i].subtree = uniResult[variables[i]]
+        }
         val result = result()
         for (c in DFS(result.toTree())) {
             if (!c.isLeaf()) {
@@ -27,7 +29,7 @@ class UnificationRule<T : Unifiable>(val unificator: INode<T>, val result: () ->
                     if (child.isPlaceholder()) {
                         child as Placeholder<T>
                         if (child.subtree == null) {
-                            throw IllegalStateException("")
+                            throw IllegalStateException("Placeholder $child has not gotten assigned the subtree ${uniResult[child]}")
                         }
                         c.setChild(i, child.subtree!!.element())
                     }

@@ -1,19 +1,17 @@
 package analysis.terms
 
 import algo.datastructures.INode
-import propa.Placeholder
 import propa.Unifiable
 
-class Variable(val str: String) : Primitive, TermContainer {
-    override var value: Term?
-        get() = VariableBindings.getBinding(this)
-        set(v) {
-            if (v == null) VariableBindings.unbind(this)
-            else VariableBindings.bind(this, v)
-        }
-
+class Variable(val str: String) : Primitive {
     override fun contains(x: Variable): Boolean = this == x || this.value?.contains(x) ?: false
     override fun derive(x: Variable): Term = if (this == x) Num(1) else Num(0)
+    var value
+        get() = VariableBindings.getBinding(this)
+        set(valu) {
+            if (valu == null) VariableBindings.unbind(this)
+            else VariableBindings.bind(this, valu)
+        }
 
     override fun getNode(i: Int): INode<Term> {
         return if (value != null) value!!.getNode(i) else throw IndexOutOfBoundsException(i)

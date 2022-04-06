@@ -93,7 +93,7 @@ internal class RuleTest {
                 f1
             )
         }
-        val expected = three + y
+        val expected = S(three, y)
         assertRuleApplied(rule, t, expected)
     }
 
