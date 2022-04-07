@@ -6,6 +6,7 @@ import analysis.terms.simplifying.S
 import analysis.unaryMinus
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import toTerm
 
 internal class TermParserTest {
     @Test
@@ -64,8 +65,38 @@ internal class TermParserTest {
     }
 
     @Test
+    fun testParse12() {
+        assertParsesTo("2^xyzr", P(Pow(two, x), y, z, Variable("r")))
+    }
+
+    @Test
+    fun testParse13() {
+        assertParsesTo("2x + y + z - r", S(P(two, x), y, z, P(-one, Variable("r"))))
+    }
+
+    @Test
+    fun testParse14() {
+        assertParsesTo("(x+y)(x-y)", P(S(x, y), S(x, P(y, -one))))
+    }
+
+    @Test
+    fun testParse15() {
+        assertParsesTo("x^y^z", Pow(x, Pow(y, z)))
+    }
+
+    @Test
+    fun testParse16() {
+        assertParsesTo("(z + y)x", P(x, S(y, z)))
+    }
+
+    @Test
     fun testFail1() {
         assertParsesTo("(x", x, false)
+    }
+
+    @Test
+    fun testFail1_5() {
+        assertParsesTo("+-", x, false)
     }
 
     @Test
@@ -90,13 +121,12 @@ internal class TermParserTest {
 
     private fun assertParsesTo(str: String, term: Term, success: Boolean = true) {
         try {
-            val tokensAndAssignment = LexiAnalysis().parse(str)
-            val parsed = SyntacticAnalysis().parse(tokensAndAssignment.first, tokensAndAssignment.second)
+            val parsed = str.toTerm()
             assertEquals(term, parsed)
             assertTrue(success, "expected test to fail, but got results: $str -> $parsed")
             println("Parsing success on $str, simplifies to ${parsed.simplify()}")
         } catch (e: java.lang.IllegalStateException) {
-            assertFalse(success)
+            assertFalse(success, e.stackTraceToString())
             println("Parsing of $str failed successfully with stacktrace ${e.stackTraceToString()}")
         }
     }

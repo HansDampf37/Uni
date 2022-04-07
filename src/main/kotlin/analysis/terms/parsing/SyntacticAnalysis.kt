@@ -1,4 +1,6 @@
-package analysis.terms
+package analysis.terms.parsing
+
+import analysis.terms.*
 
 /**
  * Term parser
@@ -17,14 +19,14 @@ class SyntacticAnalysis {
     private lateinit var lexer: Lexer
     private lateinit var assignment: MutableList<String>
 
-    private fun expect(token: Token) {
-        if (lexer.current() == token) lexer.lex() else lexer.error(token)
-    }
-
     fun parse(tokenStream: Array<Token>, assignment: List<String>): Term {
         lexer = Lexer(tokenStream)
         this.assignment = assignment.toMutableList()
         return parseTerm()
+    }
+
+    private fun expect(token: Token) {
+        if (lexer.current() == token) lexer.lex() else lexer.error(token)
     }
 
     private fun parseTerm(): Term {
@@ -33,17 +35,27 @@ class SyntacticAnalysis {
     }
 
     private fun parseSum(left: Term): Term {
+        val addSummand: (res: Term, summand: Term) -> Term = { res, summand ->
+            val res1: Term
+            if (res is Sum) {
+                res1 = res
+                res1.add(summand)
+            } else {
+                res1 = Sum(res, summand)
+            }
+            res1
+        }
         var res = left
         while (true) {
             when (lexer.current()) {
                 Token.PLUS -> {
                     expect(Token.PLUS)
-                    res = Sum(res, parseSummand())
+                    res = addSummand(res, parseSummand())
                     continue
                 }
                 Token.MINUS -> {
                     expect(Token.MINUS)
-                    res = Sum(left, parseSummand().inverseAdd())
+                    res = addSummand(res, parseSummand().inverseAdd())
                     continue
                 }
                 Token.STAR, Token.SLASH, Token.CLOSE_BRACKET, Token.EOF -> {
@@ -60,26 +72,36 @@ class SyntacticAnalysis {
     }
 
     private fun parseProduct(left: Term): Term {
+        val addFactor: (res: Term, factor: Term) -> Term = { res, factor ->
+            val res1: Term
+            if (res is Product) {
+                res1 = res
+                res1.add(factor)
+            } else {
+                res1 = Product(res, factor)
+            }
+            res1
+        }
         var res = left
         while (true) {
             when (lexer.current()) {
                 Token.STAR -> {
                     expect(Token.STAR)
-                    res = Product(res, parseFactor())
+                    res = addFactor(res, parseFactor())
                     continue
                 }
                 Token.SLASH -> {
                     expect(Token.SLASH)
-                    res = Product(res, parseFactor().inverseMult())
+                    res = addFactor(res, parseFactor().inverseMult())
                     continue
                 }
                 Token.VAR -> {
-                    res = Product(res, parseFactor())
+                    res = addFactor(res, parseFactor())
                     continue
                 }
                 Token.OPEN_BRACKET -> {
                     expect(Token.OPEN_BRACKET)
-                    res = Product(res, parseTerm())
+                    res = addFactor(res, parseTerm())
                     expect(Token.CLOSE_BRACKET)
                     continue
                 }
@@ -189,60 +211,6 @@ class SyntacticAnalysis {
     }
 }
 
-class LexiAnalysis {
-    fun parse(str: String): Pair<Array<Token>, MutableList<String>> {
-        val assignment = ArrayList<String>()
-        val strWithoutSpaces = str.replace(" ", "")
-        val tokenList = ArrayList<Token>()
-        var current = 0
-        var delta = strWithoutSpaces.length
-        while (true) {
-            val substr = strWithoutSpaces.subSequence(current, current + delta)
-            val tokens =
-                Token.values().filter { it.regex.matches(substr) }
-            if (tokens.count() == 1) {
-                val token = Token.values().first { it.regex.matches(substr) }
-                tokenList.add(token)
-                if (token == Token.VAR || token == Token.NUM) assignment.add(substr.toString())
-                current += delta
-                delta = strWithoutSpaces.length - current
-            } else if (tokens.isEmpty()) {
-                delta--
-            } else {
-                if (tokens.size == 2) {
-                    if (tokens.contains(Token.POSITIVE) && tokens.contains(Token.PLUS)) {
-                        val last = tokenList.last()
-                        val token = if (last == Token.CLOSE_BRACKET || last == Token.NUM || last == Token.VAR) {
-                            Token.PLUS
-                        } else {
-                            Token.POSITIVE
-                        }
-                        tokenList.add(token)
-                        current += delta
-                        delta = strWithoutSpaces.length - current
-                    } else if (tokens.contains(Token.NEGATIVE)&& tokens.contains(Token.MINUS)) {
-                        val last = tokenList.last()
-                        val token = if (last == Token.CLOSE_BRACKET || last == Token.NUM || last == Token.VAR) {
-                            Token.MINUS
-                        } else {
-                            Token.NEGATIVE
-                        }
-                        tokenList.add(token)
-                        current += delta
-                        delta = strWithoutSpaces.length - current
-                    } else {
-                        throw java.lang.IllegalStateException("Unimplemented Conflict in $substr: $tokens")
-                    }
-                }
-            }
-            if (current == strWithoutSpaces.length) break
-            if (delta < 0) throw IllegalStateException()
-        }
-        tokenList.add(Token.EOF)
-        return Pair(Array(tokenList.size) { tokenList[it] }, assignment)
-    }
-}
-
 enum class Token(val regex: Regex) {
     NEGATIVE(Regex("-")),
     POSITIVE(Regex("\\+")),
@@ -277,12 +245,5 @@ fun main() {
     println(message.second)
     val term = SyntacticAnalysis().parse(message.first, message.second)
     println(term)
-    println(term.simplify())
-
-    val str1 = "x - x"
-    val lex = LexiAnalysis().parse(str1)
-    val syn = SyntacticAnalysis().parse(lex.first, lex.second)
-    println(syn)
-    println(syn.simplify())
-
+    //println(term.simplify())
 }
