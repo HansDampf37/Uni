@@ -3,6 +3,10 @@ package analysis.terms.simplifying
 import algo.datastructures.INode
 import algo.datastructures.Node
 import analysis.terms.*
+import analysis.terms.model.Product
+import analysis.terms.model.Sum
+import analysis.terms.model.Term
+import analysis.terms.model.Variable
 import propa.Placeholder
 
 class UnificationVariable(name: String, constraint: (INode<Term>) -> Boolean = { true }, t: Term? = null, filler: Boolean = false) :

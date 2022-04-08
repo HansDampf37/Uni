@@ -1,7 +1,7 @@
 package algebra
 
-import analysis.terms.Num
-import analysis.terms.Term
+import analysis.terms.model.Num
+import analysis.terms.model.Term
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

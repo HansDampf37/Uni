@@ -3,8 +3,8 @@ package numerik
 import algebra.Matrix
 import algebra.Vec
 import analysis.Field
-import analysis.terms.Num
-import analysis.terms.Term
+import analysis.terms.model.Num
+import analysis.terms.model.Term
 import analysis.abs
 
 class LR : Decomposition {

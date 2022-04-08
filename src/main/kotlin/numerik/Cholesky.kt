@@ -2,8 +2,8 @@ package numerik
 
 import algebra.Matrix
 import algebra.Vec
-import analysis.terms.Num
-import analysis.terms.Term
+import analysis.terms.model.Num
+import analysis.terms.model.Term
 
 class Cholesky : Decomposition {
     fun decomp(m: Matrix<Term>): Matrix<Term> {

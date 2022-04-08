@@ -1,6 +1,8 @@
 package analysis.terms.parsing
 
 import analysis.terms.*
+import analysis.terms.model.*
+import toNum
 
 /**
  * Term parser
@@ -11,7 +13,7 @@ import analysis.terms.*
  * Product -> eps | * Factor Product (*) | / Factor Product (/)
  * Factor -> Leaf Potency
  * Potency -> eps | ^ Leaf Potency (^)
- * Leaf -> (Term)  (()| Variable | Number | log arg arg | sin arg | cos arg | tan arg
+ * Leaf -> (Term)  (()| Variable | Number | log arg arg | sin arg | cos arg | tan arg | log_ arg
  * arg -> (Term)
  *
  */
@@ -124,7 +126,7 @@ class SyntacticAnalysis {
             when (lexer.current()) {
                 Token.POWER -> {
                     expect(Token.POWER)
-                    res = Power(left, parseLeaf())
+                    res = Power(res, parseLeaf())
                     continue
                 }
                 Token.STAR, Token.SLASH, Token.PLUS, Token.MINUS, Token.CLOSE_BRACKET, Token.EOF, Token.VAR, Token.OPEN_BRACKET -> {
@@ -167,6 +169,21 @@ class SyntacticAnalysis {
                 val arg = parseArg()
                 return Log(base, arg)
             }
+            Token.LOG_2 -> {
+                expect(Token.LOG_2)
+                val arg = parseArg()
+                return Log(two, arg)
+            }
+            Token.LN -> {
+                expect(Token.LN)
+                val arg = parseArg()
+                return Ln(arg)
+            }
+            Token.LOG_10 -> {
+                expect(Token.LOG_10)
+                val arg = parseArg()
+                return Log(Num(10), arg)
+            }
             Token.VAR -> {
                 expect(Token.VAR)
                 val name = assignment.removeAt(0)
@@ -174,8 +191,7 @@ class SyntacticAnalysis {
             }
             Token.NUM -> {
                 expect(Token.NUM)
-                val num = assignment.removeAt(0).toDouble()
-                return Num(num)
+                return assignment.removeAt(0).toNum()
             }
             else -> throw IllegalStateException("unexpected input ${lexer.current()}")
         }
@@ -206,36 +222,10 @@ class SyntacticAnalysis {
         }
 
         fun error(expected: Token) {
-            throw IllegalStateException("expected token $expected but got ${current()}")
+            throw IllegalStateException("expected token $expected but got ${current()} at $currentIndex of ${tokenStream.map { it.name }}")
         }
     }
 }
-
-enum class Token(val regex: Regex) {
-    NEGATIVE(Regex("-")),
-    POSITIVE(Regex("\\+")),
-    STAR(Regex("\\*")),
-    SLASH(Regex("/")),
-    PLUS(Regex("\\+")),
-    MINUS(Regex("-")),
-    POWER(Regex("\\^")),
-    SIN(sinRegex),
-    COS(cosRegex),
-    TAN(tanRegex),
-    LOG(logRegex),
-    OPEN_BRACKET(Regex("\\(")),
-    CLOSE_BRACKET(Regex("\\)")),
-    VAR(Regex("^(?!.*$functionRegex)[a-zA-Z][0-9]*")),
-    NUM(Regex("[1-9][0-9]*(.[0-9]+)?")),
-    EOF(Regex(""))
-}
-
-private val functionRegex = Regex("log|Log|LOG|sin|Sin|SIN|cos|Cos|COS|tan|Tan|TAN")
-private val sinRegex = Regex("sin|Sin|SIN")
-private val cosRegex = Regex("cos|Cos|COS")
-private val tanRegex = Regex("tan|Tan|TAN")
-private val logRegex = Regex("log|Log|LOG")
-
 
 fun main() {
     val str = "x + -y * (-x / - log(10)(x) - 2^alpha)"

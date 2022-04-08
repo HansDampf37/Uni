@@ -1,10 +1,10 @@
 package or.algorithms
 
 import algebra.Vec
-import analysis.terms.Num
-import analysis.terms.Product
-import analysis.terms.Term
-import analysis.terms.Variable
+import analysis.terms.model.Num
+import analysis.terms.model.Product
+import analysis.terms.model.Term
+import analysis.terms.model.Variable
 import or.linearoptimization.OptimizationProblem
 import or.linearoptimization.Simplex
 import or.linearoptimization.SimplexTableau

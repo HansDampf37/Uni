@@ -1,6 +1,7 @@
 package analysis.terms.simplifying
 
 import analysis.terms.*
+import analysis.terms.model.*
 import analysis.unaryMinus
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -85,13 +86,11 @@ internal class RuleTest {
 
     @Test
     fun testSumRules4() {
+        println(RuleBook.rules.joinToString("\n"))
         val t = S(one, y, two)
         val rule = Rule(S(n1, n2, f1)) {
-            if (n1.subtree != null && n2.subtree != null) S((n1.subtree as Num) + (n2.subtree as Num), f1) else S(
-                n1,
-                n2,
-                f1
-            )
+            if (n1.subtree != null && n2.subtree != null) S((n1.subtree as Num).plus(n2.subtree as Num), f1)
+            else S(n1, n2, f1)
         }
         val expected = S(three, y)
         assertRuleApplied(rule, t, expected)

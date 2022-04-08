@@ -1,5 +1,6 @@
 package analysis.terms
 
+import analysis.terms.model.Num
 import junit.framework.TestCase
 import org.junit.jupiter.api.Test
 

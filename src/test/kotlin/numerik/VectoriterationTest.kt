@@ -2,7 +2,7 @@ package numerik
 
 import algebra.Matrix
 import algebra.Vec
-import analysis.terms.Term
+import analysis.terms.model.Term
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*

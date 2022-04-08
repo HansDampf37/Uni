@@ -1,6 +1,7 @@
 package analysis.terms.simplifying
 
 import analysis.terms.*
+import analysis.terms.model.*
 import analysis.unaryMinus
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

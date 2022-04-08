@@ -3,8 +3,8 @@ package or.linearoptimization
 import algebra.Matrix
 import algebra.Vec
 import algebra.typewrapper.StringWrapper
-import analysis.terms.Num
-import analysis.terms.Term
+import analysis.terms.model.Num
+import analysis.terms.model.Term
 
 class SimplexTableau(
     opt: OptimizationProblem.Optimize,

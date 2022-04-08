@@ -1,5 +1,6 @@
 package analysis.terms
 
+import analysis.terms.model.*
 import analysis.terms.simplifying.P
 import analysis.terms.simplifying.Pow
 import analysis.terms.simplifying.S

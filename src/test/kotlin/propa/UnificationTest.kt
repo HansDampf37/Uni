@@ -1,12 +1,11 @@
 package propa
 
 import analysis.terms.*
-import analysis.terms.simplifying.UnificationVariable
-import analysis.terms.simplifying.a
-import analysis.terms.simplifying.b
-import analysis.terms.simplifying.c
+import analysis.terms.model.*
+import analysis.terms.simplifying.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import toTerm
 
 internal class UnificationTest {
     @Test
@@ -72,6 +71,23 @@ internal class UnificationTest {
         Assertions.assertEquals(listOf(
             mapOf(Pair(f, a * b)),
             mapOf(Pair(f, b * a)),
+        ), result)
+    }
+
+    @Test
+    fun testUnification5() {
+        val f1 = UnificationVariable("f1", filler = true)
+        val f2 = UnificationVariable("f2", filler = true)
+        // val t = "2^x * x * 2 + LogE(2) * x^2 * 1 / 2 * 2^x * 2".toTerm()
+        //val t = ("ab * 2 + c * d * 1/2 * e * 2").toTerm()
+        val t = ("abcd + abcd").toTerm()
+        val u = S(P(a, f1), P(a, f2))
+        val result = Unifier<Term>().unify(t, u)
+        println(result.size)
+        println("Unification1 of terms\n$t and \n$u is \n$result")
+        Assertions.assertEquals(listOf(
+            mapOf(Pair(f1, a * b)),
+            mapOf(Pair(f2, b * a)),
         ), result)
     }
 }

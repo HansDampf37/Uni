@@ -1,6 +1,8 @@
 package propa
 
 import analysis.terms.*
+import analysis.terms.model.Log
+import analysis.terms.model.Term
 import analysis.terms.simplifying.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

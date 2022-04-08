@@ -1,6 +1,9 @@
 package analysis.terms.simplifying
 
-import analysis.terms.*
+import analysis.terms.model.*
+import analysis.terms.one
+import analysis.terms.two
+import analysis.terms.zero
 import analysis.unaryMinus
 import propa.SubTreeUnificationRule
 import propa.UnificationRule
@@ -118,107 +121,41 @@ class RuleBook {
         )
 
         val numericalRules = listOf(
-            Rule(
-                S(
-                    n1,
-                    n2
-                )
-            ) {
-                if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).plus(n2.subtree as Num) else S(
-                    n1,
-                    n2
-                )
+            Rule(S(n1, n2)) {
+                if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).plus(n2.subtree as Num)
+                else S(n1, n2)
             },
-            Rule(
-                S(
-                    n1,
-                    n2,
-                    f1
-                )
-            ) {
-                if (n1.subtree != null && n2.subtree != null) S((n1.subtree as Num).plus(n2.subtree as Num), f1) else S(
-                    n1,
-                    n2,
-                    f1
-                )
+            Rule(S(n1, n2, f1)) {
+                if (n1.subtree != null && n2.subtree != null) S((n1.subtree as Num).plus(n2.subtree as Num), f1)
+                else S(n1, n2, f1)
             },
-            Rule(
-                P(
-                    n1,
-                    n2
-                )
-            ) {
-                if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).times(n2.subtree as Num) else P(
-                    n1,
-                    n2
-                )
+            Rule(P(n1, n2)) {
+                if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).times(n2.subtree as Num)
+                else P(n1, n2)
             },
-            Rule(
-                P(
-                    n1,
-                    n2,
-                    f1
-                )
-            ) {
-                if (n1.subtree != null && n2.subtree != null) P(
-                    (n1.subtree as Num).times(n2.subtree as Num),
-                    f1
-                ) else P(n1, n2, f1)
+            Rule(P(n1, n2, f1)) {
+                if (n1.subtree != null && n2.subtree != null) P((n1.subtree as Num).times(n2.subtree as Num), f1)
+                else P(n1, n2, f1)
             },
-            Rule(
-                Pow(
-                    n1,
-                    n2
-                )
-            ) {
-                if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).pow(n2.subtree as Num) else Pow(
-                    n1,
-                    n2
-                )
+            Rule(Pow(n1, n2)) {
+                if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).pow(n2.subtree as Num)
+                else Pow(n1, n2)
             },
-            Rule(
-                Pow(
-                    n1,
-                    P(n2, f1)
-                )
-            ) {
-                if (n1.subtree != null && n2.subtree != null) Pow(
-                    (n1.subtree as Num).pow(n2.subtree as Num),
-                    f1
-                ) else Pow(n1, P(n2, f1))
+            Rule(Pow(n1, P(n2, f1))) {
+                if (n1.subtree != null && n2.subtree != null) Pow((n1.subtree as Num).pow(n2.subtree as Num), f1)
+                else Pow(n1, P(n2, f1))
             },
-            Rule(
-                Pow(
-                    P(n1, f1),
-                    n2
-                )
-            ) {
-                if (n1.subtree != null && n2.subtree != null) P(
-                    (n1.subtree as Num).pow(n2.subtree as Num),
-                    Pow(f1, n2)
-                ) else Pow(P(n1, f1), n2)
+            Rule(Pow(P(n1, f1), n2)) {
+                if (n1.subtree != null && n2.subtree != null) P((n1.subtree as Num).pow(n2.subtree as Num), Pow(f1, n2))
+                else Pow(P(n1, f1), n2)
             },
-            Rule(
-                Log(
-                    n1,
-                    n2
-                )
-            ) {
-                if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).log(n2.subtree as Num) else Log(
-                    n1,
-                    n2
-                )
+            Rule(Log(n1, n2)) {
+                if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).log(n2.subtree as Num)
+                else Log(n1, n2)
             },
-            Rule(
-                P(
-                    n1,
-                    Pow(n2, -one)
-                )
-            ) {
-                if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).times((n2.subtree as Num).inverseMult()) else P(
-                    n1,
-                    Pow(n2, -one)
-                )
+            Rule(P(n1, Pow(n2, -one))) {
+                if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).times((n2.subtree as Num).inverseMult())
+                else P(n1, Pow(n2, -one))
             }
         )
 

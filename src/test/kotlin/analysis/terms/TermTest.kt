@@ -1,5 +1,6 @@
 package analysis.terms
 
+import analysis.terms.model.*
 import analysis.unaryMinus
 import junit.framework.TestCase
 import org.junit.jupiter.api.Assertions.*

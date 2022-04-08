@@ -1,6 +1,7 @@
-package analysis.terms
+package analysis.terms.model
 
 import algo.datastructures.INode
+import analysis.terms.E
 import analysis.unaryMinus
 import propa.Unifiable
 import kotlin.math.log

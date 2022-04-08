@@ -1,5 +1,9 @@
 package analysis.terms
 
+import analysis.terms.model.Const
+import analysis.terms.model.Num
+import analysis.terms.model.Variable
+
 val E = Const("E", Math.E)
 val PI = Const("PI", Math.PI)
 val zero = Num(0)

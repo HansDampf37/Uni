@@ -3,9 +3,9 @@ package algebra
 import algebra.structures.VectorSpace
 import analysis.Field
 import analysis.sum
-import analysis.terms.Num
-import analysis.terms.Power
-import analysis.terms.Term
+import analysis.terms.model.Num
+import analysis.terms.model.Power
+import analysis.terms.model.Term
 import analysis.unaryMinus
 
 class Vec<T: Field<T>>(entries: List<T>) : ArrayList<T>(), VectorSpace<T> {

@@ -1,6 +1,6 @@
 package analysis.terms.simplifying
 
-import analysis.terms.Term
+import analysis.terms.model.Term
 
 object Cache {
     private val size: Int = 100

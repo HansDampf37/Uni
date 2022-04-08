@@ -1,5 +1,6 @@
 package analysis.terms
 
+import analysis.terms.model.*
 import analysis.terms.simplifying.*
 import analysis.unaryMinus
 import junit.framework.Assert.assertEquals
@@ -76,7 +77,7 @@ class DerivativeTest {
             println("d/d${variables[i]} $term = ${calculatedDerivatives[i]}")
             Assertions.assertEquals(
                 expectedDerivatives[i],
-                calculatedDerivatives[i].simplify(),
+                calculatedDerivatives[i],
                 "Expected derivative's quality ${expectedDerivatives[i].quality()}\nCalculated derivative's quality ${calculatedDerivatives[i].quality()}"
             )
         }

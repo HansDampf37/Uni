@@ -3,8 +3,8 @@ package numerik
 import algebra.Matrix
 import algebra.Vec
 import analysis.Field
-import analysis.terms.Num
-import analysis.terms.Term
+import analysis.terms.model.Num
+import analysis.terms.model.Term
 
 interface Decomposition {
     fun <T : Field<T>> forwardSub(l: Matrix<T>, b: Vec<T>, p: Vec<Term> = Vec(List(b.size) { Num(it) })): Vec<T> {

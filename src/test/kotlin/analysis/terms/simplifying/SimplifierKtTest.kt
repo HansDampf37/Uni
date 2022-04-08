@@ -1,7 +1,7 @@
 package analysis.terms.simplifying
 
-import analysis.terms.Num
-import analysis.terms.Sum
+import analysis.terms.model.Num
+import analysis.terms.model.Sum
 import analysis.terms.x
 import org.junit.jupiter.api.Test
 import kotlin.math.withSign

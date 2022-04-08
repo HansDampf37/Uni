@@ -2,7 +2,7 @@ package or.linearoptimization
 
 import algebra.Matrix
 import algebra.Vec
-import analysis.terms.Term
+import analysis.terms.model.Term
 
 open class Simplex {
     fun run(t: SimplexTableau): SimplexTableau {

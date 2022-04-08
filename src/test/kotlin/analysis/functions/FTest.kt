@@ -1,8 +1,8 @@
 package analysis.functions
 /*
-import analysis.terms.Num
-import analysis.terms.Power
-import analysis.terms.Variable
+import analysis.terms.model.Num
+import analysis.terms.model.Power
+import analysis.terms.model.Variable
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 

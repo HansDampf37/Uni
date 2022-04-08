@@ -1,10 +1,11 @@
 package analysis.terms.simplifying
 
-import analysis.inverseMult
 import analysis.terms.*
+import analysis.terms.model.*
 import analysis.unaryMinus
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import toTerm
 
 internal class SimplifierTest {
     @Test
@@ -144,6 +145,13 @@ internal class SimplifierTest {
         val term = P(Pow(Num(12), one), Pow(-two, -one))
         println(term)
         assertSimplifiesTo(term, -six)
+    }
+
+    @Test
+    fun testCalc3() {
+        val term = "(2 * x) * 2^x + x^2 * (LogE(2) * 2^x)".toTerm()
+        println(term)
+        assertSimplifiesTo(term, "2^x * x(2 + LogE(2) * x)".toTerm())
     }
 
     private fun assertSimplifiesTo(complex: Term, simplified: Term) {

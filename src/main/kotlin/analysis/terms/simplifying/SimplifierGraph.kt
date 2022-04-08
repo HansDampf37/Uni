@@ -4,7 +4,7 @@ import algo.datastructures.Edge
 import algo.datastructures.Graph
 import algo.datastructures.INode
 import algo.datastructures.ITree
-import analysis.terms.Term
+import analysis.terms.model.Term
 import propa.IRule
 
 class SimplifierGraph : ISimplifier {
@@ -22,6 +22,9 @@ class SimplifierGraph : ISimplifier {
         var continueToImprove = false
         var best = graph.maxByOrNull { it.element().quality() }!!
         while (i < n || continueToImprove) {
+            if (i == 41) {
+                println("")
+            }
             val current = graph.filter { !alreadySimplified.contains(it.element()) }.maxByOrNull { it.element().quality() }
                 ?: break
             alreadySimplified.add(current.element())

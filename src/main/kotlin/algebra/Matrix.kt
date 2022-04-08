@@ -147,10 +147,9 @@ open class Matrix<T : Field<T>>(entries: List<List<T>>) : Cloneable, ArrayList<V
     }
 
     /**
-     * Inverse mult returns a matrix m so that e * m = [I_n][one]
-     *
-     * @param e Matrix
-     * @return e⁻¹
+     * Inverse mult returns a matrix m so that m * m⁻¹ = [I_n][one]
+ 1    *
+     * @return this⁻¹
      * @throws NotRegularException if this matrix doesn't have an inverse
      */
     override fun inverseMult(): Matrix<T> {

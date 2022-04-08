@@ -1,8 +1,8 @@
 package or.linearoptimization
 
 import algebra.Vec
-import analysis.terms.Num
-import analysis.terms.Term
+import analysis.terms.model.Num
+import analysis.terms.model.Term
 
 open class OptimizationProblem(private val opt: Optimize, private val constraints: MutableList<Constraint>) {
     private val tableau: SimplexTableau = SimplexTableau(opt, constraints)

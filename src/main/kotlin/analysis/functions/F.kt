@@ -1,8 +1,8 @@
 package analysis.functions
 
-import analysis.terms.Term
-import analysis.terms.Variable
-import analysis.terms.simplify
+import analysis.terms.model.Term
+import analysis.terms.model.Variable
+import analysis.terms.model.simplify
 
 class F(private val name: String = "f", vars: List<Variable>, init: () -> Term) {
     private val vars = vars.toList()

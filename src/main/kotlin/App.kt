@@ -1,6 +1,6 @@
 import algebra.Matrix
 import algebra.Vec
-import analysis.terms.Term
+import analysis.terms.model.Term
 
 fun main() {
     val m = Matrix<Term>(Vec(1, 2, 0), Vec(-3, 1, 0), Vec(0, 0, 1))

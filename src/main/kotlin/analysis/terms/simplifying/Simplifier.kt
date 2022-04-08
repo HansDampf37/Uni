@@ -2,6 +2,7 @@ package analysis.terms.simplifying
 
 import algo.datastructures.INode
 import analysis.terms.*
+import analysis.terms.model.Term
 import propa.IRule
 
 fun Term.quality(): Double {

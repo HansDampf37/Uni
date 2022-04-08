@@ -1,4 +1,4 @@
-package analysis.terms
+package analysis.terms.model
 
 import algo.datastructures.INode
 import analysis.Field

@@ -3,8 +3,8 @@ package numerik
 import algebra.Matrix
 import algebra.Vec
 import algebra.len
-import analysis.terms.Num
-import analysis.terms.Term
+import analysis.terms.model.Num
+import analysis.terms.model.Term
 
 class Vectoriteration {
     fun run(m: Matrix<Term>): Pair<Vec<Term>, Term> {

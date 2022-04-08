@@ -1,7 +1,7 @@
 package analysis.terms.simplifying
 
 import algo.datastructures.INode
-import analysis.terms.*
+import analysis.terms.model.*
 import propa.IRule
 
 interface ISimplifier {
@@ -28,10 +28,14 @@ interface ISimplifier {
         rules: List<IRule<INode<Term>, INode<Term>>>,
         term: Term
     ): List<Triple<Term, Double, IRule<INode<Term>, INode<Term>>>> {
-        return rules.filter { it.applicable(term) }.map {
+        val applicable = rules.filter {
+            it.applicable(term)
+        }
+        val applied = applicable.map {
             val result = it.apply(term).element()
             Triple(result, result.quality(), it)
         }
+        return applied
     }
 
     fun simplifyComponents(t: Term) {

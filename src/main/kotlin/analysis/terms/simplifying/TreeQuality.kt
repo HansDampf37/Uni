@@ -2,8 +2,8 @@ package analysis.terms.simplifying
 
 import algo.datastructures.DFS
 import algo.datastructures.ITree
-import analysis.terms.Log
-import analysis.terms.Variable
+import analysis.terms.model.Log
+import analysis.terms.model.Variable
 import kotlin.math.sqrt
 
 interface ITreeQuality {
