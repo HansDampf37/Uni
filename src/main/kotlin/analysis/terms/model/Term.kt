@@ -7,6 +7,9 @@ import analysis.Field
 import analysis.terms.simplifying.SimplifierGraph
 import propa.Unifiable
 
+/**
+ * A mathematical expression. It is modeled as a [Tree] with contained terms as [nodes][INode]
+ */
 interface Term : Cloneable, Field<Term>, Comparable<Term>, Unifiable, INode<Term> {
     override fun element(): Term = this
     override fun toTree(): ITree<Term> = Tree(this)

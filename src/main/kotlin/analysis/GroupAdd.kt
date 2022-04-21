@@ -1,5 +1,11 @@
 package analysis
 
+/**
+ * Implementing methods have to implement the operators + and - as well as a zero and an inversion method.
+ *
+ * @param T
+ * @constructor Create empty Group add
+ */
 interface GroupAdd<T> {
     operator fun plus(other: T): T
     operator fun minus(other: T): T

@@ -1,8 +1,47 @@
 package propa
 
 import algo.datastructures.INode
+import initFromList
 
+/**
+ * A Unifier checks whether a given [INode<Unifiable>][INode] is unifiable with another [INode<Unifiable>][INode] called
+ * unificator. A Tree is unifiable with a unificator if there is a way to assign subtrees to special leafs ([Placeholder])
+ * in the unificator so that the unificator and the tree are equal. Two [commutative][Unifiable.isCommutative] nodes are
+ * equal if they contain the same sub-nodes. If the nodes contained Unifiable indicates that they are not commutative,
+ * the contained sub-nodes must be in the same order for them to be equal.
+ * Examples:
+ * - Tree: x(y1(y2), z)
+ * - Unificator: x(y1(A), z) with Placeholder A
+ *
+ * is unifiable with A := y2
+ * - Tree: x(y, z)
+ * - Unificator: A with Placeholder A
+ *
+ * is unifiable with A := x(y, z)
+ * - Tree: x(y1, y2)
+ * - Unificator: x(z, A) with Placeholder A
+ *
+ * is not unifiable.
+ *
+ * In order to use unification in a more flexible way, Placeholders may consume more than one node if their
+ * [fill-property][Placeholder.filler] is true. The following examples are unifiable if and only if Placeholder A has its
+ * filler-attribute set to true.
+ * - Tree: x(y, z) Unificator: x(A)
+ * - Tree: x(y, z, q) Unificator: x(y, A)
+ *
+ * @param T
+ * @constructor Create empty Unifier
+ */
 class Unifier<T: Unifiable> {
+
+    /**
+     * Returns all possible assignments for the [Placeholder] variables contained in the unificator that make the given [tree] and
+     * [unificator] equal. Each element in the returned list is a possible solution of the unification problem. If the tree
+     * and unificator are not unifiable, the returned list is empty.
+     * @see Unifier
+     *
+     * @return all assignments for the [Placeholder] variable in the unificator
+     */
     fun unify(tree: INode<T>, unificator: INode<T>): List<MutableMap<Placeholder<T>, INode<T>>> {
         if (unificator.isLeaf()) return unifyComponent(tree, unificator)
         if (!unificator.element().isUnifiableWith(tree.element())) return listOf()
@@ -152,16 +191,27 @@ class Unifier<T: Unifiable> {
     }
 }
 
-private fun <T> INode<T>.initFromList(subNodes: List<INode<T>>): INode<T> {
-    return this.clone().apply {
-        for (i in (0 until nodeSize()).reversed()) removeNodeAt(i)
-        subNodes.forEach{addNode(it)}
-    }
-}
-
 interface Unifiable {
+    /**
+     * Returns true if and only if this object is equal in the sense of unification to the given [Unifiable].
+     *
+     * @param unifiable the other [Unifiable]
+     * @return whether they are equal in the sense of unification
+     */
     fun isUnifiableWith(unifiable: Unifiable): Boolean
+
+    /**
+     * Return true if node that contains this Unifiable has commutative sub-nodes, false else
+     */
     fun isCommutative(): Boolean
+
+    /**
+     * Return true if node that contains this Unifiable has associative sub-nodes, false else
+     */
     fun isAssociative(): Boolean
+
+    /**
+     * Returns true if this is a [Placeholder]
+     */
     fun isPlaceholder(): Boolean
 }
