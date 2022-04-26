@@ -43,6 +43,7 @@ operator fun <T> Iterable<T>.plus(other: Iterable<T>): MutableList<T> {
 }
 
 fun <T> List<T>.permute(): List<List<T>> {
+    if (this.isEmpty()) return listOf()
     val excluded = Array(this.size) { false }
     val tried = Array(this.size) { Array(this.size) { false } }
     val currentIndices = Array(this.size) { -1 }
@@ -115,6 +116,7 @@ private fun <E> MutableList<E>.removeDuplicates(): MutableList<E> {
 }
 
 fun <T> List<T>.subsets(): List<List<T>> {
+    if (this.isEmpty()) return listOf()
     val excluded = Array(this.size) { false }
     val tried = Array(this.size) { Array(this.size) { false } }
     val currentIndices = Array(this.size) { -1 }

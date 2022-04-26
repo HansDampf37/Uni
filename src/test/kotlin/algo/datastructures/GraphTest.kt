@@ -84,4 +84,14 @@ internal class GraphTest {
         assertEquals(5, g1.v.size)
         assertEquals(9, g1.e.size)
     }
+
+    @Test
+    fun testPerfect() {
+        for (i in 0 until 5) {
+            assertTrue(Graph.kn<Int, Any>(i) { it }.isPerfect())
+            if (i % 2 == 0) assertTrue(Graph.cn(i).isPerfect())
+            assertTrue(Graph.pn(i).isPerfect())
+            for (j in 0 until 3) assertTrue(Graph.knm(i, j).isPerfect())
+        }
+    }
 }

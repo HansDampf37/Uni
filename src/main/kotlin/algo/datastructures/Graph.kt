@@ -126,10 +126,12 @@ open class Graph<T, S>(
     }
 
     fun biggestClique(): List<INode<T>> {
+        if (v.isEmpty()) return listOf()
         return v.subsets().map { inducedSubGraph(it) }.filter { it.isClique() }.maxByOrNull { it.v.size }!!.v
     }
 
     fun biggestIndependent(): List<INode<T>> {
+        if (v.isEmpty()) return listOf()
         return v.subsets().map { inducedSubGraph(it) }.filter { it.isIndependent() }
             .maxByOrNull { it.v.size }!!.v
     }
@@ -177,6 +179,10 @@ open class Graph<T, S>(
         return result
     }
 
+    fun isPerfect(): Boolean {
+        return v.subsets().all { inducedSubGraph(it).alpha() * inducedSubGraph(it).omega() >= it.size }
+    }
+
     companion object {
         fun <T, S> kn(
             n: Int,
@@ -220,10 +226,12 @@ open class Graph<T, S>(
         }
 
         fun cn(n: Int): Graph<Any?, Any> {
+            if (n == 0) return Graph()
             return pn(n).apply { addEdge(Edge(v.last(), v.first())) }
         }
 
         fun pn(n: Int): Graph<Any?, Any> {
+            if (n == 0) return Graph()
             val nodes: List<Node<Any?>> = List(n) { Node(null) }
             return Graph(nodes, edges = List(n - 1) { i -> Edge(nodes[i], nodes[i + 1], 0.0, { null }) })
         }

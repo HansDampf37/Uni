@@ -29,6 +29,7 @@ internal class ExtensionFunctionsKtTest {
 
     @Test
     fun subSets() {
-        assertEquals(65, listOf(1,2,3,4).subsets().size)
+        println(listOf(1, 2, 3, 4).subsets().joinToString("\n"))
+        assertEquals(65, listOf(1, 2, 3, 4).subsets().size)
     }
 }
