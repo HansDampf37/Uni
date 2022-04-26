@@ -1,7 +1,9 @@
 package algo.datastructures
 
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import subsets
 
 internal class GraphTest {
     @Test
@@ -63,5 +65,23 @@ internal class GraphTest {
         assertEquals(3, Graph.cn(5).kappa())
         assertEquals(2, Graph.pn(4).kappa())
         assertEquals(4, Graph.en(4).kappa())
+    }
+
+    @Test
+    fun testInducedSubgraph() {
+        val g = Graph.kn<Int, Any>(4) { it }
+        val p = Graph.Path(g, g.v)
+        println(p)
+        val ind = p.inducedSubGraph(g.v.toMutableList().apply { removeAt(0) })
+        assertEquals(3, ind.v.size)
+        assertEquals(2, ind.e.size)
+    }
+
+    @Test
+    fun testTimes() {
+        val g = Graph.kn<Int, Any>(4) { it }
+        val g1 = g * g.v[0]
+        assertEquals(5, g1.v.size)
+        assertEquals(9, g1.e.size)
     }
 }

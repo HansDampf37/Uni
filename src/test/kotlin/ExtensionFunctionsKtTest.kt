@@ -17,6 +17,7 @@ internal class ExtensionFunctionsKtTest {
 
     @Test
     fun partition() {
+        println(IntRange(1, 4).toList().partition().joinToString("\n") { it.toString() })
         println(IntRange(1, 10).toList().partition(2).joinToString("\n") { it.toString() })
         println("\n" + IntRange(1, 10).toList().partition(3).joinToString("\n") { it.toString() })
         println("\n" + IntRange(1, 20).toList().partition(5).joinToString("\n") { it.toString() })
@@ -24,5 +25,10 @@ internal class ExtensionFunctionsKtTest {
         assertEquals(9, IntRange(1, 10).toList().partition(2).size)
         assertEquals(36, IntRange(1, 10).toList().partition(3).size)
         assertEquals(3876, IntRange(1, 20).toList().partition(5).size)
+    }
+
+    @Test
+    fun subSets() {
+        assertEquals(65, listOf(1,2,3,4).subsets().size)
     }
 }

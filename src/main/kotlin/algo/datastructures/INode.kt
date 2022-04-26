@@ -125,4 +125,8 @@ class Node<T>(private val el: T) : INode<T> {
     override fun removeNodeAt(i: Int): INode<T> {
         return subNodes.removeAt(i)
     }
+
+    override fun toString(): String {
+        return el?.toString() ?: super.toString()
+    }
 }
