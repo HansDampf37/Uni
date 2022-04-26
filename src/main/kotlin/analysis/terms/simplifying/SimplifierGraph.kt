@@ -1,9 +1,6 @@
 package analysis.terms.simplifying
 
-import algo.datastructures.Edge
-import algo.datastructures.Graph
-import algo.datastructures.INode
-import algo.datastructures.ITree
+import algo.datastructures.*
 import analysis.terms.model.Term
 import propa.IRule
 
@@ -50,9 +47,9 @@ class SimplifierGraph : ISimplifier {
         return best.element()
     }
 
-    private inner class SimplifyingNode(val t: Term) : INode<Term> {
+    private inner class SimplifyingNode(t: Term) : Node<Term>(t) {
         override fun equals(other: Any?): Boolean {
-            return other is SimplifyingNode && other.t == t
+            return other is SimplifyingNode && other.element() == element()
         }
 
         override fun toTree(): ITree<Term> {
@@ -63,36 +60,14 @@ class SimplifierGraph : ISimplifier {
         }
 
 
-        override fun getNode(i: Int): INode<Term> {
-            TODO("Not yet implemented")
-        }
-
-        override fun setNode(i: Int, node: INode<Term>) {
-            TODO("Not yet implemented")
-        }
-
-        override fun nodeSize(): Int {
-            TODO("Not yet implemented")
-        }
-
-        override fun addNode(node: INode<Term>) {
-            TODO("Not yet implemented")
-        }
-
-        override fun removeNodeAt(i: Int): INode<Term> {
-            TODO("Not yet implemented")
-        }
-
         override fun clone(): SimplifyingNode {
-            return SimplifyingNode(t)
+            return SimplifyingNode(element())
         }
 
-        override fun toString(): String = t.toString()
-
-        override fun element() = t
+        override fun toString(): String = element().toString()
 
         override fun hashCode(): Int {
-            return t.hashCode()
+            return element().hashCode()
         }
     }
 }

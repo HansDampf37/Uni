@@ -1,3 +1,3 @@
 
-rootProject.name = "math"
+rootProject.name = "Uni"
 

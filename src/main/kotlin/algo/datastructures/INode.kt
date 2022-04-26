@@ -96,7 +96,7 @@ interface INode<T>: Cloneable {
 /**
  * @see INode
  */
-class Node<T>(private val el: T) : INode<T> {
+open class Node<T>(private val el: T) : INode<T> {
     private val subNodes = ArrayList<INode<T>>()
     override fun getNode(i: Int): INode<T> {
         return subNodes[i]
