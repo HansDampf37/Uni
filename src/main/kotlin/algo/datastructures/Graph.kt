@@ -2,9 +2,10 @@ package algo.datastructures
 
 import Partition
 import algo.algorithms.Dijkstra
-import partition
+import org.graphstream.graph.implementations.SingleGraph
 import partitionPerm
 import subsets
+
 
 open class Graph<T, S>(
     nodes: List<INode<T>> = mutableListOf(),
@@ -136,6 +137,18 @@ open class Graph<T, S>(
             .maxByOrNull { it.v.size }!!.v
     }
 
+    fun complement(): Graph<T, S> {
+        val edges = ArrayList<Edge<T, S>>()
+        for (v1 in v) {
+            for (v2 in v) {
+                if (v1 == v2) continue
+                if (v1.subNodes().contains(v2) || v2.subNodes().contains(v1)) continue
+                edges.add(Edge(v1, v2))
+            }
+        }
+        return Graph(v, edges)
+    }
+
     operator fun times(node: INode<T>): Graph<T, S> {
         assert(v.contains(node))
         val nodeCp = Node(node.element())
@@ -240,5 +253,28 @@ open class Graph<T, S>(
             return Graph(List(n) { Node(null) }, listOf())
         }
     }
+
+    fun display() {
+        System.setProperty("org.graphstream.ui", "swing")
+        val g = SingleGraph("test")
+        var i = 0
+        val nodeNames = HashMap<INode<T>, String>()
+        v.forEach { nodeNames[it] = if (it.element() == null) i++.toString() else it.element().toString() }
+        v.forEach { g.addNode(nodeNames[it]) }
+        e.forEach {
+            val content = if (it.el == null) {
+                "${nodeNames[it.to]} - ${nodeNames[it.from]}"
+            } else {
+                it.el.toString()
+            }
+            g.addEdge(content, nodeNames[it.from], nodeNames[it.to])
+        }
+        g.display()
+    }
+}
+
+fun main() {
+    System.setProperty("org.graphstream.ui", "swing")
+    Graph.knm(100,50).display()
 }
 

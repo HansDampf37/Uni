@@ -94,4 +94,9 @@ internal class GraphTest {
             for (j in 0 until 3) assertTrue(Graph.knm(i, j).isPerfect())
         }
     }
+
+    @Test
+    fun testDisplay() {
+        Graph.kn(5).display()
+    }
 }

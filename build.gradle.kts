@@ -14,6 +14,8 @@ repositories {
 
 dependencies {
     implementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    implementation("org.graphstream:gs-core:2.0")
+    implementation("org.graphstream:gs-ui-swing:2.0")
     testImplementation(kotlin("test-junit"))
 }
 
