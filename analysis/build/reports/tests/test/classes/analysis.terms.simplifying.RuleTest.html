@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - RuleTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>RuleTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/analysis.terms.simplifying.html">analysis.terms.simplifying</a> &gt; RuleTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">22</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.220s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">getFlattenRules()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getLogRules()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getNumericalRules()</td>
+<td class="success">0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getPowerRules()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getProductRules()</td>
+<td class="success">0.017s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getSimplificationRules()</td>
+<td class="success">0.012s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getSumRules()</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testApplyRule1()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testApplyRule2()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testApplyRule2_1()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testApplyRule2_2()</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testApplyRule2_3()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testApplyRule2_4()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testApplyRule2_5()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testApplyRule3()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testLogRules()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testPowRules()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testProductRules2()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testSumRules4()</td>
+<td class="success">0.049s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testSumRules5()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testSumRules5_1()</td>
+<td class="success">0.027s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testSumRules5_2()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>n1 + n2 -&gt; n1 + n2
+n1 + n2 + f1 -&gt; n1 + n2 + f1
+n1 * n2 -&gt; n1 * n2
+n1 * n2 * f1 -&gt; n1 * n2 * f1
+n1^n2 -&gt; n1^n2
+n1^(n2 * f1) -&gt; n1^(n2 * f1)
+(n1 * f1)^n2 -&gt; (n1 * f1)^n2
+Log_(n1)(n2) -&gt; Log_(n1)(n2)
+n1 * n2^-1 -&gt; n1 * n2^-1
+Log_(c)(a) + Log_(c)(b) -&gt; Log_(c)(a * b) is applicable to Log2(x) + Log2(x * 2): [{c=2, b=x * 2, a=x}, {c=2, b=x, a=x * 2}]
+replace: Log2(x) + Log2(x * 2)         (-5.2) 
+by:      Log2(x * (x * 2))         (-4.4)
+Product1 * f2 -&gt; Product1 * f2 is applicable to x * (x * 2): [{f2=x, Product1=x * 2}]
+replace: x * (x * 2)         (-3.6) 
+by:      x * 2 * x         (-3.2)
+a * a * f1 -&gt; a^2 * f1 is applicable to x * 2 * x: [{f1=2, a=x}, {f1=2, a=x}]
+replace: x * 2 * x         (-3.2) 
+by:      x^2 * 2         (-2.6)
+Log_(a)(b^c) -&gt; c * Log_(a)(b) is applicable to Log2(x^2): [{c=2, b=x, a=2}]
+replace: Log2(x^2)         (-2.6) 
+by:      2 * Log2(x)         (-2.6)
+a + a -&gt; 2 * a is applicable to Log2(x) + Log2(x): [{a=Log2(x)}, {a=Log2(x)}]
+replace: Log2(x) + Log2(x)         (-4.4) 
+by:      2 * Log2(x)         (-2.6)
+f1 * 1 -&gt; f1
+f1 * 0 -&gt; 0
+f1 * f1^-1 -&gt; 1
+a * a^-1 * f1 -&gt; f1
+f1 * (a + f2) -&gt; f1 * a + f1 * f2
+a * a -&gt; a^2
+a * a * f1 -&gt; a^2 * f1
+f1 * f1^b -&gt; f1^(b + 1)
+a * a^b * f1 -&gt; a^(b + 1) * f1
+a^b * a^c -&gt; a^(b + c)
+a^b * a^c * f1 -&gt; a^(b + c) * f1
+a^b * c^b -&gt; (a * c)^b
+a^b * c^b * f1 -&gt; (a * c)^b * f1
+Log_(a)(a) -&gt; 1 is applicable to Ln(E): [{a=E}]
+replace: Ln(E)         (-0.8) 
+by:      1         (0.0)
+f1 * f1^b -&gt; f1^(b + 1) is applicable to 12 * 12^-1: [{f1=12, b=-1}]
+replace: 12 * 12^-1         (-1.6) 
+by:      12^(-1 + 1)         (-1.6)
+a -&gt; a
+Sum1 + f2 -&gt; Sum1 + f2
+a -&gt; a
+Product1 * f2 -&gt; x * 2 * f2
+a * b + a + f1 -&gt; a * (b + 1) + f1 is applicable to x + y + x * -4: [{f1=y, b=-4, a=x}]
+replace: x + y + x * -4         (-5.0) 
+by:      x * (-4 + 1) + y         (-4.4)
+n1 + n2 -&gt; n1 + n2 is applicable to -4 + 1: [{n1=-4, n2=1}, {n1=1, n2=-4}]
+replace: -4 + 1         (-0.8) 
+by:      -3         (0.0)
+Log_(a)(1) -&gt; 0
+Log_(a)(a) -&gt; 1
+Log_(a)(a^b) -&gt; b
+Log_(a)(b^c) -&gt; c * Log_(a)(b)
+Log_(c)(a * b) -&gt; Log_(c)(a) + Log_(c)(b)
+f1 + 0 -&gt; f1
+a + -1 * a -&gt; 0
+a + -1 * a + f2 -&gt; f2
+a + a -&gt; 2 * a
+a + a + f1 -&gt; 2 * a + f1
+a * f1 + a * f2 -&gt; a * (f1 + f2)
+a * f1 + a * f2 + f3 -&gt; a * (f1 + f2) + f3
+a * f1 + a -&gt; a * (f1 + 1)
+a * f1 + a + f2 -&gt; a * (f1 + 1) + f2
+a * f1 + a^b * f2 -&gt; a * (f1 + f2 * a^(b + -1))
+a * f1 + a^b * f2 + f3 -&gt; a * (f1 + f2 * a^(b + -1)) + f3
+Log_(c)(a) + Log_(c)(b) -&gt; Log_(c)(a * b)
+Log_(c)(a) + Log_(c)(b) + f1 -&gt; Log_(c)(a * b) + f1
+Log_(c)(a) + -1 * Log_(c)(b) -&gt; Log_(c)(a * b^-1)
+Log_(c)(a) + -1 * Log_(c)(b) + f1 -&gt; Log_(c)(a * b^-1) + f1
+f1 * 1 -&gt; f1
+f1 * 0 -&gt; 0
+f1 * f1^-1 -&gt; 1
+a * a^-1 * f1 -&gt; f1
+f1 * (a + f2) -&gt; f1 * a + f1 * f2
+a * a -&gt; a^2
+a * a * f1 -&gt; a^2 * f1
+f1 * f1^b -&gt; f1^(b + 1)
+a * a^b * f1 -&gt; a^(b + 1) * f1
+a^b * a^c -&gt; a^(b + c)
+a^b * a^c * f1 -&gt; a^(b + c) * f1
+a^b * c^b -&gt; (a * c)^b
+a^b * c^b * f1 -&gt; (a * c)^b * f1
+a^1 -&gt; a
+a^0 -&gt; 1
+(a^b)^c -&gt; a^(b * c)
+a^a^b -&gt; a^(b + 1)
+a^b * a^c -&gt; a^(b + c)
+a^b * c^b -&gt; (a + c)^b
+a^(Log_(a)(b) * c) -&gt; b^c
+a^Log_(a)(b) -&gt; b
+a^Log_(a)(b) -&gt; b
+a^(b + f1) -&gt; a^b * a^f1
+a + -1 * a + f1 -&gt; f1 is applicable to x + -1 * x + y: [{f1=y, a=x}]
+replace: x + -1 * x + y         (-5.0) 
+by:      y         (0.0)
+Log_(a)(b) + Log_(a)(c) -&gt; Log_(a)(b * c) is applicable to Log2(x) + Log2(x): [{c=x, b=x, a=2}, {c=x, b=x, a=2}]
+replace: Log2(x) + Log2(x)         (-4.4) 
+by:      Log2(x * x)         (-3.5999999999999996)
+a + -1 * a + f1 -&gt; f1 is not applicable to x + -1 * x
+Log_(a)(1) -&gt; 0
+Log_(a)(a) -&gt; 1
+Log_(a)(a^b) -&gt; b
+Log_(a)(b^c) -&gt; c * Log_(a)(b)
+Log_(c)(a * b) -&gt; Log_(c)(a) + Log_(c)(b)
+a^1 -&gt; a
+a^0 -&gt; 1
+(a^b)^c -&gt; a^(b * c)
+a^a^b -&gt; a^(b + 1)
+a^b * a^c -&gt; a^(b + c)
+a^b * c^b -&gt; (a + c)^b
+a^(Log_(a)(b) * c) -&gt; b^c
+a^Log_(a)(b) -&gt; b
+a^Log_(a)(b) -&gt; b
+a^(b + f1) -&gt; a^b * a^f1
+f1 + 0 -&gt; f1
+a + -1 * a -&gt; 0
+a + -1 * a + f2 -&gt; f2
+a + a -&gt; 2 * a
+a + a + f1 -&gt; 2 * a + f1
+a * f1 + a * f2 -&gt; a * (f1 + f2)
+a * f1 + a * f2 + f3 -&gt; a * (f1 + f2) + f3
+a * f1 + a -&gt; a * (f1 + 1)
+a * f1 + a + f2 -&gt; a * (f1 + 1) + f2
+a * f1 + a^b * f2 -&gt; a * (f1 + f2 * a^(b + -1))
+a * f1 + a^b * f2 + f3 -&gt; a * (f1 + f2 * a^(b + -1)) + f3
+Log_(c)(a) + Log_(c)(b) -&gt; Log_(c)(a * b)
+Log_(c)(a) + Log_(c)(b) + f1 -&gt; Log_(c)(a * b) + f1
+Log_(c)(a) + -1 * Log_(c)(b) -&gt; Log_(c)(a * b^-1)
+Log_(c)(a) + -1 * Log_(c)(b) + f1 -&gt; Log_(c)(a * b^-1) + f1
+Log_(a)(1) -&gt; 0
+Log_(a)(a) -&gt; 1
+Log_(a)(a^b) -&gt; b
+Log_(a)(b^c) -&gt; c * Log_(a)(b)
+Log_(c)(a * b) -&gt; Log_(c)(a) + Log_(c)(b)
+f1 + 0 -&gt; f1
+a + -1 * a -&gt; 0
+a + -1 * a + f2 -&gt; f2
+a + a -&gt; 2 * a
+a + a + f1 -&gt; 2 * a + f1
+a * f1 + a * f2 -&gt; a * (f1 + f2)
+a * f1 + a * f2 + f3 -&gt; a * (f1 + f2) + f3
+a * f1 + a -&gt; a * (f1 + 1)
+a * f1 + a + f2 -&gt; a * (f1 + 1) + f2
+a * f1 + a^b * f2 -&gt; a * (f1 + f2 * a^(b + -1))
+a * f1 + a^b * f2 + f3 -&gt; a * (f1 + f2 * a^(b + -1)) + f3
+Log_(c)(a) + Log_(c)(b) -&gt; Log_(c)(a * b)
+Log_(c)(a) + Log_(c)(b) + f1 -&gt; Log_(c)(a * b) + f1
+Log_(c)(a) + -1 * Log_(c)(b) -&gt; Log_(c)(a * b^-1)
+Log_(c)(a) + -1 * Log_(c)(b) + f1 -&gt; Log_(c)(a * b^-1) + f1
+f1 * 1 -&gt; f1
+f1 * 0 -&gt; 0
+f1 * f1^-1 -&gt; 1
+a * a^-1 * f1 -&gt; f1
+f1 * (a + f2) -&gt; f1 * a + f1 * f2
+a * a -&gt; a^2
+a * a * f1 -&gt; a^2 * f1
+f1 * f1^b -&gt; f1^(b + 1)
+a * a^b * f1 -&gt; a^(b + 1) * f1
+a^b * a^c -&gt; a^(b + c)
+a^b * a^c * f1 -&gt; a^(b + c) * f1
+a^b * c^b -&gt; (a * c)^b
+a^b * c^b * f1 -&gt; (a * c)^b * f1
+a^1 -&gt; a
+a^0 -&gt; 1
+(a^b)^c -&gt; a^(b * c)
+a^a^b -&gt; a^(b + 1)
+a^b * a^c -&gt; a^(b + c)
+a^b * c^b -&gt; (a + c)^b
+a^(Log_(a)(b) * c) -&gt; b^c
+a^Log_(a)(b) -&gt; b
+a^Log_(a)(b) -&gt; b
+a^(b + f1) -&gt; a^b * a^f1
+a -&gt; a
+Sum1 + f2 -&gt; Sum1 + f2
+a -&gt; a
+Product1 * f2 -&gt; Product1 * f2
+n1 + n2 -&gt; n1 + n2
+n1 + n2 + f1 -&gt; n1 + n2 + f1
+n1 * n2 -&gt; n1 * n2
+n1 * n2 * f1 -&gt; n1 * n2 * f1
+n1^n2 -&gt; n1^n2
+n1^(n2 * f1) -&gt; n1^(n2 * f1)
+(n1 * f1)^n2 -&gt; (n1 * f1)^n2
+Log_(n1)(n2) -&gt; Log_(n1)(n2)
+n1 * n2^-1 -&gt; n1 * n2^-1
+some term (Log_(a)(1) -&gt; 0)
+some term (Log_(a)(a) -&gt; 1)
+some term (Log_(a)(a^b) -&gt; b)
+some term (Log_(a)(b^c) -&gt; c * Log_(a)(b))
+some term (Log_(c)(a * b) -&gt; Log_(c)(a) + Log_(c)(b))
+some term (f1 + 0 -&gt; f1)
+some term (a + -1 * a -&gt; 0)
+some term (a + -1 * a + f2 -&gt; f2)
+some term (a + a -&gt; 2 * a)
+some term (a + a + f1 -&gt; 2 * a + f1)
+some term (a * f1 + a * f2 -&gt; a * (f1 + f2))
+some term (a * f1 + a * f2 + f3 -&gt; a * (f1 + f2) + f3)
+some term (a * f1 + a -&gt; a * (f1 + 1))
+some term (a * f1 + a + f2 -&gt; a * (f1 + 1) + f2)
+some term (a * f1 + a^b * f2 -&gt; a * (f1 + f2 * a^(b + -1)))
+some term (a * f1 + a^b * f2 + f3 -&gt; a * (f1 + f2 * a^(b + -1)) + f3)
+some term (Log_(c)(a) + Log_(c)(b) -&gt; Log_(c)(a * b))
+some term (Log_(c)(a) + Log_(c)(b) + f1 -&gt; Log_(c)(a * b) + f1)
+some term (Log_(c)(a) + -1 * Log_(c)(b) -&gt; Log_(c)(a * b^-1))
+some term (Log_(c)(a) + -1 * Log_(c)(b) + f1 -&gt; Log_(c)(a * b^-1) + f1)
+some term (f1 * 1 -&gt; f1)
+some term (f1 * 0 -&gt; 0)
+some term (f1 * f1^-1 -&gt; 1)
+some term (a * a^-1 * f1 -&gt; f1)
+some term (f1 * (a + f2) -&gt; f1 * a + f1 * f2)
+some term (a * a -&gt; a^2)
+some term (a * a * f1 -&gt; a^2 * f1)
+some term (f1 * f1^b -&gt; f1^(b + 1))
+some term (a * a^b * f1 -&gt; a^(b + 1) * f1)
+some term (a^b * a^c -&gt; a^(b + c))
+some term (a^b * a^c * f1 -&gt; a^(b + c) * f1)
+some term (a^b * c^b -&gt; (a * c)^b)
+some term (a^b * c^b * f1 -&gt; (a * c)^b * f1)
+some term (a^1 -&gt; a)
+some term (a^0 -&gt; 1)
+some term ((a^b)^c -&gt; a^(b * c))
+some term (a^a^b -&gt; a^(b + 1))
+some term (a^b * a^c -&gt; a^(b + c))
+some term (a^b * c^b -&gt; (a + c)^b)
+some term (a^(Log_(a)(b) * c) -&gt; b^c)
+some term (a^Log_(a)(b) -&gt; b)
+some term (a^Log_(a)(b) -&gt; b)
+some term (a^(b + f1) -&gt; a^b * a^f1)
+some term (a -&gt; a)
+some term (Sum1 + f2 -&gt; Sum1 + f2)
+some term (a -&gt; a)
+some term (Product1 * f2 -&gt; Product1 * f2)
+some term (n1 + n2 -&gt; n1 + n2)
+some term (n1 + n2 + f1 -&gt; n1 + n2 + f1)
+some term (n1 * n2 -&gt; n1 * n2)
+some term (n1 * n2 * f1 -&gt; n1 * n2 * f1)
+some term (n1^n2 -&gt; n1^n2)
+some term (n1^(n2 * f1) -&gt; n1^(n2 * f1))
+some term ((n1 * f1)^n2 -&gt; (n1 * f1)^n2)
+some term (Log_(n1)(n2) -&gt; Log_(n1)(n2))
+some term (n1 * n2^-1 -&gt; n1 * n2^-1)
+n1 + n2 + f1 -&gt; n1 + n2 + f1 is applicable to 1 + y + 2: [{f1=y, n1=1, n2=2}, {f1=y, n1=2, n2=1}]
+replace: 1 + y + 2         (-2.2) 
+by:      3 + y         (-1.8)
+a * f1 + a * f2 -&gt; a * (f1 + f2) is applicable to Ln(2) * 2^x * x^2 + 2^x * 2 * x: [{f1=Ln(2) * x^2, f2=2 * x, a=2^x}, {f1=Ln(2) * x^2, f2=x * 2, a=2^x}, {f1=x^2 * Ln(2), f2=2 * x, a=2^x}, {f1=2 * x, f2=Ln(2) * x^2, a=2^x}, {f1=2 * x, f2=x^2 * Ln(2), a=2^x}, {f1=x * 2, f2=Ln(2) * x^2, a=2^x}]
+replace: Ln(2) * 2^x * x^2 + 2^x * 2 * x         (-10.400000000000002) 
+by:      2^x * (Ln(2) * x^2 + 2 * x)         (-8.6)
+a^(b + f1) -&gt; a^b * a^f1 is applicable to 2^(x + 1): [{f1=1, b=x, a=2}, {f1=x, b=1, a=2}]
+replace: 2^(x + 1)         (-2.6) 
+by:      2^x * 2^1         (-3.4000000000000004)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.3.3</a> at 02.05.2022, 16:36:08</p>
+</div>
+</div>
+</body>
+</html>

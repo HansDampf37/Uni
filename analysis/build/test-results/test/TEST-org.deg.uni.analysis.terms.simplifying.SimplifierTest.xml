@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.deg.uni.analysis.terms.simplifying.SimplifierTest" tests="22" skipped="0" failures="1" errors="0" timestamp="2022-05-02T14:36:07" hostname="Hans" time="0.885">
+  <properties/>
+  <testcase name="testLog()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.005"/>
+  <testcase name="testCalc2()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.008"/>
+  <testcase name="testCalc3()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.214">
+    <failure message="org.opentest4j.AssertionFailedError: Expected simplification: 2^x * x * (2 + Ln(2) * x)     (-7.4) ==&gt; expected: &lt;2^x * x * (2 + Ln(2) * x)&gt; but was: &lt;2^x * (2 * x + LogE(2) * x^2)&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Expected simplification: 2^x * x * (2 + Ln(2) * x)     (-7.4) ==&gt; expected: &lt;2^x * x * (2 + Ln(2) * x)&gt; but was: &lt;2^x * (2 * x + LogE(2) * x^2)&gt;
+	at app//org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
+	at app//org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at app//org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1152)
+	at app//org.deg.uni.analysis.terms.simplifying.SimplifierTest.assertSimplifiesTo(SimplifierTest.kt:159)
+	at app//org.deg.uni.analysis.terms.simplifying.SimplifierTest.testCalc3(SimplifierTest.kt:153)
+	at java.base@17.0.2/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.2/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.2/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.2/java.lang.reflect.Method.invoke(Method.java:568)
+	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@17.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@17.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:75)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+	at java.base@17.0.2/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.2/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.2/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.2/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="testPower()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.002"/>
+  <testcase name="testCalc()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.009"/>
+  <testcase name="testDiv1()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.018"/>
+  <testcase name="testLog1()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.019"/>
+  <testcase name="testLog2()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.001"/>
+  <testcase name="testLog3()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.003"/>
+  <testcase name="testSimplifyPlus1()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.001"/>
+  <testcase name="testSimplifyPlus2()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.031"/>
+  <testcase name="testSimplifyPlus3()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.007"/>
+  <testcase name="testSimplifyPlus4()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.086"/>
+  <testcase name="testSimplifyPlus5()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.013"/>
+  <testcase name="testSimplifyPlus6()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.026"/>
+  <testcase name="testSimplifyTimes1()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.001"/>
+  <testcase name="testSimplifyTimes2()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.02"/>
+  <testcase name="testSimplifyTimes3()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.241"/>
+  <testcase name="testSimplifyTimes4()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.021"/>
+  <testcase name="testSimplifyTimes5()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.005"/>
+  <testcase name="testSimplifyTimes6()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.005"/>
+  <testcase name="testPower2()" classname="org.deg.uni.analysis.terms.simplifying.SimplifierTest" time="0.139"/>
+  <system-out><![CDATA[replace: Log3(x) + Log3(x)         (-4.4) 
+by:      2 * Log3(x)         (-2.6)
+12^1 * -2^-1
+replace: 12^1 * -2^-1         (-2.4000000000000004) 
+by:      -6         (0.0)
+2 * x * 2^x + x^2 * (Ln(2) * 2^x)
+replace: 2 * x * 2^x + x^2 * (LogE(2) * 2^x)         (-10.8) 
+by:      2^x * (2 * x + LogE(2) * x^2)         (-8.6)
+replace: 5^2         (-0.8) 
+by:      25         (0.0)
+replace: 12 * 12^-1         (-1.6) 
+by:      1         (0.0)
+10 / 3
+replace: -1 * x * x^-1         (-4.0) 
+by:      -1         (0.0)
+replace: Ln(x) + Ln(2 * x)         (-5.2) 
+by:      LogE(x^2 * 2)         (-3.4000000000000004)
+replace: Ln(E)         (-0.8) 
+by:      1         (0.0)
+replace: Ln(E) * x         (-2.6) 
+by:      x         (0.0)
+replace: x + x * -1         (-3.6) 
+by:      0         (0.0)
+replace: x + y + x * -4         (-5.0) 
+by:      x * -3 + y         (-3.6)
+replace: (x)         (-1.7999999999999998) 
+by:      x         (0.0)
+replace: (x + y) + (-1 * x + -1 * y)         (-8.0) 
+by:      0         (0.0)
+replace: x^2 + x^2 * 2         (-5.2) 
+by:      x^2 * 3         (-2.6)
+replace: x^2 * 2 + x^2 * 2         (-6.0) 
+by:      4 * x^2         (-2.6)
+replace: x * x^-1         (-3.6) 
+by:      1         (0.0)
+replace: x * (-1 * x^-1)         (-4.4) 
+by:      -1         (0.0)
+replace: 4 * x * 2^-1 * x * x^-2         (-6.6) 
+by:      2         (0.0)
+replace: 2^x * (2^x)^-1         (-5.2) 
+by:      1         (0.0)
+replace: x * x         (-2.8) 
+by:      x^2         (-1.8)
+replace: x * 3 * x         (-3.2) 
+by:      x^2 * 3         (-2.6)
+replace: 5^(1 / 2) + 5^(1 / 2) + 5^(1 / 2) + 5^(1 / 2) + 5^(1 / 2)         (-6.0) 
+by:      5^(3 / 2)         (-0.8)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

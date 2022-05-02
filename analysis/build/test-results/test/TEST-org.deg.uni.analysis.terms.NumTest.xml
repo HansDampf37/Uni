@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.deg.uni.analysis.terms.NumTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2022-05-02T14:36:06" hostname="Hans" time="0.072">
+  <properties/>
+  <testcase name="equals()" classname="org.deg.uni.analysis.terms.NumTest" time="0.001"/>
+  <testcase name="inverseMult()" classname="org.deg.uni.analysis.terms.NumTest" time="0.002"/>
+  <testcase name="one()" classname="org.deg.uni.analysis.terms.NumTest" time="0.003"/>
+  <testcase name="plus()" classname="org.deg.uni.analysis.terms.NumTest" time="0.006"/>
+  <testcase name="test()" classname="org.deg.uni.analysis.terms.NumTest" time="0.018"/>
+  <testcase name="zero()" classname="org.deg.uni.analysis.terms.NumTest" time="0.001"/>
+  <testcase name="times()" classname="org.deg.uni.analysis.terms.NumTest" time="0.009"/>
+  <testcase name="compare()" classname="org.deg.uni.analysis.terms.NumTest" time="0.01"/>
+  <testcase name="testShorten()" classname="org.deg.uni.analysis.terms.NumTest" time="0.002"/>
+  <testcase name="inverseAdd()" classname="org.deg.uni.analysis.terms.NumTest" time="0.003"/>
+  <system-out><![CDATA[5.699999999999999
+5.7
+5.7
+109 / 9
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

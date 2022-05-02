@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.deg.uni.unification.PermutationsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-02T13:05:12" hostname="Hans" time="0.159">
+  <properties/>
+  <testcase name="iterator()" classname="org.deg.uni.unification.PermutationsTest" time="0.159"/>
+  <system-out><![CDATA[[[1, 2, 3, 4], [1, 2, 4, 3], [1, 3, 2, 4], [1, 3, 4, 2], [1, 4, 2, 3], [1, 4, 3, 2], [2, 1, 3, 4], [2, 1, 4, 3], [2, 3, 1, 4], [2, 3, 4, 1], [2, 4, 1, 3], [2, 4, 3, 1], [3, 1, 2, 4], [3, 1, 4, 2], [3, 2, 1, 4], [3, 2, 4, 1], [3, 4, 1, 2], [3, 4, 2, 1], [4, 1, 2, 3], [4, 1, 3, 2], [4, 2, 1, 3], [4, 2, 3, 1], [4, 3, 1, 2], [4, 3, 2, 1]]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

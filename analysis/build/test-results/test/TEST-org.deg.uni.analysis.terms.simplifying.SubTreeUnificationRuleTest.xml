@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.deg.uni.analysis.terms.simplifying.SubTreeUnificationRuleTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-02T14:36:07" hostname="Hans" time="0.001">
+  <properties/>
+  <testcase name="testSubTreeUnification1()" classname="org.deg.uni.analysis.terms.simplifying.SubTreeUnificationRuleTest" time="0.001"/>
+  <system-out><![CDATA[some term (f1 * 1 -> f1) is applicable to Log_(1 * x)(y * 1)
+replace: Log_(1 * x)(y * 1)         (-4.4) 
+by:      Log_(x)(y)         (-2.8)
+Log_(1 * x)(y * 1)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

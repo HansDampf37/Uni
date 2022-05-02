@@ -1,41 +1,24 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.0"
-    `maven-publish`
+    kotlin("jvm") version "1.6.20"
 }
 
 group = "org.deg.uni"
-version = "1.4"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.junit.jupiter:junit-jupiter:5.8.1")
-    implementation("org.graphstream:gs-core:2.0")
-    implementation("org.graphstream:gs-ui-swing:2.0")
-    implementation("org.graphstream:gs-ui:1.3")
-    testImplementation(kotlin("test-junit"))
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "org.deg.uni"
-            artifactId = "math"
-            version = "1.4"
-
-            from(components["java"])
-        }
-    }
+    testImplementation(kotlin("test"))
 }
 
 tasks.test {
-    useJUnit()
+    useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }

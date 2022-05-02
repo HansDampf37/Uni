@@ -1,0 +1,1077 @@
+Unification of terms
+2^(a + 3) and 
+x^y is 
+[{y=a + 3, x=2}]
+Unification of terms
+a + b + c and 
+x + y + z is 
+g[{z=c, y=b, x=a}, {z=b, y=c, x=a}, {z=c, y=a, x=b}, {z=a, y=c, x=b}, {z=b, y=a, x=c}, {z=a, y=b, x=c}]
+Unification of terms
+2 * a + 2 * b and 
+x * y + x * z is 
+#[{z=b, y=a, x=2}, {z=a, y=b, x=2}]
+Unification of terms
+2 * a + 2 * b and 
+y * x + z * x is 
+#[{z=b, y=a, x=2}, {z=a, y=b, x=2}]
+Unification of terms
+1 * a * b and 
+
+f * 1 is 
+[{f=a * b}, {f=b * a}]
+168
+Unification1 of terms
+#a * b * c * d + a * b * c * d and 
+a * f1 + a * f2 is 
+˘-[{f1=b * c * d, f2=b * c * d, a=a}, {f1=b * c * d, f2=b * d * c, a=a}, {f1=b * c * d, f2=c * b * d, a=a}, {f1=b * c * d, f2=c * d * b, a=a}, {f1=b * c * d, f2=d * b * c, a=a}, {f1=b * c * d, f2=d * c * b, a=a}, {f1=b * d * c, f2=b * c * d, a=a}, {f1=b * d * c, f2=b * d * c, a=a}, {f1=b * d * c, f2=c * b * d, a=a}, {f1=b * d * c, f2=c * d * b, a=a}, {f1=b * d * c, f2=d * b * c, a=a}, {f1=c * b * d, f2=b * c * d, a=a}, {f1=c * b * d, f2=b * d * c, a=a}, {f1=c * b * d, f2=c * b * d, a=a}, {f1=c * b * d, f2=c * d * b, a=a}, {f1=c * d * b, f2=b * c * d, a=a}, {f1=c * d * b, f2=b * d * c, a=a}, {f1=c * d * b, f2=c * b * d, a=a}, {f1=d * b * c, f2=b * c * d, a=a}, {f1=d * b * c, f2=b * d * c, a=a}, {f1=d * c * b, f2=b * c * d, a=a}, {f1=a * c * d, f2=a * c * d, a=b}, {f1=a * c * d, f2=a * d * c, a=b}, {f1=a * c * d, f2=c * a * d, a=b}, {f1=a * c * d, f2=c * d * a, a=b}, {f1=a * c * d, f2=d * a * c, a=b}, {f1=a * c * d, f2=d * c * a, a=b}, {f1=a * d * c, f2=a * c * d, a=b}, {f1=a * d * c, f2=a * d * c, a=b}, {f1=a * d * c, f2=c * a * d, a=b}, {f1=a * d * c, f2=c * d * a, a=b}, {f1=a * d * c, f2=d * a * c, a=b}, {f1=c * a * d, f2=a * c * d, a=b}, {f1=c * a * d, f2=a * d * c, a=b}, {f1=c * a * d, f2=c * a * d, a=b}, {f1=c * a * d, f2=c * d * a, a=b}, {f1=c * d * a, f2=a * c * d, a=b}, {f1=c * d * a, f2=a * d * c, a=b}, {f1=c * d * a, f2=c * a * d, a=b}, {f1=d * a * c, f2=a * c * d, a=b}, {f1=d * a * c, f2=a * d * c, a=b}, {f1=d * c * a, f2=a * c * d, a=b}, {f1=a * b * d, f2=a * b * d, a=c}, {f1=a * b * d, f2=a * d * b, a=c}, {f1=a * b * d, f2=b * a * d, a=c}, {f1=a * b * d, f2=b * d * a, a=c}, {f1=a * b * d, f2=d * a * b, a=c}, {f1=a * b * d, f2=d * b * a, a=c}, {f1=a * d * b, f2=a * b * d, a=c}, {f1=a * d * b, f2=a * d * b, a=c}, {f1=a * d * b, f2=b * a * d, a=c}, {f1=a * d * b, f2=b * d * a, a=c}, {f1=a * d * b, f2=d * a * b, a=c}, {f1=b * a * d, f2=a * b * d, a=c}, {f1=b * a * d, f2=a * d * b, a=c}, {f1=b * a * d, f2=b * a * d, a=c}, {f1=b * a * d, f2=b * d * a, a=c}, {f1=b * d * a, f2=a * b * d, a=c}, {f1=b * d * a, f2=a * d * b, a=c}, {f1=b * d * a, f2=b * a * d, a=c}, {f1=d * a * b, f2=a * b * d, a=c}, {f1=d * a * b, f2=a * d * b, a=c}, {f1=d * b * a, f2=a * b * d, a=c}, {f1=a * b * c, f2=a * b * c, a=d}, {f1=a * b * c, f2=a * c * b, a=d}, {f1=a * b * c, f2=b * a * c, a=d}, {f1=a * b * c, f2=b * c * a, a=d}, {f1=a * b * c, f2=c * a * b, a=d}, {f1=a * b * c, f2=c * b * a, a=d}, {f1=a * c * b, f2=a * b * c, a=d}, {f1=a * c * b, f2=a * c * b, a=d}, {f1=a * c * b, f2=b * a * c, a=d}, {f1=a * c * b, f2=b * c * a, a=d}, {f1=a * c * b, f2=c * a * b, a=d}, {f1=b * a * c, f2=a * b * c, a=d}, {f1=b * a * c, f2=a * c * b, a=d}, {f1=b * a * c, f2=b * a * c, a=d}, {f1=b * a * c, f2=b * c * a, a=d}, {f1=b * c * a, f2=a * b * c, a=d}, {f1=b * c * a, f2=a * c * b, a=d}, {f1=b * c * a, f2=b * a * c, a=d}, {f1=c * a * b, f2=a * b * c, a=d}, {f1=c * a * b, f2=a * c * b, a=d}, {f1=c * b * a, f2=a * b * c, a=d}, {f1=b * c * d, f2=b * c * d, a=a}, {f1=b * c * d, f2=b * d * c, a=a}, {f1=b * c * d, f2=c * b * d, a=a}, {f1=b * c * d, f2=c * d * b, a=a}, {f1=b * c * d, f2=d * b * c, a=a}, {f1=b * c * d, f2=d * c * b, a=a}, {f1=b * d * c, f2=b * c * d, a=a}, {f1=b * d * c, f2=b * d * c, a=a}, {f1=b * d * c, f2=c * b * d, a=a}, {f1=b * d * c, f2=c * d * b, a=a}, {f1=b * d * c, f2=d * b * c, a=a}, {f1=c * b * d, f2=b * c * d, a=a}, {f1=c * b * d, f2=b * d * c, a=a}, {f1=c * b * d, f2=c * b * d, a=a}, {f1=c * b * d, f2=c * d * b, a=a}, {f1=c * d * b, f2=b * c * d, a=a}, {f1=c * d * b, f2=b * d * c, a=a}, {f1=c * d * b, f2=c * b * d, a=a}, {f1=d * b * c, f2=b * c * d, a=a}, {f1=d * b * c, f2=b * d * c, a=a}, {f1=d * c * b, f2=b * c * d, a=a}, {f1=a * c * d, f2=a * c * d, a=b}, {f1=a * c * d, f2=a * d * c, a=b}, {f1=a * c * d, f2=c * a * d, a=b}, {f1=a * c * d, f2=c * d * a, a=b}, {f1=a * c * d, f2=d * a * c, a=b}, {f1=a * c * d, f2=d * c * a, a=b}, {f1=a * d * c, f2=a * c * d, a=b}, {f1=a * d * c, f2=a * d * c, a=b}, {f1=a * d * c, f2=c * a * d, a=b}, {f1=a * d * c, f2=c * d * a, a=b}, {f1=a * d * c, f2=d * a * c, a=b}, {f1=c * a * d, f2=a * c * d, a=b}, {f1=c * a * d, f2=a * d * c, a=b}, {f1=c * a * d, f2=c * a * d, a=b}, {f1=c * a * d, f2=c * d * a, a=b}, {f1=c * d * a, f2=a * c * d, a=b}, {f1=c * d * a, f2=a * d * c, a=b}, {f1=c * d * a, f2=c * a * d, a=b}, {f1=d * a * c, f2=a * c * d, a=b}, {f1=d * a * c, f2=a * d * c, a=b}, {f1=d * c * a, f2=a * c * d, a=b}, {f1=a * b * d, f2=a * b * d, a=c}, {f1=a * b * d, f2=a * d * b, a=c}, {f1=a * b * d, f2=b * a * d, a=c}, {f1=a * b * d, f2=b * d * a, a=c}, {f1=a * b * d, f2=d * a * b, a=c}, {f1=a * b * d, f2=d * b * a, a=c}, {f1=a * d * b, f2=a * b * d, a=c}, {f1=a * d * b, f2=a * d * b, a=c}, {f1=a * d * b, f2=b * a * d, a=c}, {f1=a * d * b, f2=b * d * a, a=c}, {f1=a * d * b, f2=d * a * b, a=c}, {f1=b * a * d, f2=a * b * d, a=c}, {f1=b * a * d, f2=a * d * b, a=c}, {f1=b * a * d, f2=b * a * d, a=c}, {f1=b * a * d, f2=b * d * a, a=c}, {f1=b * d * a, f2=a * b * d, a=c}, {f1=b * d * a, f2=a * d * b, a=c}, {f1=b * d * a, f2=b * a * d, a=c}, {f1=d * a * b, f2=a * b * d, a=c}, {f1=d * a * b, f2=a * d * b, a=c}, {f1=d * b * a, f2=a * b * d, a=c}, {f1=a * b * c, f2=a * b * c, a=d}, {f1=a * b * c, f2=a * c * b, a=d}, {f1=a * b * c, f2=b * a * c, a=d}, {f1=a * b * c, f2=b * c * a, a=d}, {f1=a * b * c, f2=c * a * b, a=d}, {f1=a * b * c, f2=c * b * a, a=d}, {f1=a * c * b, f2=a * b * c, a=d}, {f1=a * c * b, f2=a * c * b, a=d}, {f1=a * c * b, f2=b * a * c, a=d}, {f1=a * c * b, f2=b * c * a, a=d}, {f1=a * c * b, f2=c * a * b, a=d}, {f1=b * a * c, f2=a * b * c, a=d}, {f1=b * a * c, f2=a * c * b, a=d}, {f1=b * a * c, f2=b * a * c, a=d}, {f1=b * a * c, f2=b * c * a, a=d}, {f1=b * c * a, f2=a * b * c, a=d}, {f1=b * c * a, f2=a * c * b, a=d}, {f1=b * c * a, f2=b * a * c, a=d}, {f1=c * a * b, f2=a * b * c, a=d}, {f1=c * a * b, f2=a * c * b, a=d}, {f1=c * b * a, f2=a * b * c, a=d}]
+	d/dx 3 * x^3 + 2 * y = 9 * x^2
+	d/dy 3 * x^3 + 2 * y = 2
+	
+d/dx x = 1
+	
+d/dy x = 0
+	d/dx 2 * x = 2
+	d/dy 2 * x = 0
+	d/dx x + 2 * y = 1
+	d/dy x + 2 * y = 2
+	/d/dx x^2 * 2^x = 2^x * (2 * x + LogE(2) * x^2)
+	
+	?d/dx x * 2^x * y^x = (2 * y)^x * (LogE(2) * x + 1 + x * Ln(y))
+	,d/dx 2^x^y = Ln(2) * 2^x^y * y * x^(y + -1)
+	+d/dy 2^x^y = LogE(2) * 2^x^y * Ln(x) * x^y
+	-d/dx 2 * x^8 + 3 * x^4 = 16 * x^7 + 12 * x^3
+n1 + n2 -> n1 + n2
+n1 + n2 + f1 -> n1 + n2 + f1
+n1 * n2 -> n1 * n2
+n1 * n2 * f1 -> n1 * n2 * f1
+n1^n2 -> n1^n2
+n1^(n2 * f1) -> n1^(n2 * f1)
+(n1 * f1)^n2 -> (n1 * f1)^n2
+Log_(n1)(n2) -> Log_(n1)(n2)
+n1 * n2^-1 -> n1 * n2^-1
+}Log_(c)(a) + Log_(c)(b) -> Log_(c)(a * b) is applicable to Log2(x) + Log2(x * 2): [{c=2, b=x * 2, a=x}, {c=2, b=x, a=x * 2}]
+/replace: Log2(x) + Log2(x * 2)         (-5.2) 
+*by:      Log2(x * (x * 2))         (-4.4)
+VProduct1 * f2 -> Product1 * f2 is applicable to x * (x * 2): [{f2=x, Product1=x * 2}]
+%replace: x * (x * 2)         (-3.6) 
+"by:      x * 2 * x         (-3.2)
+Na * a * f1 -> a^2 * f1 is applicable to x * 2 * x: [{f1=2, a=x}, {f1=2, a=x}]
+#replace: x * 2 * x         (-3.2) 
+ by:      x^2 * 2         (-2.6)
+MLog_(a)(b^c) -> c * Log_(a)(b) is applicable to Log2(x^2): [{c=2, b=x, a=2}]
+#replace: Log2(x^2)         (-2.6) 
+$by:      2 * Log2(x)         (-2.6)
+Na + a -> 2 * a is applicable to Log2(x) + Log2(x): [{a=Log2(x)}, {a=Log2(x)}]
++replace: Log2(x) + Log2(x)         (-4.4) 
+$by:      2 * Log2(x)         (-2.6)
+f1 * 1 -> f1
+f1 * 0 -> 0
+f1 * f1^-1 -> 1
+a * a^-1 * f1 -> f1
+"f1 * (a + f2) -> f1 * a + f1 * f2
+a * a -> a^2
+a * a * f1 -> a^2 * f1
+f1 * f1^b -> f1^(b + 1)
+a * a^b * f1 -> a^(b + 1) * f1
+a^b * a^c -> a^(b + c)
+!a^b * a^c * f1 -> a^(b + c) * f1
+a^b * c^b -> (a * c)^b
+!a^b * c^b * f1 -> (a * c)^b * f1
+0Log_(a)(a) -> 1 is applicable to Ln(E): [{a=E}]
+replace: Ln(E)         (-0.8) 
+by:      1         (0.0)
+Ef1 * f1^b -> f1^(b + 1) is applicable to 12 * 12^-1: [{f1=12, b=-1}]
+$replace: 12 * 12^-1         (-1.6) 
+$by:      12^(-1 + 1)         (-1.6)
+a -> a
+Sum1 + f2 -> Sum1 + f2
+a -> a
+Product1 * f2 -> x * 2 * f2
+Xa * b + a + f1 -> a * (b + 1) + f1 is applicable to x + y + x * -4: [{f1=y, b=-4, a=x}]
+(replace: x + y + x * -4         (-5.0) 
+)by:      x * (-4 + 1) + y         (-4.4)
+Kn1 + n2 -> n1 + n2 is applicable to -4 + 1: [{n1=-4, n2=1}, {n1=1, n2=-4}]
+ replace: -4 + 1         (-0.8) 
+by:      -3         (0.0)
+Log_(a)(1) -> 0
+Log_(a)(a) -> 1
+Log_(a)(a^b) -> b
+Log_(a)(b^c) -> c * Log_(a)(b)
+*Log_(c)(a * b) -> Log_(c)(a) + Log_(c)(b)
+f1 + 0 -> f1
+a + -1 * a -> 0
+a + -1 * a + f2 -> f2
+a + a -> 2 * a
+a + a + f1 -> 2 * a + f1
+!a * f1 + a * f2 -> a * (f1 + f2)
++a * f1 + a * f2 + f3 -> a * (f1 + f2) + f3
+a * f1 + a -> a * (f1 + 1)
+%a * f1 + a + f2 -> a * (f1 + 1) + f2
+0a * f1 + a^b * f2 -> a * (f1 + f2 * a^(b + -1))
+:a * f1 + a^b * f2 + f3 -> a * (f1 + f2 * a^(b + -1)) + f3
+*Log_(c)(a) + Log_(c)(b) -> Log_(c)(a * b)
+4Log_(c)(a) + Log_(c)(b) + f1 -> Log_(c)(a * b) + f1
+2Log_(c)(a) + -1 * Log_(c)(b) -> Log_(c)(a * b^-1)
+<Log_(c)(a) + -1 * Log_(c)(b) + f1 -> Log_(c)(a * b^-1) + f1
+f1 * 1 -> f1
+f1 * 0 -> 0
+f1 * f1^-1 -> 1
+a * a^-1 * f1 -> f1
+"f1 * (a + f2) -> f1 * a + f1 * f2
+a * a -> a^2
+a * a * f1 -> a^2 * f1
+f1 * f1^b -> f1^(b + 1)
+a * a^b * f1 -> a^(b + 1) * f1
+a^b * a^c -> a^(b + c)
+!a^b * a^c * f1 -> a^(b + c) * f1
+a^b * c^b -> (a * c)^b
+!a^b * c^b * f1 -> (a * c)^b * f1
+	a^1 -> a
+	a^0 -> 1
+(a^b)^c -> a^(b * c)
+a^a^b -> a^(b + 1)
+a^b * a^c -> a^(b + c)
+a^b * c^b -> (a + c)^b
+a^(Log_(a)(b) * c) -> b^c
+a^Log_(a)(b) -> b
+a^Log_(a)(b) -> b
+a^(b + f1) -> a^b * a^f1
+Ea + -1 * a + f1 -> f1 is applicable to x + -1 * x + y: [{f1=y, a=x}]
+(replace: x + -1 * x + y         (-5.0) 
+by:      y         (0.0)
+ qLog_(a)(b) + Log_(a)(c) -> Log_(a)(b * c) is applicable to Log2(x) + Log2(x): [{c=x, b=x, a=2}, {c=x, b=x, a=2}]
+ +replace: Log2(x) + Log2(x)         (-4.4) 
+ 3by:      Log2(x * x)         (-3.5999999999999996)
+!6a + -1 * a + f1 -> f1 is not applicable to x + -1 * x
+"Log_(a)(1) -> 0
+"Log_(a)(a) -> 1
+"Log_(a)(a^b) -> b
+"Log_(a)(b^c) -> c * Log_(a)(b)
+"*Log_(c)(a * b) -> Log_(c)(a) + Log_(c)(b)
+#	a^1 -> a
+#	a^0 -> 1
+#(a^b)^c -> a^(b * c)
+#a^a^b -> a^(b + 1)
+#a^b * a^c -> a^(b + c)
+#a^b * c^b -> (a + c)^b
+#a^(Log_(a)(b) * c) -> b^c
+#a^Log_(a)(b) -> b
+#a^Log_(a)(b) -> b
+#a^(b + f1) -> a^b * a^f1
+$f1 + 0 -> f1
+$a + -1 * a -> 0
+$a + -1 * a + f2 -> f2
+$a + a -> 2 * a
+$a + a + f1 -> 2 * a + f1
+$!a * f1 + a * f2 -> a * (f1 + f2)
+$+a * f1 + a * f2 + f3 -> a * (f1 + f2) + f3
+$a * f1 + a -> a * (f1 + 1)
+$%a * f1 + a + f2 -> a * (f1 + 1) + f2
+$0a * f1 + a^b * f2 -> a * (f1 + f2 * a^(b + -1))
+$:a * f1 + a^b * f2 + f3 -> a * (f1 + f2 * a^(b + -1)) + f3
+$*Log_(c)(a) + Log_(c)(b) -> Log_(c)(a * b)
+$4Log_(c)(a) + Log_(c)(b) + f1 -> Log_(c)(a * b) + f1
+$2Log_(c)(a) + -1 * Log_(c)(b) -> Log_(c)(a * b^-1)
+$<Log_(c)(a) + -1 * Log_(c)(b) + f1 -> Log_(c)(a * b^-1) + f1
+%Log_(a)(1) -> 0
+%Log_(a)(a) -> 1
+%Log_(a)(a^b) -> b
+%Log_(a)(b^c) -> c * Log_(a)(b)
+%*Log_(c)(a * b) -> Log_(c)(a) + Log_(c)(b)
+%f1 + 0 -> f1
+%a + -1 * a -> 0
+%a + -1 * a + f2 -> f2
+%a + a -> 2 * a
+%a + a + f1 -> 2 * a + f1
+%!a * f1 + a * f2 -> a * (f1 + f2)
+%+a * f1 + a * f2 + f3 -> a * (f1 + f2) + f3
+%a * f1 + a -> a * (f1 + 1)
+%%a * f1 + a + f2 -> a * (f1 + 1) + f2
+%0a * f1 + a^b * f2 -> a * (f1 + f2 * a^(b + -1))
+%:a * f1 + a^b * f2 + f3 -> a * (f1 + f2 * a^(b + -1)) + f3
+%*Log_(c)(a) + Log_(c)(b) -> Log_(c)(a * b)
+%4Log_(c)(a) + Log_(c)(b) + f1 -> Log_(c)(a * b) + f1
+%2Log_(c)(a) + -1 * Log_(c)(b) -> Log_(c)(a * b^-1)
+%<Log_(c)(a) + -1 * Log_(c)(b) + f1 -> Log_(c)(a * b^-1) + f1
+%f1 * 1 -> f1
+%f1 * 0 -> 0
+%f1 * f1^-1 -> 1
+%a * a^-1 * f1 -> f1
+%"f1 * (a + f2) -> f1 * a + f1 * f2
+%a * a -> a^2
+%a * a * f1 -> a^2 * f1
+%f1 * f1^b -> f1^(b + 1)
+%a * a^b * f1 -> a^(b + 1) * f1
+%a^b * a^c -> a^(b + c)
+%!a^b * a^c * f1 -> a^(b + c) * f1
+%a^b * c^b -> (a * c)^b
+%!a^b * c^b * f1 -> (a * c)^b * f1
+%	a^1 -> a
+%	a^0 -> 1
+%(a^b)^c -> a^(b * c)
+%a^a^b -> a^(b + 1)
+%a^b * a^c -> a^(b + c)
+%a^b * c^b -> (a + c)^b
+%a^(Log_(a)(b) * c) -> b^c
+%a^Log_(a)(b) -> b
+%a^Log_(a)(b) -> b
+%a^(b + f1) -> a^b * a^f1
+%a -> a
+%Sum1 + f2 -> Sum1 + f2
+%a -> a
+%Product1 * f2 -> Product1 * f2
+%n1 + n2 -> n1 + n2
+%n1 + n2 + f1 -> n1 + n2 + f1
+%n1 * n2 -> n1 * n2
+%n1 * n2 * f1 -> n1 * n2 * f1
+%n1^n2 -> n1^n2
+%n1^(n2 * f1) -> n1^(n2 * f1)
+%(n1 * f1)^n2 -> (n1 * f1)^n2
+%Log_(n1)(n2) -> Log_(n1)(n2)
+%n1 * n2^-1 -> n1 * n2^-1
+%some term (Log_(a)(1) -> 0)
+%some term (Log_(a)(a) -> 1)
+%some term (Log_(a)(a^b) -> b)
+%+some term (Log_(a)(b^c) -> c * Log_(a)(b))
+%6some term (Log_(c)(a * b) -> Log_(c)(a) + Log_(c)(b))
+%some term (f1 + 0 -> f1)
+%some term (a + -1 * a -> 0)
+%"some term (a + -1 * a + f2 -> f2)
+%some term (a + a -> 2 * a)
+%%some term (a + a + f1 -> 2 * a + f1)
+%-some term (a * f1 + a * f2 -> a * (f1 + f2))
+%7some term (a * f1 + a * f2 + f3 -> a * (f1 + f2) + f3)
+%'some term (a * f1 + a -> a * (f1 + 1))
+%1some term (a * f1 + a + f2 -> a * (f1 + 1) + f2)
+%<some term (a * f1 + a^b * f2 -> a * (f1 + f2 * a^(b + -1)))
+%Fsome term (a * f1 + a^b * f2 + f3 -> a * (f1 + f2 * a^(b + -1)) + f3)
+%6some term (Log_(c)(a) + Log_(c)(b) -> Log_(c)(a * b))
+%@some term (Log_(c)(a) + Log_(c)(b) + f1 -> Log_(c)(a * b) + f1)
+%>some term (Log_(c)(a) + -1 * Log_(c)(b) -> Log_(c)(a * b^-1))
+%Hsome term (Log_(c)(a) + -1 * Log_(c)(b) + f1 -> Log_(c)(a * b^-1) + f1)
+%some term (f1 * 1 -> f1)
+%some term (f1 * 0 -> 0)
+%some term (f1 * f1^-1 -> 1)
+% some term (a * a^-1 * f1 -> f1)
+%.some term (f1 * (a + f2) -> f1 * a + f1 * f2)
+%some term (a * a -> a^2)
+%#some term (a * a * f1 -> a^2 * f1)
+%$some term (f1 * f1^b -> f1^(b + 1))
+%+some term (a * a^b * f1 -> a^(b + 1) * f1)
+%#some term (a^b * a^c -> a^(b + c))
+%-some term (a^b * a^c * f1 -> a^(b + c) * f1)
+%#some term (a^b * c^b -> (a * c)^b)
+%-some term (a^b * c^b * f1 -> (a * c)^b * f1)
+%some term (a^1 -> a)
+%some term (a^0 -> 1)
+%!some term ((a^b)^c -> a^(b * c))
+%some term (a^a^b -> a^(b + 1))
+%#some term (a^b * a^c -> a^(b + c))
+%#some term (a^b * c^b -> (a + c)^b)
+%&some term (a^(Log_(a)(b) * c) -> b^c)
+%some term (a^Log_(a)(b) -> b)
+%some term (a^Log_(a)(b) -> b)
+%%some term (a^(b + f1) -> a^b * a^f1)
+%some term (a -> a)
+%#some term (Sum1 + f2 -> Sum1 + f2)
+%some term (a -> a)
+%+some term (Product1 * f2 -> Product1 * f2)
+%some term (n1 + n2 -> n1 + n2)
+%)some term (n1 + n2 + f1 -> n1 + n2 + f1)
+%some term (n1 * n2 -> n1 * n2)
+%)some term (n1 * n2 * f1 -> n1 * n2 * f1)
+%some term (n1^n2 -> n1^n2)
+%)some term (n1^(n2 * f1) -> n1^(n2 * f1))
+%)some term ((n1 * f1)^n2 -> (n1 * f1)^n2)
+%)some term (Log_(n1)(n2) -> Log_(n1)(n2))
+%%some term (n1 * n2^-1 -> n1 * n2^-1)
+%bn1 + n2 + f1 -> n1 + n2 + f1 is applicable to 1 + y + 2: [{f1=y, n1=1, n2=2}, {f1=y, n1=2, n2=1}]
+%#replace: 1 + y + 2         (-2.2) 
+%by:      3 + y         (-1.8)
+&¶a * f1 + a * f2 -> a * (f1 + f2) is applicable to Ln(2) * 2^x * x^2 + 2^x * 2 * x: [{f1=Ln(2) * x^2, f2=2 * x, a=2^x}, {f1=Ln(2) * x^2, f2=x * 2, a=2^x}, {f1=x^2 * Ln(2), f2=2 * x, a=2^x}, {f1=2 * x, f2=Ln(2) * x^2, a=2^x}, {f1=2 * x, f2=x^2 * Ln(2), a=2^x}, {f1=x * 2, f2=Ln(2) * x^2, a=2^x}]
+&Hreplace: Ln(2) * 2^x * x^2 + 2^x * 2 * x         (-10.400000000000002) 
+&4by:      2^x * (Ln(2) * x^2 + 2 * x)         (-8.6)
+'Za^(b + f1) -> a^b * a^f1 is applicable to 2^(x + 1): [{f1=1, b=x, a=2}, {f1=x, b=1, a=2}]
+'#replace: 2^(x + 1)         (-2.6) 
+'1by:      2^x * 2^1         (-3.4000000000000004)
+)-5.699999999999999
+)-5.7
+)-5.7
+)/109 / 9
+43mParsing of +- failed successfully with stacktrace java.lang.IllegalStateException: unexpected input NEGATIVE
+43]	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseLeaf(SyntacticAnalysis.kt:195)
+43_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseFactor(SyntacticAnalysis.kt:118)
+43_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseSummand(SyntacticAnalysis.kt:71)
+43\	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseTerm(SyntacticAnalysis.kt:34)
+43X	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parse(SyntacticAnalysis.kt:26)
+43?	at org.deg.uni.analysis.terms.model.TermKt.toTerm(Term.kt:94)
+43T	at org.deg.uni.analysis.terms.TermParserTest.assertParsesTo(TermParserTest.kt:123)
+43P	at org.deg.uni.analysis.terms.TermParserTest.testFail1_5(TermParserTest.kt:98)
+43S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+43e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+43m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+43?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+43[	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+43Z	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+43Ñ	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+43]	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+43k	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+43f	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+43Ö	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+43e	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+43Ö	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+43n	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+43u	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+43m	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+43\	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+43[	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+43~	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+43j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+43u	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+43l	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+43k	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+43s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+43j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+43s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+43N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+43s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+43j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+43j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+43^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+43?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+43ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+43s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+43j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+43s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+43N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+43s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+43j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+43j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+43^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+43?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+43ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+43s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+43j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+43s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+43N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+43s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+43j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+43j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+43^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+43ó	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+43v	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+43r	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+43o	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)
+43n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+43w	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+43}	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+43n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+43V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)
+43V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:75)
+43µ	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+43™	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+43Ü	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+43h	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+43S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+43e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+43m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+43?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+43Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+43Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+43i	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+43x	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+437	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+43W	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+43n	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+43Y	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+43X	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+43j	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+43Ç	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+43Å	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+43]	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+43^	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+43
+45ùParsing of (x failed successfully with stacktrace java.lang.IllegalStateException: expected token CLOSE_BRACKET but got EOF at 2 of [OPEN_BRACKET, VAR, EOF]
+45_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis$Lexer.error(SyntacticAnalysis.kt:224)
+45Y	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.expect(SyntacticAnalysis.kt:30)
+45]	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseLeaf(SyntacticAnalysis.kt:150)
+45_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseFactor(SyntacticAnalysis.kt:118)
+45_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseSummand(SyntacticAnalysis.kt:71)
+45\	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseTerm(SyntacticAnalysis.kt:34)
+45X	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parse(SyntacticAnalysis.kt:26)
+45?	at org.deg.uni.analysis.terms.model.TermKt.toTerm(Term.kt:94)
+45T	at org.deg.uni.analysis.terms.TermParserTest.assertParsesTo(TermParserTest.kt:123)
+45N	at org.deg.uni.analysis.terms.TermParserTest.testFail1(TermParserTest.kt:93)
+45S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+45e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+45m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+45?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+45[	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+45Z	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+45Ñ	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+45]	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+45k	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+45f	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+45Ö	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+45e	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+45Ö	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+45n	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+45u	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+45m	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+45\	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+45[	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+45~	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+45j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+45u	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+45l	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+45k	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+45s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+45j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+45s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+45N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+45s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+45j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+45j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+45^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+45?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+45ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+45s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+45j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+45s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+45N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+45s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+45j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+45j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+45^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+45?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+45ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+45s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+45j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+45s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+45N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+45s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+45j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+45j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+45^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+45ó	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+45v	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+45r	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+45o	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)
+45n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+45w	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+45}	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+45n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+45V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)
+45V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:75)
+45µ	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+45™	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+45Ü	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+45h	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+45S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+45e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+45m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+45?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+45Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+45Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+45i	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+45x	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+457	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+45W	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+45n	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+45Y	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+45X	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+45j	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+45Ç	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+45Å	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+45]	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+45^	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+45
+46rParsing of () failed successfully with stacktrace java.lang.IllegalStateException: unexpected input CLOSE_BRACKET
+46]	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseLeaf(SyntacticAnalysis.kt:195)
+46_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseFactor(SyntacticAnalysis.kt:118)
+46_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseSummand(SyntacticAnalysis.kt:71)
+46\	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseTerm(SyntacticAnalysis.kt:34)
+46]	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseLeaf(SyntacticAnalysis.kt:149)
+46_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseFactor(SyntacticAnalysis.kt:118)
+46_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseSummand(SyntacticAnalysis.kt:71)
+46\	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseTerm(SyntacticAnalysis.kt:34)
+46X	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parse(SyntacticAnalysis.kt:26)
+46?	at org.deg.uni.analysis.terms.model.TermKt.toTerm(Term.kt:94)
+46T	at org.deg.uni.analysis.terms.TermParserTest.assertParsesTo(TermParserTest.kt:123)
+46O	at org.deg.uni.analysis.terms.TermParserTest.testFail2(TermParserTest.kt:103)
+46S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+46e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+46m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+46?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+46[	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+46Z	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+46Ñ	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+46]	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+46k	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+46f	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+46Ö	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+46e	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+46Ö	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+46n	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+46u	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+46m	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+46\	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+46[	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+46~	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+46j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+46u	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+46l	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+46k	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+46s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+46j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+46s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+46N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+46s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+46j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+46j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+46^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+46?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+46ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+46s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+46j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+46s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+46N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+46s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+46j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+46j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+46^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+46?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+46ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+46s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+46j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+46s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+46N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+46s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+46j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+46j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+46^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+46ó	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+46v	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+46r	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+46o	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)
+46n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+46w	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+46}	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+46n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+46V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)
+46V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:75)
+46µ	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+46™	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+46Ü	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+46h	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+46S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+46e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+46m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+46?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+46Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+46Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+46i	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+46x	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+467	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+46W	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+46n	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+46Y	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+46X	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+46j	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+46Ç	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+46Å	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+46]	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+46^	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+46
+47wParsing of 3 + ) 4 failed successfully with stacktrace java.lang.IllegalStateException: unexpected input CLOSE_BRACKET
+47]	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseLeaf(SyntacticAnalysis.kt:195)
+47_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseFactor(SyntacticAnalysis.kt:118)
+47_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseSummand(SyntacticAnalysis.kt:71)
+47[	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseSum(SyntacticAnalysis.kt:54)
+47\	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseTerm(SyntacticAnalysis.kt:35)
+47X	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parse(SyntacticAnalysis.kt:26)
+47?	at org.deg.uni.analysis.terms.model.TermKt.toTerm(Term.kt:94)
+47T	at org.deg.uni.analysis.terms.TermParserTest.assertParsesTo(TermParserTest.kt:123)
+47O	at org.deg.uni.analysis.terms.TermParserTest.testFail3(TermParserTest.kt:108)
+47S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+47e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+47m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+47?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+47[	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+47Z	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+47Ñ	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+47]	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+47k	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+47f	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+47Ö	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+47e	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+47Ö	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+47n	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+47u	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+47m	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+47\	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+47[	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+47~	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+47j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+47u	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+47l	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+47k	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+47s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+47j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+47s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+47N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+47s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+47j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+47j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+47^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+47?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+47ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+47s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+47j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+47s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+47N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+47s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+47j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+47j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+47^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+47?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+47ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+47s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+47j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+47s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+47N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+47s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+47j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+47j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+47^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+47ó	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+47v	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+47r	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+47o	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)
+47n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+47w	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+47}	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+47n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+47V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)
+47V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:75)
+47µ	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+47™	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+47Ü	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+47h	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+47S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+47e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+47m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+47?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+47Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+47Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+47i	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+47x	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+477	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+47W	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+47n	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+47Y	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+47X	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+47j	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+47Ç	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+47Å	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+47]	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+47^	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+47
+48vParsing of 3x ++) failed successfully with stacktrace java.lang.IllegalStateException: unexpected input CLOSE_BRACKET
+48]	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseLeaf(SyntacticAnalysis.kt:195)
+48_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseFactor(SyntacticAnalysis.kt:118)
+48_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseSummand(SyntacticAnalysis.kt:71)
+48[	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseSum(SyntacticAnalysis.kt:54)
+48\	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseTerm(SyntacticAnalysis.kt:35)
+48X	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parse(SyntacticAnalysis.kt:26)
+48?	at org.deg.uni.analysis.terms.model.TermKt.toTerm(Term.kt:94)
+48T	at org.deg.uni.analysis.terms.TermParserTest.assertParsesTo(TermParserTest.kt:123)
+48O	at org.deg.uni.analysis.terms.TermParserTest.testFail5(TermParserTest.kt:113)
+48S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+48e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+48m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+48?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+48[	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+48Z	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+48Ñ	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+48]	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+48k	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+48f	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+48Ö	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+48e	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+48Ö	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+48n	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+48u	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+48m	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+48\	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+48[	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+48~	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+48j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+48u	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+48l	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+48k	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+48s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+48j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+48s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+48N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+48s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+48j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+48j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+48^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+48?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+48ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+48s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+48j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+48s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+48N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+48s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+48j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+48j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+48^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+48?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+48ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+48s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+48j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+48s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+48N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+48s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+48j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+48j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+48^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+48ó	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+48v	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+48r	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+48o	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)
+48n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+48w	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+48}	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+48n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+48V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)
+48V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:75)
+48µ	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+48™	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+48Ü	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+48h	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+48S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+48e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+48m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+48?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+48Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+48Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+48i	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+48x	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+487	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+48W	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+48n	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+48Y	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+48X	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+48j	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+48Ç	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+48Å	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+48]	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+48^	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+48
+49kParsing of 3x ++ failed successfully with stacktrace java.lang.IllegalStateException: unexpected input EOF
+49]	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseLeaf(SyntacticAnalysis.kt:195)
+49_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseFactor(SyntacticAnalysis.kt:118)
+49_	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseSummand(SyntacticAnalysis.kt:71)
+49[	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseSum(SyntacticAnalysis.kt:54)
+49\	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parseTerm(SyntacticAnalysis.kt:35)
+49X	at org.deg.uni.analysis.terms.parsing.SyntacticAnalysis.parse(SyntacticAnalysis.kt:26)
+49?	at org.deg.uni.analysis.terms.model.TermKt.toTerm(Term.kt:94)
+49T	at org.deg.uni.analysis.terms.TermParserTest.assertParsesTo(TermParserTest.kt:123)
+49O	at org.deg.uni.analysis.terms.TermParserTest.testFail6(TermParserTest.kt:118)
+49S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+49e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+49m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+49?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+49[	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+49Z	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+49Ñ	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+49]	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+49k	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+49f	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+49Ö	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+49e	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+49Ö	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+49n	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+49u	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+49m	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+49\	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+49[	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+49~	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+49j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+49u	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+49l	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+49k	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+49s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+49j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+49s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+49N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+49s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+49j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+49j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+49^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+49?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+49ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+49s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+49j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+49s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+49N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+49s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+49j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+49j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+49^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+49?	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+49ö	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+49s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+49j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+49s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+49N	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+49s	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+49j	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+49j	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+49^	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+49ó	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+49v	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+49r	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+49o	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)
+49n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+49w	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+49}	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+49n	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+49V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)
+49V	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:75)
+49µ	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+49™	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+49Ü	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+49h	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+49S	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+49e	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+49m	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+49?	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+49Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+49Y	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+49i	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+49x	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+497	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+49W	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+49n	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+49Y	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+49X	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+49j	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+49Ç	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+49Å	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+49]	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+49^	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+49
+4:@Parsing success on Log(2)(y + 2)^3, simplifies to Log2(y + 2)^3
+4;DParsing success on Log(2)((y + 2)^3), simplifies to Log2((y + 2)^3)
+4<9Parsing success on 2^xyzr, simplifies to 2^x * y * z * r
+4=HParsing success on 2x + y + z - r, simplifies to 2 * x + y + z + r * -1
+4>DParsing success on (x+y)(x-y), simplifies to (x + y) * (x + y * -1)
+4@7Parsing success on (z + y)x, simplifies to (z + y) * x
+4A*Parsing success on x - x, simplifies to 0
+4B*Parsing success on x / x, simplifies to 1
+4C2Parsing success on x + 2 * x, simplifies to x * 3
+4D0Parsing success on 2^x+4, simplifies to 2^x + 4
+4E(Parsing success on (x), simplifies to x
+4F*Parsing success on ((x)), simplifies to x
+4GFParsing success on 2^-1.290388477836, simplifies to 2^-1.290388477836
+4H+Parsing success on xy, simplifies to x * y
+4I7Parsing success on x(y + 2), simplifies to x * (y + 2)
+ONterm 1: -3.4000000000000004
+ONterm 2: -2.6
+QPTerm: Ln(E)
+QP!with: Log_(a)(a) -> 1  ([{a=E}])
+QPis:   1
+QRTerm: Log_(x)(x^y)
+QR(with: Log_(a)(a^b) -> b  ([{b=y, a=x}])
+QR:with: Log_(a)(b^c) -> c * Log_(a)(b)  ([{c=y, b=x, a=x}])
+QRis:   y
+QRis:   y * Log_(x)(x)
+QSTerm: Log_(x + 1)((x + 1)^y)
+QS,with: Log_(a)(a^b) -> b  ([{b=y, a=x + 1}])
+QSBwith: Log_(a)(b^c) -> c * Log_(a)(b)  ([{c=y, b=x + 1, a=x + 1}])
+QSis:   y
+QSis:   y * Log_(x + 1)(x + 1)
+QTTerm: Log_(1 + x)(1)
+QT%with: Log_(a)(1) -> 0  ([{a=1 + x}])
+QTis:   0
+QUTerm: x * y * 1 * z
+QUwwith: f1 * 1 -> f1  ([{f1=x * y * z}, {f1=x * z * y}, {f1=y * x * z}, {f1=y * z * x}, {f1=z * x * y}, {f1=z * y * x}])
+QUis:   x * y * z
+QVTerm: x * y * 0 * z
+QVvwith: f1 * 0 -> 0  ([{f1=x * y * z}, {f1=x * z * y}, {f1=y * x * z}, {f1=y * z * x}, {f1=z * x * y}, {f1=z * y * x}])
+QVis:   0
+QWTerm: x * y * (x * y)^-1
+QW2with: f1 * f1^-1 -> 1  ([{f1=x * y}, {f1=x * y}])
+QWFwith: f1 * f1^b -> f1^(b + 1)  ([{f1=x * y, b=-1}, {f1=x * y, b=-1}])
+QWis:   1
+QWis:   (x * y)^(-1 + 1)
+QXTerm: x * x^-1 * z * q
+QX@with: a * a^-1 * f1 -> f1  ([{f1=z * q, a=x}, {f1=q * z, a=x}])
+QXWwith: a * a^b * f1 -> a^(b + 1) * f1  ([{f1=z * q, b=-1, a=x}, {f1=q * z, b=-1, a=x}])
+QXis:   z * q
+QXis:   x^(-1 + 1) * (z * q)
+QYTerm: x * y * (z + 1 + q)
+QYwith: f1 * (a + f2) -> f1 * a + f1 * f2  ([{f1=x * y, f2=1 + q, a=z}, {f1=x * y, f2=q + 1, a=z}, {f1=x * y, f2=z + q, a=1}, {f1=x * y, f2=q + z, a=1}, {f1=x * y, f2=z + 1, a=q}, {f1=x * y, f2=1 + z, a=q}, {f1=y * x, f2=1 + q, a=z}, {f1=y * x, f2=q + 1, a=z}, {f1=y * x, f2=z + q, a=1}, {f1=y * x, f2=q + z, a=1}, {f1=y * x, f2=z + 1, a=q}, {f1=y * x, f2=1 + z, a=q}])
+QY&is:   (x * y) * z + (x * y) * (1 + q)
+QZTerm: (x + 2) * (2 + x)
+QZàwith: f1 * (a + f2) -> f1 * a + f1 * f2  ([{f1=x + 2, f2=x, a=2}, {f1=x + 2, f2=2, a=x}, {f1=2 + x, f2=2, a=x}, {f1=2 + x, f2=x, a=2}])
+QZ-with: a * a -> a^2  ([{a=2 + x}, {a=x + 2}])
+QZ is:   (x + 2) * 2 + (x + 2) * x
+QZis:   (2 + x)^2
+Q[ Term: (x + 2) * (2 + x) * q * 2
+Q[ƒwith: f1 * (a + f2) -> f1 * a + f1 * f2  ([{f1=(x + 2) * q * 2, f2=x, a=2}, {f1=(x + 2) * q * 2, f2=2, a=x}, {f1=(x + 2) * 2 * q, f2=x, a=2}, {f1=(x + 2) * 2 * q, f2=2, a=x}, {f1=(2 + x) * q * 2, f2=2, a=x}, {f1=(2 + x) * q * 2, f2=x, a=2}, {f1=(2 + x) * 2 * q, f2=2, a=x}, {f1=(2 + x) * 2 * q, f2=x, a=2}, {f1=q * (x + 2) * 2, f2=x, a=2}, {f1=q * (x + 2) * 2, f2=2, a=x}, {f1=q * (2 + x) * 2, f2=2, a=x}, {f1=q * (2 + x) * 2, f2=x, a=2}, {f1=q * 2 * (x + 2), f2=x, a=2}, {f1=q * 2 * (x + 2), f2=2, a=x}, {f1=q * 2 * (2 + x), f2=2, a=x}, {f1=q * 2 * (2 + x), f2=x, a=2}, {f1=2 * (x + 2) * q, f2=x, a=2}, {f1=2 * (x + 2) * q, f2=2, a=x}, {f1=2 * (2 + x) * q, f2=2, a=x}, {f1=2 * (2 + x) * q, f2=x, a=2}, {f1=2 * q * (x + 2), f2=x, a=2}, {f1=2 * q * (x + 2), f2=2, a=x}, {f1=2 * q * (2 + x), f2=2, a=x}, {f1=2 * q * (2 + x), f2=x, a=2}])
+Q[uwith: a * a * f1 -> a^2 * f1  ([{f1=q * 2, a=x + 2}, {f1=2 * q, a=x + 2}, {f1=q * 2, a=2 + x}, {f1=2 * q, a=2 + x}])
+Q[4is:   ((x + 2) * q * 2) * 2 + ((x + 2) * q * 2) * x
+Q[is:   (x + 2)^2 * (q * 2)
+Q\&Term: 2 * x * y * (2 * x * y)^(1 + x)
+Q\∏with: f1 * f1^b -> f1^(b + 1)  ([{f1=2 * x * y, b=1 + x}, {f1=2 * x * y, b=1 + x}, {f1=2 * x * y, b=1 + x}, {f1=2 * x * y, b=1 + x}, {f1=2 * x * y, b=1 + x}, {f1=2 * x * y, b=1 + x}])
+Q\ is:   (2 * x * y)^((1 + x) + 1)
+Q]Term: x * x^(2 + Ln(y)) * q
+Q]Cwith: a * a^b * f1 -> a^(b + 1) * f1  ([{f1=q, b=2 + Ln(y), a=x}])
+Q]is:   x^((2 + Ln(y)) + 1) * q
+Q^&Term: Ln(2) * 2^x * x^2 + 2^x * 2 * x
+Q^˝with: a * f1 + a * f2 -> a * (f1 + f2)  ([{f1=Ln(2) * x^2, f2=2 * x, a=2^x}, {f1=Ln(2) * x^2, f2=x * 2, a=2^x}, {f1=x^2 * Ln(2), f2=2 * x, a=2^x}, {f1=2 * x, f2=Ln(2) * x^2, a=2^x}, {f1=2 * x, f2=x^2 * Ln(2), a=2^x}, {f1=x * 2, f2=Ln(2) * x^2, a=2^x}])
+Q^™with: a * f1 + a^b * f2 -> a * (f1 + f2 * a^(b + -1))  ([{f1=2^x * x, f2=Ln(2) * x^2, b=x, a=2}, {f1=x * 2^x, f2=Ln(2) * x^2, b=x, a=2}, {f1=2^x * x, f2=x^2 * Ln(2), b=x, a=2}, {f1=2^x * 2, f2=Ln(2) * 2^x, b=2, a=x}, {f1=2 * 2^x, f2=Ln(2) * 2^x, b=2, a=x}, {f1=2^x * 2, f2=2^x * Ln(2), b=2, a=x}])
+Q^"is:   2^x * (Ln(2) * x^2 + 2 * x)
+Q^1is:   2 * (2^x * x + (Ln(2) * x^2) * 2^(x + -1))
+Q_
+Term: 5^2
+Q_'with: n1^n2 -> n1^n2  ([{n1=5, n2=2}])
+Q_	is:   25
+Q`Term: 5^(1 / 2)
+Q`+with: n1^n2 -> n1^n2  ([{n1=5, n2=1 / 2}])
+Q`is:   5^(1 / 2)
+QaTerm: 5^(x + y)
+QaGwith: a^(b + f1) -> a^b * a^f1  ([{f1=y, b=x, a=5}, {f1=x, b=y, a=5}])
+Qais:   5^x * 5^y
+QbTerm: Ln(x)^y * Ln(x)^z
+QbKwith: a^b * a^c -> a^(b + c)  ([{c=z, b=y, a=Ln(x)}, {c=y, b=z, a=Ln(x)}])
+Qbis:   Ln(x)^(y + z)
+QcTerm: Ln(x)^y * Ln(x)^z * q
+Qcawith: a^b * a^c * f1 -> a^(b + c) * f1  ([{f1=q, c=z, b=y, a=Ln(x)}, {f1=q, c=y, b=z, a=Ln(x)}])
+Qcis:   Ln(x)^(y + z) * q
+QdTerm: y^Ln(x) * z^Ln(x)
+QdKwith: a^b * c^b -> (a * c)^b  ([{c=z, b=Ln(x), a=y}, {c=y, b=Ln(x), a=z}])
+Qdis:   (y * z)^Ln(x)
+QeTerm: y^Ln(x) * z^Ln(x) * q
+Qeawith: a^b * c^b * f1 -> (a * c)^b * f1  ([{f1=q, c=z, b=Ln(x), a=y}, {f1=q, c=y, b=Ln(x), a=z}])
+Qeis:   (y * z)^Ln(x) * q
+QfTerm: y * x * z + 2 * x^2 * 3
+Qföwith: a * f1 + a^b * f2 -> a * (f1 + f2 * a^(b + -1))  ([{f1=y * z, f2=2 * 3, b=2, a=x}, {f1=z * y, f2=2 * 3, b=2, a=x}, {f1=y * z, f2=3 * 2, b=2, a=x}])
+Qf)is:   x * (y * z + (2 * 3) * x^(2 + -1))
+Qg&Term: y * x * z + 2 * x^2 * 3 + q + 2
+Qg√with: a * f1 + a + f2 -> a * (f1 + 1) + f2  ([{f1=x^2 * 3, f2=y * x * z + q, a=2}, {f1=3 * x^2, f2=y * x * z + q, a=2}, {f1=x^2 * 3, f2=q + y * x * z, a=2}, {f1=3 * x^2, f2=q + y * x * z, a=2}])
+Qg¿with: a * f1 + a^b * f2 + f3 -> a * (f1 + f2 * a^(b + -1)) + f3  ([{f3=q + 2, f1=y * z, f2=2 * 3, b=2, a=x}, {f3=q + 2, f1=z * y, f2=2 * 3, b=2, a=x}, {f3=q + 2, f1=y * z, f2=3 * 2, b=2, a=x}, {f3=2 + q, f1=y * z, f2=2 * 3, b=2, a=x}, {f3=2 + q, f1=z * y, f2=2 * 3, b=2, a=x}, {f3=2 + q, f1=y * z, f2=3 * 2, b=2, a=x}])
+Qg*is:   2 * (x^2 * 3 + 1) + (y * x * z + q)
+Qg3is:   x * (y * z + (2 * 3) * x^(2 + -1)) + (q + 2)
+QhTerm: Log_(x)(y) + Log_(x)(4)
+QhVwith: Log_(c)(a) + Log_(c)(b) -> Log_(c)(a * b)  ([{c=x, b=4, a=y}, {c=x, b=y, a=4}])
+Qhis:   Log_(x)(y * 4)
+Qi&Term: Log_(x)(y) + Log_(x)(4) + 2 + x
+Qi™with: Log_(c)(a) + Log_(c)(b) + f1 -> Log_(c)(a * b) + f1  ([{f1=2 + x, c=x, b=y, a=4}, {f1=x + 2, c=x, b=y, a=4}, {f1=2 + x, c=x, b=4, a=y}, {f1=x + 2, c=x, b=4, a=y}])
+Qiis:   Log_(x)(4 * y) + (2 + x)
+Qj#Term: Log_(x)(y) + -1 * Log_(x)(2)
+QjMwith: Log_(c)(a) + -1 * Log_(c)(b) -> Log_(c)(a * b^-1)  ([{c=x, b=2, a=y}])
+Qjis:   Log_(x)(y * 2^-1)
+Qk+Term: Log_(x)(y) + -1 * Log_(x)(2) + q + 1
+Qk|with: Log_(c)(a) + -1 * Log_(c)(b) + f1 -> Log_(c)(a * b^-1) + f1  ([{f1=q + 1, c=x, b=2, a=y}, {f1=1 + q, c=x, b=2, a=y}])
+Qk"is:   Log_(x)(y * 2^-1) + (q + 1)
+QlTerm: x + y + 0
+Ql/with: f1 + 0 -> f1  ([{f1=x + y}, {f1=y + x}])
+Qlis:   x + y
+QmTerm: x + -1 * x
+Qm!with: a + -1 * a -> 0  ([{a=x}])
+Qm3with: a * f1 + a -> a * (f1 + 1)  ([{f1=-1, a=x}])
+Qmis:   0
+Qmis:   x * (-1 + 1)
+QnTerm: x + -1 * x + y
+Qn-with: a + -1 * a + f2 -> f2  ([{f2=y, a=x}])
+QnCwith: a * f1 + a + f2 -> a * (f1 + 1) + f2  ([{f1=-1, f2=y, a=x}])
+Qnis:   y
+Qnis:   x * (-1 + 1) + y
+QoTerm: x + x
+Qo'with: a + a -> 2 * a  ([{a=x}, {a=x}])
+Qois:   2 * x
+QpTerm: x + x + y
+Qp=with: a + a + f1 -> 2 * a + f1  ([{f1=y, a=x}, {f1=y, a=x}])
+Qpis:   2 * x + y
+Qq(Term: x * z * (y + 1) + x * y * (z + 1)
+Qqïwith: a * f1 + a * f2 -> a * (f1 + f2)  ([{f1=z * (y + 1), f2=y * (z + 1), a=x}, {f1=z * (y + 1), f2=(z + 1) * y, a=x}, {f1=(y + 1) * z, f2=y * (z + 1), a=x}, {f1=y * (z + 1), f2=z * (y + 1), a=x}, {f1=y * (z + 1), f2=(y + 1) * z, a=x}, {f1=(z + 1) * y, f2=z * (y + 1), a=x}])
+Qq&is:   x * (z * (y + 1) + y * (z + 1))
+Qr0Term: x * z * (y + 1) + x * y * (z + 1) + q + 1
+QrÅwith: a * f1 + a * f2 + f3 -> a * (f1 + f2) + f3  ([{f3=q + 1, f1=y * (z + 1), f2=z * (y + 1), a=x}, {f3=q + 1, f1=y * (z + 1), f2=(y + 1) * z, a=x}, {f3=q + 1, f1=(z + 1) * y, f2=z * (y + 1), a=x}, {f3=1 + q, f1=y * (z + 1), f2=z * (y + 1), a=x}, {f3=1 + q, f1=y * (z + 1), f2=(y + 1) * z, a=x}, {f3=1 + q, f1=(z + 1) * y, f2=z * (y + 1), a=x}, {f3=q + 1, f1=z * (y + 1), f2=y * (z + 1), a=x}, {f3=q + 1, f1=z * (y + 1), f2=(z + 1) * y, a=x}, {f3=q + 1, f1=(y + 1) * z, f2=y * (z + 1), a=x}, {f3=1 + q, f1=z * (y + 1), f2=y * (z + 1), a=x}, {f3=1 + q, f1=z * (y + 1), f2=(z + 1) * y, a=x}, {f3=1 + q, f1=(y + 1) * z, f2=y * (z + 1), a=x}])
+Qr0is:   x * (y * (z + 1) + z * (y + 1)) + (q + 1)
+QsTerm: x * (z + 1) + x
+Qs6with: a * f1 + a -> a * (f1 + 1)  ([{f1=z + 1, a=x}])
+Qsis:   x * ((z + 1) + 1)
+Qt Term: x * (z + 1) + x + (y + 1)
+QtJwith: a * f1 + a + f2 -> a * (f1 + 1) + f2  ([{f1=z + 1, f2=y + 1, a=x}])
+Qt"is:   x * ((z + 1) + 1) + (y + 1)
+QuTerm: 1 + y + 2
+QuOwith: n1 + n2 + f1 -> n1 + n2 + f1  ([{f1=y, n1=1, n2=2}, {f1=y, n1=2, n2=1}])
+Quis:   3 + y
+QvTerm: 1 + 2
+Qv9with: n1 + n2 -> n1 + n2  ([{n1=1, n2=2}, {n1=2, n2=1}])
+Qvis:   3
+QwTerm: 1 + 2 + x
+QwOwith: n1 + n2 + f1 -> n1 + n2 + f1  ([{f1=x, n1=1, n2=2}, {f1=x, n1=2, n2=1}])
+Qwis:   3 + x
+QxTerm: 1 + y + 2
+QxOwith: n1 + n2 + f1 -> n1 + n2 + f1  ([{f1=y, n1=1, n2=2}, {f1=y, n1=2, n2=1}])
+Qxis:   3 + y
+Qy1
+}|+replace: Log3(x) + Log3(x)         (-4.4) 
+}|$by:      2 * Log3(x)         (-2.6)
+}~12^1 * -2^-1
+}~5replace: 12^1 * -2^-1         (-2.4000000000000004) 
+}~by:      -6         (0.0)
+}"2 * x * 2^x + x^2 * (Ln(2) * 2^x)
+}>replace: 2 * x * 2^x + x^2 * (LogE(2) * 2^x)         (-10.8) 
+}6by:      2^x * (2 * x + LogE(2) * x^2)         (-8.6)
+}Äreplace: 5^2         (-0.8) 
+}Äby:      25         (0.0)
+}Å$replace: 12 * 12^-1         (-1.6) 
+}Åby:      1         (0.0)
+}Å10 / 3
+}Ç'replace: -1 * x * x^-1         (-4.0) 
+}Çby:      -1         (0.0)
+}É+replace: Ln(x) + Ln(2 * x)         (-5.2) 
+}É5by:      LogE(x^2 * 2)         (-3.4000000000000004)
+}Ñreplace: Ln(E)         (-0.8) 
+}Ñby:      1         (0.0)
+}Ö#replace: Ln(E) * x         (-2.6) 
+}Öby:      x         (0.0)
+}Ü$replace: x + x * -1         (-3.6) 
+}Üby:      0         (0.0)
+}á(replace: x + y + x * -4         (-5.0) 
+}á#by:      x * -3 + y         (-3.6)
+}à,replace: (x)         (-1.7999999999999998) 
+}àby:      x         (0.0)
+}â5replace: (x + y) + (-1 * x + -1 * y)         (-8.0) 
+}âby:      0         (0.0)
+}ä'replace: x^2 + x^2 * 2         (-5.2) 
+}ä by:      x^2 * 3         (-2.6)
+}ã+replace: x^2 * 2 + x^2 * 2         (-6.0) 
+}ã by:      4 * x^2         (-2.6)
+}å"replace: x * x^-1         (-3.6) 
+}åby:      1         (0.0)
+}ç)replace: x * (-1 * x^-1)         (-4.4) 
+}çby:      -1         (0.0)
+}é1replace: 4 * x * 2^-1 * x * x^-2         (-6.6) 
+}éby:      2         (0.0)
+}è(replace: 2^x * (2^x)^-1         (-5.2) 
+}èby:      1         (0.0)
+}êreplace: x * x         (-2.8) 
+}êby:      x^2         (-1.8)
+}ë#replace: x * 3 * x         (-3.2) 
+}ë by:      x^2 * 3         (-2.6)
+}íSreplace: 5^(1 / 2) + 5^(1 / 2) + 5^(1 / 2) + 5^(1 / 2) + 5^(1 / 2)         (-6.0) 
+}í"by:      5^(3 / 2)         (-0.8)
+îì=some term (f1 * 1 -> f1) is applicable to Log_(1 * x)(y * 1)
+îì,replace: Log_(1 * x)(y * 1)         (-4.4) 
+îì#by:      Log_(x)(y)         (-2.8)
+îìLog_(1 * x)(y * 1)

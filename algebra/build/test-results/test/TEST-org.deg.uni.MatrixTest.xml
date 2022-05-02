@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.deg.uni.MatrixTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2022-05-02T14:17:59" hostname="Hans" time="1.244">
+  <properties/>
+  <testcase name="inverseMult()" classname="org.deg.uni.MatrixTest" time="0.907"/>
+  <testcase name="testCols()" classname="org.deg.uni.MatrixTest" time="0.004"/>
+  <testcase name="getDeterminant()" classname="org.deg.uni.MatrixTest" time="0.086"/>
+  <testcase name="elements()" classname="org.deg.uni.MatrixTest" time="0.001"/>
+  <testcase name="div()" classname="org.deg.uni.MatrixTest" time="0.001"/>
+  <testcase name="one()" classname="org.deg.uni.MatrixTest" time="0.002"/>
+  <testcase name="plus()" classname="org.deg.uni.MatrixTest" time="0.002"/>
+  <testcase name="zero()" classname="org.deg.uni.MatrixTest" time="0.003"/>
+  <testcase name="testSubMatrix()" classname="org.deg.uni.MatrixTest" time="0.002"/>
+  <testcase name="minus()" classname="org.deg.uni.MatrixTest" time="0.001"/>
+  <testcase name="times()" classname="org.deg.uni.MatrixTest" time="0.062"/>
+  <testcase name="getHeight()" classname="org.deg.uni.MatrixTest" time="0.001"/>
+  <testcase name="getOrthogonal()" classname="org.deg.uni.MatrixTest" time="0.047"/>
+  <testcase name="getSymmetrical()" classname="org.deg.uni.MatrixTest" time="0.005"/>
+  <testcase name="toStaircase()" classname="org.deg.uni.MatrixTest" time="0.002"/>
+  <testcase name="inverseAdd()" classname="org.deg.uni.MatrixTest" time="0.011"/>
+  <testcase name="getWidth()" classname="org.deg.uni.MatrixTest" time="0.001"/>
+  <testcase name="getRegular()" classname="org.deg.uni.MatrixTest" time="0.068"/>
+  <system-out><![CDATA[|     1 / -2001197,  1000099 / 2001197,   90909 / -363854,  -100 / -2001197|
+|     2 / -2001197,     999 / -2001197,      109 / 363854,  -200 / -2001197|
+| 20010 / -2001197,  -10990 / -2001197,  -90455 / -181927,   197 / -2001197|
+|-20012 / -2001197,    9991 / -2001197,    -454 / -181927,     3 / -2001197|
+must equal
+|     1 / -2001197,  1000099 / 2001197,   90909 / -363854,   100 / 2001197|
+|     2 / -2001197,     999 / -2001197,      109 / 363854,   200 / 2001197|
+| 20010 / -2001197,  -10990 / -2001197,  -90455 / -181927,  197 / -2001197|
+|-20012 / -2001197,    9991 / -2001197,    -454 / -181927,    3 / -2001197|
+|109 / 10,   13 / 2,     6889 / 500,    591 / 100|
+|      -5,      -25,       -81 / 10,       11 / 2|
+|231 / 50,  71 / 10,  -51189 / 2500,  -4891 / 500|
+-81 / 10
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
