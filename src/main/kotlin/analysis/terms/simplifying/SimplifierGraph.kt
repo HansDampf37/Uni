@@ -44,6 +44,7 @@ class SimplifierGraph : ISimplifier {
 
         }
         cache.add(t, best.element())
+        graph.display()
         return best.element()
     }
 

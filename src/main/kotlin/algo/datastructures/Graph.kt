@@ -14,6 +14,7 @@ open class Graph<T, S>(
 
     protected val nodes: MutableList<INode<T>> = nodes.toMutableList()
     protected val edges: MutableList<Edge<T, S>> = ArrayList()
+
     init {
         nodes.forEach { for (i in 0 until it.nodeSize()) it.removeNodeAt(0) }
         edges.forEach { addEdge(it) }
@@ -257,17 +258,25 @@ open class Graph<T, S>(
     fun display() {
         System.setProperty("org.graphstream.ui", "swing")
         val g = SingleGraph("test")
-        var i = 0
+        g.setAttribute("ui.quality")
+        g.setAttribute("ui.antialias")
+        val url = this.javaClass.getResource("myStyle.css")
+        if (url != null) {
+            g.setAttribute("ui.stylesheet", "url(${url.path});")
+        }
         val nodeNames = HashMap<INode<T>, String>()
-        v.forEach { nodeNames[it] = if (it.element() == null) i++.toString() else it.element().toString() }
-        v.forEach { g.addNode(nodeNames[it]) }
-        e.forEach {
-            val content = if (it.el == null) {
-                "${nodeNames[it.to]} - ${nodeNames[it.from]}"
-            } else {
-                it.el.toString()
-            }
-            g.addEdge(content, nodeNames[it.from], nodeNames[it.to])
+        val edgeNames = HashMap<Edge<T, S>, String>()
+        for (i in v.indices) {
+            val node = v[i]
+            nodeNames[node] = i.toString()
+            g.addNode(i.toString())
+            if (node.element() != null) g.getNode(i.toString()).setAttribute("ui.label", node.element().toString())
+        }
+        for (i in e.indices) {
+            val edge = e[i]
+            edgeNames[edge] = i.toString()
+            g.addEdge(i.toString(), nodeNames[edge.from], nodeNames[edge.to])
+            if (edge.el != null) g.getEdge(i.toString()).setAttribute("ui.label", edge.el.toString())
         }
         g.display()
     }
@@ -275,6 +284,6 @@ open class Graph<T, S>(
 
 fun main() {
     System.setProperty("org.graphstream.ui", "swing")
-    Graph.knm(100,50).display()
+    Graph.kn<Int, Any?>(5) {it}.display()
 }
 

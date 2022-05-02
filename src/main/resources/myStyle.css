@@ -1,0 +1,27 @@
+node:hover {
+    fill-color: purple;
+    text-size:    16;
+    text-style:   bold;
+    text-color:   #FFF;
+    text-alignment: at-right;
+    text-padding: 3px, 2px;
+    text-background-mode: rounded-box;
+    text-background-color: #A7CC;
+    text-color: white;
+    text-offset: 5px, 0px;
+}
+
+node {
+    size:         20px;
+    shape:        circle;
+    fill-color:   #8facb4;
+    stroke-mode:  plain;
+    stroke-color: black;
+
+}
+
+edge {
+    size:           2px;
+    fill-mode:      plain;
+    /*changing edge layout here also doesn't work*/
+}
