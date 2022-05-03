@@ -1,6 +1,5 @@
-package analysis.terms
+package org.deg.uni.analysis.terms
 
-import org.deg.uni.analysis.terms.*
 import org.deg.uni.analysis.terms.model.*
 import org.deg.uni.analysis.terms.simplifying.P
 import org.deg.uni.analysis.terms.simplifying.S

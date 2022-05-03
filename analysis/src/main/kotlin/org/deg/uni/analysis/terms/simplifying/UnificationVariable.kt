@@ -13,7 +13,7 @@ class UnificationVariable(name: String, constraint: (INode<Term>) -> Boolean = {
     override fun plus(other: Term): Term = if (subtree != null) (subtree!! as Term).plus(other) else Sum(this, other)
     override fun times(other: Term): Term = if (subtree != null) (subtree!! as Term).times(other) else Product(this, other)
 
-    override fun clone(): Term = UnificationVariable(name, constraint, subtree as Term, filler)
+    override fun clone(): Term = UnificationVariable(name, constraint, subtree as Term?, filler)
     override fun toString(): String = name
     override fun toDouble(): Double = throw OnlyPlaceholderException()
     override fun toInt(): Int = throw OnlyPlaceholderException()

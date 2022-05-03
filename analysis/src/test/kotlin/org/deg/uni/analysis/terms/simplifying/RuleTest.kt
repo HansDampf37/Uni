@@ -136,6 +136,19 @@ internal class RuleTest {
     }
 
     @Test
+    fun testPowRules2() {
+        val t = "x^0 * -1".toTerm()
+        val rule = Rule(Pow(a, S(b, f1))) { P(Pow(a, b), Pow(a, f1)) }
+        val rule1 = Rule(S(n1, n2, f1)) {
+            if (n1.subtree != null && n2.subtree != null) S((n1.subtree as Num).plus(n2.subtree as Num), f1)
+            else S(n1, n2, f1)
+        }
+        assertRuleApplied(rule, t, zero, false)
+        assertRuleApplied(rule1, t, zero, false)
+    }
+
+
+    @Test
     fun testProductRules2() {
         val twelve = Num(12)
         val t = P(twelve, Pow(twelve, -one))

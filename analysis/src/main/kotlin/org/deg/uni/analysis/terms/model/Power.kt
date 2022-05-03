@@ -69,7 +69,7 @@ class Power(var base: Term, var exponent: Term) : Term {
         return "$baseStr^$expStr"
     }
 
-    override fun clone(): Power = Power(base, exponent)
+    override fun clone(): Power = Power(base.clone(), exponent.clone())
     override fun equals(other: Any?): Boolean = other is Power && other.exponent == exponent && other.base == base
     override fun hashCode(): Int {
         var result = base.hashCode()

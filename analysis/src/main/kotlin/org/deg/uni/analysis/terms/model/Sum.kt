@@ -14,16 +14,18 @@ class Sum(terms: List<Term>) : ArrayList<Term>(), Term {
     }
 
     override fun contains(x: Variable): Boolean = any { it.contains(x) }
-    override fun derive(x: Variable): Term = Sum(map{ it.derive(x) }).simplify()
+    override fun derive(x: Variable): Term = Sum(map { it.derive(x) }).simplify()
 
     override fun getNode(i: Int): INode<Term> = this[i]
     override fun setNode(i: Int, node: INode<Term>) {
         this[i] = node.element()
     }
+
     override fun nodeSize(): Int = size
-    override fun addNode(node: INode<Term>){
+    override fun addNode(node: INode<Term>) {
         this.add(node.element())
     }
+
     override fun removeNodeAt(i: Int): INode<Term> = removeAt(i)
 
     override fun isUnifiableWith(unifiable: Unifiable): Boolean = unifiable is Sum
@@ -39,7 +41,7 @@ class Sum(terms: List<Term>) : ArrayList<Term>(), Term {
         }
     }
 
-    override fun clone(): Sum = Sum(this.toList())
+    override fun clone(): Sum = Sum(this.map { it.clone() })
     override fun equals(other: Any?): Boolean = other is Sum && other.toSet() == toSet()
     override fun hashCode(): Int {
         return toSet().hashCode()

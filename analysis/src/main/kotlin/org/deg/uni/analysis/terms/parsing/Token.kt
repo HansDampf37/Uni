@@ -17,8 +17,8 @@ enum class Token(val regex: Regex) {
     LN(LnRegex),
     OPEN_BRACKET(Regex("\\(")),
     CLOSE_BRACKET(Regex("\\)")),
-    VAR(Regex("^(?!.*$functionRegex)[a-zA-Z][0-9]*")),
-    NUM(Regex("([1-9][0-9]*(\\.[0-9]+)?)|[1-9][0-9]*/[1-9][0-9]*")),
+    VAR(Regex("^(?!.*$functionRegex)[a-zA-Z]\\d*")),
+    NUM(Regex("(\\d+(\\.\\d+)?)|[1-9]\\d*/[1-9]\\d*")),
     EOF(Regex(""))
 }
 

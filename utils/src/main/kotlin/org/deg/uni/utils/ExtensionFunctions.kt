@@ -20,6 +20,8 @@ fun addPadding(str: String, wantedSize: Int, paddingChar: Char): String {
     return String(pad) + str
 }
 
+fun String.addPadding(paddingChar: Char, wantedSize: Int): String = addPadding(this, wantedSize, paddingChar)
+
 operator fun <T> Iterable<T>.plus(other: Iterable<T>): MutableList<T> {
     return ArrayList<T>().apply {
         addAll(other)

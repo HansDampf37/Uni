@@ -4,6 +4,7 @@ import org.deg.uni.graphs.datastructures.Graph
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import java.lang.Thread.sleep
 
 internal class GraphTest {
     @Test
@@ -93,5 +94,11 @@ internal class GraphTest {
             assertTrue(Graph.pn(i).isPerfect())
             for (j in 0 until 3) assertTrue(Graph.knm(i, j).isPerfect())
         }
+    }
+
+    @Test
+    fun display() {
+        Graph.knm(4, 10).display()
+        sleep(10000)
     }
 }

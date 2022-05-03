@@ -12,6 +12,7 @@ class SimplifierGraph : ISimplifier {
         if (simplified != null) return simplified
         val alreadySimplified = HashSet<Term>()
         val graph: Graph<Term, IRule<INode<Term>, INode<Term>>> = Graph()
+        // graph.display()
         val start = SimplifyingNode(t)
         graph.addNode(start, listOf())
         val n = (-t.quality() * 2).toInt()
@@ -19,9 +20,6 @@ class SimplifierGraph : ISimplifier {
         var continueToImprove = false
         var best = graph.maxByOrNull { it.element().quality() }!!
         while (i < n || continueToImprove) {
-            if (i == 41) {
-                println("")
-            }
             val current = graph.filter { !alreadySimplified.contains(it.element()) }.maxByOrNull { it.element().quality() }
                 ?: break
             alreadySimplified.add(current.element())
@@ -30,8 +28,8 @@ class SimplifierGraph : ISimplifier {
                 val term = result.first
                 val rule = result.third
                 val newNode = SimplifyingNode(term)
-                if (graph.contains(newNode)) graph.addEdge(Edge(current, newNode, 1.0, rule))
-                else graph.addNode(newNode, listOf(Triple(current, 1.0, rule)))
+                if (graph.none { node -> node.element() === term }) graph.addNode(newNode, listOf(Triple(current, 1.0, rule)))
+                else graph.addEdge(Edge(current, graph.first {it.element() == term}, 1.0, rule))
             }
             i++
             val newBest = graph.maxByOrNull { it.element().quality() }!!
@@ -41,9 +39,9 @@ class SimplifierGraph : ISimplifier {
             } else {
                 continueToImprove = false
             }
-
         }
         cache.add(t, best.element())
+        //sleep(2000000)
         return best.element()
     }
 

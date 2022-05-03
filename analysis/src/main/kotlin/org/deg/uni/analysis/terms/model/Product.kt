@@ -50,7 +50,7 @@ class Product(terms: List<Term>) : ArrayList<Term>(), Term {
         }
     }
 
-    override fun clone(): Product = Product(this.toList())
+    override fun clone(): Product = Product(this.map {it.clone()})
     override fun equals(other: Any?): Boolean = other is Product && other.toSet() == toSet()
     override fun hashCode(): Int {
         return toSet().hashCode()

@@ -3,45 +3,46 @@ graph {
 }
 
 node:clicked {
-    fill-color: purple;
+    fill-color: #354951;
     text-size: 16;
     text-style: bold;
-    text-color: #FFF;
+    text-color: #1b2529;
     text-alignment: at-right;
     text-padding: 3px, 2px;
     text-background-mode: rounded-box;
-    text-background-color: #A7CC;
-    text-color: white;
+    text-background-color: rgba(53, 73, 81, 0.42);
+    text-color: #ffcb6b;
     text-offset: 5px, 0px;
+    text-mode: normal;
 }
 
 node {
     size: 20px;
     shape: circle;
-    fill-color: #8facb4;
+    fill-color: #263238;
     stroke-mode: plain;
-    stroke-color: black;
-    text-size: 0;
+    stroke-color: #1b2529;
+    text-mode: hidden;
 }
 
 node#0 {
-    shape: box;
     size: 20px;
-    fill-mode: plain; /* Default.          */
-    fill-color: red; /* Default is black. */
-    stroke-mode: plain; /* Default is none.  */
-    stroke-color: blue; /* Default is black. */
+    shape: box;
+    fill-color: #89ddff;
+    stroke-mode: plain;
+    stroke-color: #1b2529;
+    text-mode: hidden;
 }
-
 
 edge {
     size: 2px;
+    fill-color: #1b2529;
     fill-mode: plain;
     text-size: 10;
     text-alignment: along;
     text-padding: 3px, 2px;
     text-background-mode: rounded-box;
-    text-background-color: #ccc;
-    text-color: black;
+    text-background-color: #feebeb;
+    text-color: #1b2529;
     text-offset: 5px, 0px;
 }

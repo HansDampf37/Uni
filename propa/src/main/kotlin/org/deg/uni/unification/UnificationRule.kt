@@ -68,7 +68,7 @@ class UnificationRule<T : Unifiable>(val unificator: INode<T>, val result: () ->
 
 class SubTreeUnificationRule<T : Unifiable>(private val rule: UnificationRule<T>) : IRule<INode<T>, INode<T>> {
     override fun applicable(x: INode<T>): Boolean {
-        for (child in DFS(x.toTree())) {
+        for (child in DFS(x.toTree()).toMutableList().apply { removeAt(0) }) {
             if (rule.applicable(child)) return true
         }
         return false
@@ -89,7 +89,7 @@ class SubTreeUnificationRule<T : Unifiable>(private val rule: UnificationRule<T>
     }
 
     override fun toString(): String {
-        return "some term ($rule)"
+        return "[$rule]"
     }
 }
 

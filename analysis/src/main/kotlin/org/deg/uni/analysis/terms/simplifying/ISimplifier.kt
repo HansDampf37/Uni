@@ -32,7 +32,7 @@ interface ISimplifier {
             it.applicable(term)
         }
         val applied = applicable.map {
-            val result = it.apply(term).element()
+            val result = it.apply(term.clone()).element()
             Triple(result, result.quality(), it)
         }
         return applied

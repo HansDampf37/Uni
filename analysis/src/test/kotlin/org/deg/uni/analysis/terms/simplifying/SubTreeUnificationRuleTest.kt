@@ -1,7 +1,9 @@
 package org.deg.uni.analysis.terms.simplifying
 
 import org.deg.uni.analysis.terms.model.Log
+import org.deg.uni.analysis.terms.model.Num
 import org.deg.uni.analysis.terms.model.Term
+import org.deg.uni.analysis.terms.model.toTerm
 import org.deg.uni.analysis.terms.one
 import org.deg.uni.analysis.terms.x
 import org.deg.uni.analysis.terms.y
@@ -16,6 +18,18 @@ internal class SubTreeUnificationRuleTest {
         val rule = Rule(P(f1, one)) { f1 }
         val subTreeRule = SubTreeUnificationRule(rule)
         assertRuleApplied(subTreeRule, term, Log(x, y))
+        println(term)
+    }
+
+    @Test
+    fun testSubTreeUnification2() {
+        val term = "x^0 * -1".toTerm()
+        val rule = Rule(S(n1, n2)) {
+            if (n1.subtree != null && n2.subtree != null) (n1.subtree as Num).plus(n2.subtree as Num)
+            else S(n1, n2)
+        }
+        val subTreeRule = SubTreeUnificationRule(rule)
+        assertRuleApplied(subTreeRule, term, term, false)
         println(term)
     }
 

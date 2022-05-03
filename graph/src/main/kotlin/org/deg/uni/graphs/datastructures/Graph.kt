@@ -4,7 +4,6 @@ import org.deg.uni.graphs.algorithms.Dijkstra
 import org.deg.uni.utils.Partition
 import org.deg.uni.utils.partitionPerm
 import org.deg.uni.utils.subsets
-import org.graphstream.graph.implementations.SingleGraph
 
 open class Graph<T, S>(
     nodes: List<INode<T>> = mutableListOf(),
@@ -15,7 +14,6 @@ open class Graph<T, S>(
     protected val edges: MutableList<Edge<T, S>> = ArrayList()
 
     init {
-        nodes.forEach { for (i in 0 until it.nodeSize()) it.removeNodeAt(0) }
         edges.forEach { addEdge(it) }
     }
 
@@ -40,7 +38,7 @@ open class Graph<T, S>(
     }
 
     fun addNode(node: INode<T>, neighbors: List<Triple<INode<T>, Double, S?>>) {
-        assert(!nodes.contains(node))
+        assert(nodes.none { it.element() === node.element() })
         nodes.add(node)
         neighbors.forEach { n -> edges.add(Edge(n.first, node, n.second, n.third)) }
         neighbors.forEach {
@@ -255,29 +253,7 @@ open class Graph<T, S>(
     }
 
     fun display() {
-        System.setProperty("org.graphstream.ui", "swing")
-        val g = SingleGraph("test")
-        g.setAttribute("ui.quality")
-        g.setAttribute("ui.antialias")
-        val url = this.javaClass.getResource("myStyle.css")
-        if (url != null) {
-            g.setAttribute("ui.stylesheet", "url(${url.path});")
-        }
-        val nodeNames = HashMap<INode<T>, String>()
-        val edgeNames = HashMap<Edge<T, S>, String>()
-        for (i in v.indices) {
-            val node = v[i]
-            nodeNames[node] = i.toString()
-            g.addNode(i.toString())
-            if (node.element() != null) g.getNode(i.toString()).setAttribute("ui.label", node.element().toString())
-        }
-        for (i in e.indices) {
-            val edge = e[i]
-            edgeNames[edge] = i.toString()
-            g.addEdge(i.toString(), nodeNames[edge.from], nodeNames[edge.to])
-            if (edge.el != null) g.getEdge(i.toString()).setAttribute("ui.label", edge.el.toString())
-        }
-        g.display()
+        GraphViewer(this)
     }
 }
 

@@ -1,8 +1,9 @@
 package org.deg.uni.analysis.terms
 
-import org.deg.uni.analysis.terms.*
 import org.deg.uni.analysis.terms.model.*
-import org.deg.uni.analysis.terms.simplifying.*
+import org.deg.uni.analysis.terms.simplifying.P
+import org.deg.uni.analysis.terms.simplifying.Pow
+import org.deg.uni.analysis.terms.simplifying.S
 import org.deg.uni.analysis.unaryMinus
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -86,6 +87,11 @@ internal class TermParserTest {
     @Test
     fun testParse16() {
         assertParsesTo("(z + y)x", P(x, S(y, z)))
+    }
+
+    @Test
+    fun testParse17() {
+        assertParsesTo("x^0 * -1", P(Pow(x, zero), -one))
     }
 
     @Test

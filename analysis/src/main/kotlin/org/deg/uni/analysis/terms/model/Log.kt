@@ -39,7 +39,7 @@ open class Log(var base: Term, var arg: Term) : Term {
     override fun toDouble(): Double = log(arg.toDouble(), base.toDouble())
     override fun toInt(): Int = toDouble().toInt()
 
-    override fun clone() = Log(base, arg)
+    override fun clone() = Log(base.clone(), arg.clone())
     override fun toString() = if (base is Num) "Log$base($arg)" else "Log_($base)($arg)"
     override fun equals(other: Any?): Boolean = other is Log && other.arg == arg && other.base == base
 
