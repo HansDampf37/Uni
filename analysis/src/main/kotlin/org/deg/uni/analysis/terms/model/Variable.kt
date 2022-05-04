@@ -44,11 +44,7 @@ object VariableBindings {
     private val m = HashMap<Variable, Term>()
 
     fun bind(v: Variable, n: Term) {
-        if (m[v] == n || m[v] == null) {
-            m[v] = n
-        } else {
-            throw VariableAlreadyBoundException(v, n, m[v]!!)
-        }
+        m[v] = n
     }
 
     fun unbind(v: Variable) {
@@ -56,9 +52,4 @@ object VariableBindings {
     }
 
     fun getBinding(v: Variable) = m[v]
-
-    class VariableAlreadyBoundException(v: Variable, new: Term, old: Term) : Exception(
-        "Variable $v is already bound to" +
-                " value $old and can therefore not be bound to value $new"
-    )
 }

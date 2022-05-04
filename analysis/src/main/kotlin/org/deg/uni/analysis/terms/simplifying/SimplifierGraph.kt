@@ -3,16 +3,20 @@ package org.deg.uni.analysis.terms.simplifying
 import org.deg.uni.analysis.terms.model.Term
 import org.deg.uni.graphs.datastructures.*
 import org.deg.uni.unification.IRule
+import java.lang.Thread.sleep
+
 
 class SimplifierGraph : ISimplifier {
     private var cache = Cache
+    var showInGui: Boolean = false
+    lateinit var graph: Graph<Term, IRule<INode<Term>, INode<Term>>>
 
     override fun simplify(t: Term): Term {
-        val simplified = cache.get(t)
-        if (simplified != null) return simplified
+       /* val simplified = cache.get(t)
+        if (simplified != null) return simplified*/
         val alreadySimplified = HashSet<Term>()
         val graph: Graph<Term, IRule<INode<Term>, INode<Term>>> = Graph()
-        // graph.display()
+        if (showInGui) graph.display()
         val start = SimplifyingNode(t)
         graph.addNode(start, listOf())
         val n = (-t.quality() * 2).toInt()
@@ -41,7 +45,12 @@ class SimplifierGraph : ISimplifier {
             }
         }
         cache.add(t, best.element())
-        //sleep(2000000)
+        if (showInGui) {
+            graph.graphViewer.setAttributeForNode(best, "ui.class", "best")
+            graph.graphViewer.showShortestPathFrom(start, best)
+            sleep(2000000)
+        }
+        this.graph = graph
         return best.element()
     }
 

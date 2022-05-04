@@ -34,6 +34,31 @@ node#0 {
     text-mode: hidden;
 }
 
+node.best {
+    size: 20px;
+    shape: box;
+    fill-color: #c3e88d;
+    stroke-mode: plain;
+    stroke-color: #1b2529;
+    text-mode: hidden;
+}
+
+edge.shortestPath {
+    size: 5px;
+    fill-color: #65128e;
+    fill-mode: plain;
+    text-size: 10;
+    text-alignment: along;
+    text-padding: 3px, 2px;
+    text-background-mode: rounded-box;
+    text-background-color: #feebeb;
+    text-color: #1b2529;
+    text-offset: 5px, 0px;
+    arrow-size: 20px, 10px;
+    text-mode: normal;
+}
+
+
 edge {
     size: 2px;
     fill-color: #1b2529;
@@ -45,4 +70,5 @@ edge {
     text-background-color: #feebeb;
     text-color: #1b2529;
     text-offset: 5px, 0px;
+    text-mode: hidden;
 }

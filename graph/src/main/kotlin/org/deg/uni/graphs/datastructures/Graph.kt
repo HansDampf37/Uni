@@ -10,6 +10,7 @@ open class Graph<T, S>(
     edges: List<Edge<T, S>> = mutableListOf()
 ) : Iterable<INode<T>> {
 
+    lateinit var graphViewer: GraphViewer
     protected val nodes: MutableList<INode<T>> = nodes.toMutableList()
     protected val edges: MutableList<Edge<T, S>> = ArrayList()
 
@@ -253,7 +254,7 @@ open class Graph<T, S>(
     }
 
     fun display() {
-        GraphViewer(this)
+        graphViewer = GraphViewer(this)
     }
 }
 

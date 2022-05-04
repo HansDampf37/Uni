@@ -94,8 +94,13 @@ interface INode<T>: Cloneable {
 
     fun initFromList(subNodes: List<INode<T>>): INode<T> {
         return this.clone().apply {
-            for (i in (0 until nodeSize()).reversed()) removeNodeAt(i)
-            subNodes.forEach { addNode(it) }
+            if (subNodes.size < nodeSize()) {
+                for (i in subNodes.indices) setNode(i, subNodes[i])
+                for (i in (subNodes.size until nodeSize()).reversed()) removeNodeAt(i)
+            } else {
+                for (i in 0 until nodeSize()) setNode(i, subNodes[i])
+                for (i in (nodeSize() until subNodes.size).reversed()) addNode(subNodes[i])
+            }
         }
     }
 }

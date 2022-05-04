@@ -1,8 +1,8 @@
 package org.deg.uni.graphs.datastructures
 
+import org.graphstream.algorithm.AStar
 import org.graphstream.graph.implementations.MultiGraph
 import org.graphstream.ui.geom.Point3
-import org.graphstream.ui.spriteManager.SpriteManager
 import org.graphstream.ui.view.Viewer
 import java.awt.Point
 import java.awt.event.KeyEvent
@@ -57,6 +57,16 @@ class GraphViewer(private val g: Graph<*, *>) : KeyListener, Runnable, MouseList
                 addDisplayEdge(edge, edgeNames[edge]!!)
             }
         }
+    }
+
+    fun setAttributeForNode(node: INode<*>, attr: String, value: Any) {
+        adapt()
+        gDisplay.getNode(nodeNames[node]).setAttribute(attr, value)
+    }
+
+    fun setAttributeForEdge(edge: Edge<*, *>, attr: String, value: Any) {
+        adapt()
+        gDisplay.getEdge(edgeNames[edge]).setAttribute(attr, value)
     }
 
     private fun control() {
@@ -155,6 +165,17 @@ class GraphViewer(private val g: Graph<*, *>) : KeyListener, Runnable, MouseList
         edgeNames[edge] = id
         gDisplay.addEdge(id, nodeNames[edge.from], nodeNames[edge.to], true)
         if (edge.el != null) gDisplay.getEdge(id).setAttribute("ui.label", edge.el.toString())
+    }
+
+    fun showShortestPathFrom(start: INode<*>, best: INode<*>) {
+        val astar = AStar(gDisplay)
+        astar.setCosts(AStar.DistanceCosts())
+        astar.setSource(nodeNames[start])
+        astar.setTarget(nodeNames[best])
+        astar.compute()
+        val p: org.graphstream.graph.Path = astar.shortestPath
+        val edges = p.edgePath
+        edges.forEach { it.setAttribute("ui.class", "shortestPath") }
     }
 }
 

@@ -153,6 +153,14 @@ internal class SimplifierTest {
         assertSimplifiesTo(term, "2^x * x(2 + LogE(2) * x)".toTerm())
     }
 
+    @Test
+    fun testCalc4() {
+        val term = "x^2 - 2".toTerm()
+        x.value = Num(1)
+        println(term)
+        assertSimplifiesTo(term, Num(-1))
+    }
+
     private fun assertSimplifiesTo(complex: Term, simplified: Term) {
         val res = complex.simplify()
         println("replace: $complex         (${complex.quality()}) \nby:      $res         (${res.quality()})")

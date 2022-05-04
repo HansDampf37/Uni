@@ -1,11 +1,14 @@
 package org.deg.uni.analysis.terms.simplifying
 
+import org.deg.uni.analysis.functions.Equation
 import org.deg.uni.analysis.terms.model.*
 import org.deg.uni.analysis.terms.one
 import org.deg.uni.analysis.terms.two
+import org.deg.uni.analysis.terms.x
 import org.deg.uni.analysis.terms.zero
 import org.deg.uni.analysis.unaryMinus
 import org.deg.uni.unification.SubTreeUnificationRule
+import org.deg.uni.unification.Unifiable
 import org.deg.uni.unification.UnificationRule
 
 typealias Rule = UnificationRule<Term>
@@ -30,9 +33,20 @@ val u = UnificationVariable("u", constraint = { it is UnificationVariable })
 val f1 = UnificationVariable("f1", filler = true)
 val f2 = UnificationVariable("f2", filler = true)
 val f3 = UnificationVariable("f3", filler = true)
+val definedVariable = UnificationVariable("defined_variable", constraint = { it is Variable && it.value != null })
 
 class RuleBook {
     companion object {
+        val eqn = listOf(
+            UnificationRule(Equation(S(P(n1, v1), n2), n3)) { Equation(v1, P(S(n3, -n2), n1.inverseMult())) },
+            UnificationRule(Equation(S(f1, a), b)) { Equation(f1, S(b, a.inverseAdd())) },
+            UnificationRule(Equation(a, S(f1, b))) { Equation(S(a, b.inverseAdd()), f1) },
+            UnificationRule(Equation(P(f1, a), b)) { Equation(f1, P(b, a.inverseAdd())) },
+            UnificationRule(Equation(a, P(f1, b))) { Equation(P(a, b.inverseAdd()), f1) },
+            UnificationRule(Equation(P(f1, a), b)) { Equation(f1, P(b, a.inverseAdd())) },
+            UnificationRule(Equation(a, P(f1, b))) { Equation(P(a, b.inverseAdd()), f1) }
+        )
+
         val logRules = listOf(
             Rule(L(a, one)) { Num(0) },
             Rule(L(a, a)) { one },
@@ -117,7 +131,8 @@ class RuleBook {
                         addNode(f2)
                     }
                 }
-            }
+            },
+            Rule(definedVariable) { (definedVariable.subtree as Variable?)?.value ?: definedVariable }
         )
 
         val numericalRules = listOf(

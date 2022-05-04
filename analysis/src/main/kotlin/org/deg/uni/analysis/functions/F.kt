@@ -1,29 +1,66 @@
-package analysis.functions
+package org.deg.uni.analysis.functions
 
-import org.deg.uni.analysis.functions.Equation
+import jetbrains.letsPlot.export.ggsave
+import jetbrains.letsPlot.geom.*
+import jetbrains.letsPlot.ggplot
+import jetbrains.letsPlot.ggsize
+import jetbrains.letsPlot.label.ggtitle
+import jetbrains.letsPlot.letsPlot
+import jetbrains.letsPlot.scale.scale_fill_discrete
+import org.apache.batik.anim.timing.Interval
 import org.deg.uni.analysis.terms.model.*
+import org.deg.uni.analysis.terms.simplifying.SimplifierGraph
+import org.deg.uni.analysis.terms.x
+import kotlin.math.ln
 
 class F(private val name: String = "f", vars: List<Variable>, init: () -> Term) {
     private val vars = vars.toList()
-    private val term = init().simplify()
+    private val term = init()
 
-    constructor(vararg vars: Variable, init: () -> Term): this("f", vars.toList(), init)
+    constructor(vararg vars: Variable, init: () -> Term) : this("f", vars.toList(), init)
+
+    fun evaluate(startIncl: Double, endIncl: Double, density: Int): Pair<List<Double>, List<Double>> {
+        assert(endIncl > startIncl)
+        val xs = List(density) { i ->
+            val alpha = i.toDouble() / (density - 1).toDouble()
+            startIncl + alpha * (endIncl - startIncl) }
+        val ys = List(density) { x -> evaluate(mapOf(Pair(vars[0], Num(xs[x])))).toDouble() }
+        return Pair(xs, ys)
+    }
 
     fun evaluate(interpretation: Map<Variable, Term>): Term {
         val old: MutableMap<Variable, Term?> = HashMap()
-        for (v in vars) {
-            old[v] = v.value
-            v.value = interpretation[v]
+        for (v in interpretation) {
+            old[v.key] = v.value
+            v.key.value = v.value
         }
         val evaluation = term.clone().simplify()
-        for (v in vars) {
-            v.value = old[v]
+        for (v in interpretation) {
+            v.key.value = null
         }
         return evaluation
     }
 
+    fun plot(startIncl: Double, endIncl: Double, saveTo: String) {
+        val (xs, ys) = evaluate(startIncl, endIncl, 60)
+        println(xs)
+        println(ys)
+        val data = mapOf<String, Any>(
+            "x" to xs,
+            "y" to ys
+        )
+        val p = letsPlot(data)
+
+        val layer = geomPath {
+            x = "x"
+            y = "y"
+        }
+        if (!saveTo.isEmpty()) ggsave(p + layer, saveTo)
+        p.show()
+    }
+
     override fun toString(): String {
-        return "$name(${vars.map { it.simplify() }.joinToString(", ")}) = ${term.simplify()}"
+        return "$name(${vars.map { it.simplify() }.joinToString(", ")}) = $term"
     }
 
     fun cuts(f: F): List<MutableMap<Variable, Term>> {
@@ -34,4 +71,10 @@ class F(private val name: String = "f", vars: List<Variable>, init: () -> Term) 
         val newTerm = term.derive(x)
         return F("$name'", vars) { newTerm }
     }
+}
+
+fun main() {
+    val f = F(x) {Ln(x)}
+    f.plot(0.0, 100.0, "test1.png")
+    f.derive(x).plot(0.0, 100.0, "test2.png")
 }

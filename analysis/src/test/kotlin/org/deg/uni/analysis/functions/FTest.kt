@@ -1,9 +1,11 @@
 package org.deg.uni.analysis.functions
-/*
+
 import org.deg.uni.analysis.terms.model.Num
-import analysis.terms.model.Power
-import analysis.terms.model.Variable
+import org.deg.uni.analysis.terms.model.Power
+import org.deg.uni.analysis.terms.model.Product
+import org.deg.uni.analysis.terms.model.Variable
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 
@@ -15,8 +17,8 @@ internal class FTest {
     @Test
     fun evaluate() {
         val x = Variable("x")
-        val f = F(x) { x * x }
-        Assertions.assertEquals(Num(9), f.evaluate(mapOf(Pair(x, Num(3)))))
+        val f = F(x) { Product(x, x) }
+        assertEquals(Num(9), f.evaluate(mapOf(Pair(x, Num(3)))))
     }
 
     @Test
@@ -24,7 +26,7 @@ internal class FTest {
         val x = Variable("x")
         val y = Variable("y")
         val f = F(x, y) { x * y * y }
-        Assertions.assertEquals(Num(12), f.evaluate(mapOf(Pair(x, Num(3)), Pair(y, Num(2)))))
+        assertEquals(Num(12), f.evaluate(mapOf(Pair(x, Num(3)), Pair(y, Num(2)))))
     }
 
     @Test
@@ -48,13 +50,13 @@ internal class FTest {
 
     @Test
     fun testCut3() {
-        // val x = Variable("x")
-        //val f = F(x) { (x - Num(2)) * (x - Num(3)) }
-        //val g = F(x) { Num(0) }
-        // TODO
-        //val cuts = f.cuts(g)
-        //println("$f cuts $g for $cuts")
-        //assertEquals(listOf(mutableMapOf(Pair(x, Num(2))), mutableMapOf(Pair(x, Num(3)))), cuts)
+        val x = Variable("x")
+        val f = F(x) { (x - Num(2)) * (x - Num(3)) }
+        val g = F(x) { Num(0) }
+
+        val cuts = f.cuts(g)
+        println("$f cuts $g for $cuts")
+        assertEquals(listOf(mutableMapOf(Pair(x, Num(2))), mutableMapOf(Pair(x, Num(3)))), cuts)
     }
 
     @Test
@@ -65,7 +67,7 @@ internal class FTest {
         val cuts = f.cuts(g)
         // TODO
         println("$f cuts $g for $cuts")
-        Assertions.assertEquals(listOf(mutableMapOf(Pair(x, Num(0))), mutableMapOf(Pair(x, Num(1)))), cuts)
+        assertEquals(listOf(mutableMapOf(Pair(x, Num(0))), mutableMapOf(Pair(x, Num(1)))), cuts)
     }
 
     @Test
@@ -77,4 +79,4 @@ internal class FTest {
         println("$f -> ${f.derive(x)}")
         println("$g -> ${g.derive(y)}")
     }
-}*/
+}

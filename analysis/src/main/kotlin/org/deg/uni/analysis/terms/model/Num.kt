@@ -61,7 +61,9 @@ open class Num(var num: Double, var denominator: Double = 1.0) : Primitive, Fiel
         if (t !is Num) return super.pow(t)
         val numerator = num.pow(t.toDouble())
         val denominator = denominator.pow(t.toDouble())
-        val lengths = Pair(numerator.toString().split(".")[1].length, denominator.toString().split(".")[1].length)
+        val first = if (numerator.toString().contains(".")) numerator.toString().split(".")[1].length else 1
+        val second = if (denominator.toString().contains(".")) denominator.toString().split(".")[1].length else 1
+        val lengths = Pair(first, second)
         return if (lengths.first < 5 && lengths.second < 5) {
             Num(numerator, denominator)
         } else {

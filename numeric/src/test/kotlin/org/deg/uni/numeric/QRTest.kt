@@ -1,9 +1,8 @@
-package numerik
+package org.deg.uni.numeric
 
-import algebra.Matrix
-import algebra.Vec
-import analysis.terms.model.Term
-import org.deg.uni.numeric.QR
+import org.deg.uni.algebra.Matrix
+import org.deg.uni.algebra.Vec
+import org.deg.uni.analysis.terms.model.Term
 import org.junit.jupiter.api.Test
 
 internal class QRTest {
