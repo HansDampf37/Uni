@@ -87,7 +87,7 @@ class NotComparableException(t1: Term, t2: Term, t1MinT2Simp: Term, t1DivT2Simp:
 interface Primitive : Term
 
 @Suppress("UNCHECKED_CAST")
-fun <T : Term> T.simplify() = SimplifierGraph().simplify(this)
+fun <T : Term> T.simplify(showUI : Boolean = false) = SimplifierGraph(showUI).simplify(this)
 
 fun String.toTerm(): Term {
     val tokensAndAssignment = LexiAnalysis().parse(this)

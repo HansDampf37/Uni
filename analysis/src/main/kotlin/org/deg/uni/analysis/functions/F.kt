@@ -24,19 +24,19 @@ class F(private val name: String = "f", vars: List<Variable>, init: () -> Term) 
         val xs = List(density) { i ->
             val alpha = i.toDouble() / (density - 1).toDouble()
             startIncl + alpha * (endIncl - startIncl) }
-        val ys = List(density) { x -> evaluate(mapOf(Pair(vars[0], Num(xs[x])))).toDouble() }
+        val ys = List(density) { i -> evaluate(mapOf(Pair(vars[0], Num(xs[i])))).toDouble() }
         return Pair(xs, ys)
     }
 
     fun evaluate(interpretation: Map<Variable, Term>): Term {
         val old: MutableMap<Variable, Term?> = HashMap()
         for (v in interpretation) {
-            old[v.key] = v.value
+            old[v.key] = v.key.value
             v.key.value = v.value
         }
         val evaluation = term.clone().simplify()
         for (v in interpretation) {
-            v.key.value = null
+            v.key.value = old[v.key]
         }
         return evaluation
     }
@@ -55,7 +55,7 @@ class F(private val name: String = "f", vars: List<Variable>, init: () -> Term) 
             x = "x"
             y = "y"
         }
-        if (!saveTo.isEmpty()) ggsave(p + layer, saveTo)
+        if (saveTo.isNotEmpty()) ggsave(p + layer, saveTo)
         p.show()
     }
 

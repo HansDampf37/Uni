@@ -11,18 +11,44 @@ import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
 import java.lang.Thread.sleep
 
+/**
+ * Graphs can be shown in a window using this classes [run] method.
+ *
+ * @property g
+ * @constructor Create empty Graph viewer
+ */
 class GraphViewer(private val g: Graph<*, *>) : KeyListener, Runnable, MouseListener {
     private var mouseAnchor: Point = Point(0, 0)
     private val nodeNames: HashMap<INode<*>, String> = HashMap()
     private val edgeNames: HashMap<Edge<*, *>, String> = HashMap()
 
     private val gDisplay = MultiGraph("")
-    private var on = true
+    private var on = false
     private val viewer = display()
     private val view = viewer.defaultView
     private val cam = view.camera
 
     private var center = cam.viewCenter
+
+    private val keyMap = Array(600) { false }
+    private val mouseMap = Array(10) { false }
+
+    // shift
+    private val zoomIn = 16
+    // space
+    private val zoomOut = 32
+    //a
+    private val left = 65
+    //d
+    private val right = 68
+    // w
+    private val up = 87
+    // s
+    private val down = 83
+    // enter
+    private val resetView = 13
+    // escape
+    private val exit = 27
 
     init {
         Thread(this).start()
@@ -31,6 +57,7 @@ class GraphViewer(private val g: Graph<*, *>) : KeyListener, Runnable, MouseList
     }
 
     override fun run() {
+        on = true
         while (on) {
             sleep(25)
             control()
@@ -88,20 +115,14 @@ class GraphViewer(private val g: Graph<*, *>) : KeyListener, Runnable, MouseList
         if (keyMap[down]) {
             center = Point3(center.x, center.y - cam.viewPercent / 10, center.z)
         }
-        if (keyMap[13]) {
+        if (keyMap[resetView]) {
             cam.resetView()
+        }
+        if (keyMap[exit]) {
+            on = false
         }
     }
 
-    private val keyMap = Array(600) { false }
-    private val mouseMap = Array(10) { false }
-
-    private val zoomIn = 16
-    private val zoomOut = 32
-    private val left = 65
-    private val right = 68
-    private val up = 87
-    private val down = 83
     override fun keyTyped(e: KeyEvent?) = Unit
 
     override fun keyPressed(e: KeyEvent?) {
@@ -134,7 +155,7 @@ class GraphViewer(private val g: Graph<*, *>) : KeyListener, Runnable, MouseList
         System.setProperty("org.graphstream.ui", "swing")
         gDisplay.setAttribute("ui.quality")
         gDisplay.setAttribute("ui.antialias")
-        val url = this.javaClass.getResource("/myStyleNew.css")
+        val url = this::class.java.getResource("myStyleNew.css")
         if (url != null) {
             gDisplay.setAttribute("ui.stylesheet", "url(${url.path});")
         }
@@ -168,6 +189,7 @@ class GraphViewer(private val g: Graph<*, *>) : KeyListener, Runnable, MouseList
     }
 
     fun showShortestPathFrom(start: INode<*>, best: INode<*>) {
+        if (start === best) return
         val astar = AStar(gDisplay)
         astar.setCosts(AStar.DistanceCosts())
         astar.setSource(nodeNames[start])

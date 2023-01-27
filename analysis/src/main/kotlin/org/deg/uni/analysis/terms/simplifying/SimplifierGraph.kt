@@ -6,13 +6,13 @@ import org.deg.uni.unification.IRule
 import java.lang.Thread.sleep
 
 
-class SimplifierGraph : ISimplifier {
+class SimplifierGraph(private val showInGui: Boolean = false) : ISimplifier {
     private var cache = Cache
-    var showInGui: Boolean = false
     lateinit var graph: Graph<Term, IRule<INode<Term>, INode<Term>>>
 
     override fun simplify(t: Term): Term {
-       /* val simplified = cache.get(t)
+        // dont use cache atm since it breaks variable substitution
+        /*val simplified = cache.get(t)
         if (simplified != null) return simplified*/
         val alreadySimplified = HashSet<Term>()
         val graph: Graph<Term, IRule<INode<Term>, INode<Term>>> = Graph()
@@ -48,7 +48,7 @@ class SimplifierGraph : ISimplifier {
         if (showInGui) {
             graph.graphViewer.setAttributeForNode(best, "ui.class", "best")
             graph.graphViewer.showShortestPathFrom(start, best)
-            sleep(2000000)
+            sleep(10000)
         }
         this.graph = graph
         return best.element()
