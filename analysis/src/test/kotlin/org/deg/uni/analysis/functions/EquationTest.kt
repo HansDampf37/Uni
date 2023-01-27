@@ -1,7 +1,6 @@
 package org.deg.uni.analysis.functions
 
-import org.deg.uni.analysis.terms.model.simplify
-import org.deg.uni.analysis.terms.model.toTerm
+import org.deg.uni.analysis.terms.model.*
 import org.deg.uni.analysis.terms.one
 import org.deg.uni.analysis.terms.simplifying.*
 import org.deg.uni.analysis.terms.x
@@ -15,10 +14,24 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 internal class EquationTest {
+
+    @Test
+    fun testParse() {
+        assertEquals(Equation(Sum(Product(Num(3), Variable("x")), Num(4)), Num(2)), "3x + 4 = 2".toEquation())
+    }
+
     @Test
     fun test1() {
         val tree = Equation(one + x, one - y).toTree()
         assertEquals(9, DFS(tree).toList().size)
+    }
+
+    @Test
+    fun test_unify_eq() {
+        val rule = UnificationRule(Equation(S(P(n1, v1), n2), n3)) { Equation(v1, P(S(n3, n2.inverseAdd()), n1.inverseMult())) }
+        val e = Equation("3x + 4".toTerm(), Num(12))
+        assertTrue(rule.applicable(e))
+        println(rule.apply(e))
     }
 
     @Test

@@ -38,7 +38,7 @@ val definedVariable = UnificationVariable("defined_variable", constraint = { it 
 class RuleBook {
     companion object {
         val eqn = listOf(
-            UnificationRule(Equation(S(P(n1, v1), n2), n3)) { Equation(v1, P(S(n3, -n2), n1.inverseMult())) },
+            UnificationRule(Equation(S(P(n1, v1), n2), n3)) { Equation(v1, P(S(n3, n2.inverseAdd()), n1.inverseMult())) },
             UnificationRule(Equation(S(f1, a), b)) { Equation(f1, S(b, a.inverseAdd())) },
             UnificationRule(Equation(a, S(f1, b))) { Equation(S(a, b.inverseAdd()), f1) },
             UnificationRule(Equation(P(f1, a), b)) { Equation(f1, P(b, a.inverseAdd())) },

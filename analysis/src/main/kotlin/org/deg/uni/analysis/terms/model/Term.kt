@@ -91,5 +91,5 @@ fun <T : Term> T.simplify(showUI : Boolean = false) = SimplifierGraph(showUI).si
 
 fun String.toTerm(): Term {
     val tokensAndAssignment = LexiAnalysis().parse(this)
-    return SyntacticAnalysis().parse(tokensAndAssignment.first, tokensAndAssignment.second)
+    return SyntacticAnalysis().parseTerm(tokensAndAssignment.first, tokensAndAssignment.second)
 }

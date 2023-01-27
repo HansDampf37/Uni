@@ -1,20 +1,27 @@
 package org.deg.uni.analysis.functions
 
 import org.deg.uni.analysis.terms.model.*
+import org.deg.uni.analysis.terms.parsing.LexiAnalysis
+import org.deg.uni.analysis.terms.parsing.SyntacticAnalysis
 import org.deg.uni.graphs.datastructures.INode
+import org.deg.uni.graphs.datastructures.ITree
 import org.deg.uni.graphs.datastructures.Node
+import org.deg.uni.graphs.datastructures.Tree
 import org.deg.uni.unification.Unifiable
 
 class Equation(var left: Term, var right: Term): Unifiable, INode<Unifiable> {
 
-    fun solve(): List<MutableMap<Variable, Term>> {
-        left -= right
-        right = Num(0)
-        left = left.simplify()
-        return separateVariables()
-    }
+    override fun element(): Unifiable = this
+
+    override fun isPlaceholder(): Boolean = false
+
+    override fun isCommutative(): Boolean = true
+
+    override fun isAssociative(): Boolean = false
 
     override fun addNode(node: INode<Unifiable>) = throw NotImplementedError()
+
+    override fun removeNodeAt(i: Int): INode<Unifiable> = throw NotImplementedError()
 
     override fun getNode(i: Int): INode<Unifiable> {
         return when (i) {
@@ -32,23 +39,20 @@ class Equation(var left: Term, var right: Term): Unifiable, INode<Unifiable> {
         }
     }
 
-    override fun removeNodeAt(i: Int): INode<Unifiable> = throw NotImplementedError()
-
     override fun nodeSize(): Int = 2
 
-    override fun element(): Unifiable = this
-
     override fun clone(): INode<Unifiable> = Equation(left.clone(), right.clone())
+
+    fun solve(): List<MutableMap<Variable, Term>> {
+        left -= right
+        right = Num(0)
+        left = left.simplify()
+        return separateVariables()
+    }
 
     override fun isUnifiableWith(unifiable: Unifiable): Boolean {
         return unifiable is Equation
     }
-
-    override fun isCommutative(): Boolean = true
-
-    override fun isAssociative(): Boolean = false
-
-    override fun isPlaceholder(): Boolean = false
 
     private fun separateVariables(): List<MutableMap<Variable, Term>> {
         when (left) {
@@ -107,4 +111,9 @@ class Equation(var left: Term, var right: Term): Unifiable, INode<Unifiable> {
         result = 31 * result + right.hashCode()
         return result
     }
+}
+
+fun String.toEquation(): Equation {
+    val tokensAndAssignment = LexiAnalysis().parse(this)
+    return SyntacticAnalysis().parseEquation(tokensAndAssignment.first, tokensAndAssignment.second)
 }

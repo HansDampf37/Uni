@@ -1,5 +1,6 @@
 package org.deg.uni.analysis.terms.parsing
 
+import org.deg.uni.analysis.functions.Equation
 import org.deg.uni.analysis.terms.model.*
 import org.deg.uni.analysis.terms.two
 
@@ -20,19 +21,28 @@ class SyntacticAnalysis {
     private lateinit var lexer: Lexer
     private lateinit var assignment: MutableList<String>
 
-    fun parse(tokenStream: Array<Token>, assignment: List<String>): Term {
+    fun parseTerm(tokenStream: Array<Token>, assignment: List<String>): Term {
         lexer = Lexer(tokenStream)
         this.assignment = assignment.toMutableList()
-        return parseTerm()
+        return parseTerm_()
     }
 
     private fun expect(token: Token) {
         if (lexer.current() == token) lexer.lex() else lexer.error(token)
     }
 
-    private fun parseTerm(): Term {
+    private fun parseTerm_(): Term {
         val left = parseSummand()
         return parseSum(left)
+    }
+
+    fun parseEquation(tokenStream: Array<Token>, assignment: List<String>): Equation {
+        lexer = Lexer(tokenStream)
+        this.assignment = assignment.toMutableList()
+        val left = parseTerm_()
+        expect(Token.EQ)
+        val right = parseTerm_()
+        return Equation(left, right)
     }
 
     private fun parseSum(left: Term): Term {
@@ -59,7 +69,7 @@ class SyntacticAnalysis {
                     res = addSummand(res, parseSummand().inverseAdd())
                     continue
                 }
-                Token.STAR, Token.SLASH, Token.CLOSE_BRACKET, Token.EOF -> {
+                Token.STAR, Token.SLASH, Token.CLOSE_BRACKET, Token.EOF, Token.EQ, Token.NEQ, Token.GEQ, Token. LEQ, Token.LT, Token.GT -> {
                     return res
                 }
                 else -> throw IllegalStateException("unexpected input ${lexer.current()}")
@@ -102,11 +112,11 @@ class SyntacticAnalysis {
                 }
                 Token.OPEN_BRACKET -> {
                     expect(Token.OPEN_BRACKET)
-                    res = addFactor(res, parseTerm())
+                    res = addFactor(res, parseTerm_())
                     expect(Token.CLOSE_BRACKET)
                     continue
                 }
-                Token.PLUS, Token.MINUS, Token.CLOSE_BRACKET, Token.EOF -> {
+                Token.PLUS, Token.MINUS, Token.CLOSE_BRACKET, Token.EOF, Token.EQ, Token.NEQ, Token.GEQ, Token. LEQ, Token.LT, Token.GT -> {
                     return res
                 }
                 else -> throw IllegalStateException("unexpected input ${lexer.current()}")
@@ -128,7 +138,7 @@ class SyntacticAnalysis {
                     res = Power(res, parseLeaf())
                     continue
                 }
-                Token.STAR, Token.SLASH, Token.PLUS, Token.MINUS, Token.CLOSE_BRACKET, Token.EOF, Token.VAR, Token.OPEN_BRACKET -> {
+                Token.STAR, Token.SLASH, Token.PLUS, Token.MINUS, Token.CLOSE_BRACKET, Token.EOF, Token.VAR, Token.OPEN_BRACKET, Token.EQ, Token.NEQ, Token.GEQ, Token. LEQ, Token.LT, Token.GT -> {
                     return res
                 }
                 else -> throw IllegalStateException("unexpected input ${lexer.current()}")
@@ -146,7 +156,7 @@ class SyntacticAnalysis {
         when (lexer.current()) {
             Token.OPEN_BRACKET -> {
                 expect(Token.OPEN_BRACKET)
-                val term = parseTerm()
+                val term = parseTerm_()
                 expect(Token.CLOSE_BRACKET)
                 return term
             }
@@ -198,7 +208,7 @@ class SyntacticAnalysis {
 
     private fun parseArg(): Term {
         expect(Token.OPEN_BRACKET)
-        val t = parseTerm()
+        val t = parseTerm_()
         expect(Token.CLOSE_BRACKET)
         return t
 
@@ -232,7 +242,7 @@ fun main() {
     println(str)
     println(message.first.map { it.name })
     println(message.second)
-    val term = SyntacticAnalysis().parse(message.first, message.second)
+    val term = SyntacticAnalysis().parseTerm(message.first, message.second)
     println(term)
     //println(term.simplify())
 }
