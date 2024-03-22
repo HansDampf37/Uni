@@ -17,7 +17,6 @@ dependencies {
     implementation("org.slf4j:slf4j-nop:2.0.0-alpha7")
     implementation("org.jetbrains.lets-plot:lets-plot-batik:2.3.0")
 
-
     implementation(project(":propa"))
     implementation(project(":graph"))
     implementation(project(":utils"))
