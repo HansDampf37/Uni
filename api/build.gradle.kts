@@ -13,7 +13,6 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:3.2.4")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:3.2.4")
 
     implementation(project(":algebra"))
     implementation(project(":analysis"))

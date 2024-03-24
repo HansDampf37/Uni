@@ -1,9 +1,9 @@
 package org.deg.uni.analysis.terms.model
 
+import org.deg.uni.analysis.Field
 import org.deg.uni.analysis.terms.parsing.LexiAnalysis
 import org.deg.uni.analysis.terms.parsing.SyntacticAnalysis
 import org.deg.uni.analysis.terms.simplifying.SimplifierGraph
-import org.deg.uni.analysis.Field
 import org.deg.uni.graphs.datastructures.INode
 import org.deg.uni.graphs.datastructures.ITree
 import org.deg.uni.graphs.datastructures.Tree
@@ -13,6 +13,7 @@ import org.deg.uni.unification.Unifiable
  * A mathematical expression. It is modeled as a [Tree] with contained terms as [nodes][INode]
  */
 interface Term : Cloneable, Field<Term>, Comparable<Term>, Unifiable, INode<Term> {
+
     override fun element(): Term = this
     override fun toTree(): ITree<Term> = Tree(this)
 
